@@ -28,20 +28,21 @@ Sitngのブロック図を以下に示す。
 <img src="blk.png">
 
 各ブロックは以下の機能を持つ。  
-ブロック名|サブブロック名|機能|
-*----|----|----|
-STING\_TOP| - | TOP階層 |
-CC2\_REG\_IF| - | レジスタI/F|
-CC2\_CONTROL|- | 全体制御|
-|CC2\_INTC| 割り込み|
-CC2\_AXI\_RD\_INPUT |-|入力データのリード|
-CC2\_AXI\_RD\_WEIGHT |-|重みデータのリード|
-CC2\_AXI\_RW\_OUTPUT |-|出力データのR/W |
-CC2\_DSP3x3 |-|　3x3のフィルター計算|
-CC2\_CONV | - | コンボリューションの実行|
-| CC2\_BIAS | BIAS項の加算|
-| CC2\_BN |　バッチノーマライゼーションの計算 |
-| CC2\_LRERU | LeakyRELUの計算 |
+
+| ブロック名|サブブロック名|機能|
+|:----|:----|:----|
+| STING\_TOP| - | TOP階層 |
+| CC2\_REG\_IF| - | レジスタI/F|
+| CC2\_CONTROL|- | 全体制御|
+| |CC2\_INTC| 割り込み|
+| CC2\_AXI\_RD\_INPUT |-|入力データのリード|
+| CC2\_AXI\_RD\_WEIGHT |-|重みデータのリード|
+| CC2\_AXI\_RW\_OUTPUT |-|出力データのR/W |
+| CC2\_DSP3x3 |-|　3x3のフィルター計算|
+| CC2\_CONV | - | コンボリューションの実行|
+|| CC2\_BIAS | BIAS項の加算|
+|| CC2\_BN |バッチノーマライゼーションの計算 |
+|| CC2\_LRERU |LeakyRELUの計算 |
 
 各ブロックの詳細はブロック仕様にて記載する。
 
