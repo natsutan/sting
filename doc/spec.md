@@ -105,9 +105,9 @@ STINGのTOP階層。
 
 ### パラメータ一覧
 
-|group|パラメータ|デフォルト値|
-|*----|----|----|
-|M00_AXI|C_M00_AXI_TARGET_SLAVE_BASE_ADDR|32'h40000000|
+| group|パラメータ|デフォルト値|
+|----|----|----|
+|M00\_AXI|C\_M00\_AXI\_TARGET\_SLAVE\_BASE\_ADDR|32'h40000000|
 ||C_M00_AXI_BURST_LEN|16|
 ||C_M00_AXI_ID_WIDTH|1|
 ||C_M00_AXI_ADDR_WIDTH|32|
