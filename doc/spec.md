@@ -307,13 +307,123 @@ STINGのTOP階層。
 ||input |  s_axi_intr_rready|
 ||output |  irq |
 
-
-
-
 ## CC2\_REG\_IF
+### 機能
+レジスタI/F。AXIバスを通して、Sting内部レジスタのR/Wを行う。
+
+### 入出力一覧
+
+|入出力|信号名|説明|
+|input|S_AXI_ACLK|Global Clock Signal|
+|input|Global Clock Signal|Global Reset Signal. This Signal is Active LOW|
+|input| [C_S_AXI_ADDR_WIDTH-1 : 0] S_AXI_AWADDR||
+|input|[2 : 0] S_AXI_AWPROT||
+|input| S_AXI_AWVALID||
+|output| S_AXI_AWREADY||
+|input|[C_S_AXI_DATA_WIDTH-1 : 0] S_AXI_WDATA||
+|input |[(C_S_AXI_DATA_WIDTH/8)-1 : 0] S_AXI_WSTRB||
+|input|S_AXI_WVALID||
+|output|S_AXI_WREADY||
+|output|S_AXI_BRESP||
+|output|S_AXI_BVALID||
+|input |S_AXI_BREADY||
+|input| [C_S_AXI_ADDR_WIDTH-1 : 0] S_AXI_ARADDR||
+|input|wire [2 : 0] S_AXI_ARPROT||
+|input|S_AXI_ARVALID||
+|output |S_AXI_ARREADY||
+|output|[C_S_AXI_DATA_WIDTH-1 : 0] S_AXI_RDATA||
+|output|[1 : 0] S_AXI_RRESP||
+|output|S_AXI_RVALID||
+|input|S_AXI_RREADY||
+
+<font color="red">[TODO] 後で入出力入れ替え</font>
+```
+| input | [8:0] REG_AXI\_RD\_INPUT_XSIZE | 入力データのXsizeを示す。 |
+```
+
+<font color="red">[TODO] レジスタの出力追加</font>
+
+AXI信号の説明は省略。
+
+### 動作説明
+
 ## CC2\_CONTROL
+<font color="red">[TODO] 後で書く</font>
+
+### 機能
+### 入出力一覧
+
+<font color="red">[TODO] 後で入出力入れ替え</font>
+
+```
+| input | AXI\_RD\_INPUT_START | 1で動作開始 |
+| input | AXI\_RD\_INPUT_TOP_PADDING_ENABLE | 1の時、一番上に0のパディングを入れる | 
+| input | AXI\_RD\_INPUT_BOTTOM_PADDING_ENABLE | 1の時、一番下に0のパディングを入れる | 
+| input | AXI\_RD\_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
+| input | AXI\_RD\_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
+```
+
+### 動作説明
+
 ## CC2\_AXI\_RD\_INPUT
+### 機能
+AXIポートから入力データを読み出す。
+- AXIバーストリード
+- 左右の0パディング
+- 上下の0パディング（動作モードによる）
+- 4本のラインバッファの制御
+
+### パラメータ
+| group|パラメータ|デフォルト値|
+|----|----|----|
+|AXI |C_M_TARGET_SLAVE_BASE_ADDR|32'h40000000|
+||C_M_AXI_BURST_LEN|16|
+||C_M_AXI_ID_WIDTH|1|
+||C_M_AXI_ADDR_WIDTH|32|
+||C_M_AXI_DATA_WIDTH|32|
+||C_M_AXI_AWUSER_WIDTH|0|
+||C_M_AXI_ARUSER_WIDTH|0|
+||C_M_AXI_WUSER_WIDTH|0|
+||C_M_AXI_RUSER_WIDTH|0|
+||C_M_AXI_BUSER_WIDTH|0|
+
+### 入出力一覧
+
+|入出力|信号名|説明 |
+|----|----|----|
+|input |  M_AXI_ACLK| Global Clock Signal |
+|input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
+| input | AXI\_RD\_INPUT_START | 1で動作開始 |
+| input | AXI\_RD\_INPUT_TOP_PADDING_ENABLE | 1の時、一番上に0のパディングを入れる | 
+| input | AXI\_RD\_INPUT_BOTTOM_PADDING_ENABLE | 1の時、一番下に0のパディングを入れる | 
+| input | AXI\_RD\_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
+| input | AXI\_RD\_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
+| input | [8:0] REG_AXI\_RD\_INPUT_XSIZE | 入力データのXsizeを示す。 |
+| input | AXI\_RD\_INPUT_READ | 1 の時ラインバッファの読み出し |
+| output | [31:0] AXI\_RD\_INPUT_DATA0 | ラインバッファの出力 |
+| output | [31:0] AXI\_RD\_INPUT_DATA1 | ラインバッファの出力 |
+| output | [31:0] AXI\_RD\_INPUT_DATA2 | ラインバッファの出力 |
+| output | AXI\_RD\_INPUT_READY | ラインバッファにデータが書き込まれたことを示す |
+
+AXI信号は省略
+
+### 動作説明
+
+1ライン目動作（パディング無し）
+
+
+1ライン目動作（パディング有り）
+
+nライン目動作
+
+最終ライン動作（パディング有り）
+
+最終ライン動作（パディング無し）
+
+
 ## CC2\_AXI\_RD\_WEIGHT
+
+
 ## CC2\_AXI\_RW\_OUTPUT
 ## CC2\_DSP3x3
 ## CC2\_CONV
