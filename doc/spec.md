@@ -108,59 +108,38 @@ STINGのTOP階層。
 |group|パラメータ|デフォルト値|
 |*----|----|----|
 |M00_AXI|C_M00_AXI_TARGET_SLAVE_BASE_ADDR|32'h40000000|
-||||
-||||
-||||
-||||
-
-
-
-
-		// Parameters of Axi Master Bus Interface M00_AXI
-		parameter  	= ,
-		parameter integer C_M00_AXI_BURST_LEN	= 16,
-		parameter integer C_M00_AXI_ID_WIDTH	= 1,
-		parameter integer C_M00_AXI_ADDR_WIDTH	= 32,
-		parameter integer C_M00_AXI_DATA_WIDTH	= 32,
-		parameter integer C_M00_AXI_AWUSER_WIDTH	= 0,
-		parameter integer C_M00_AXI_ARUSER_WIDTH	= 0,
-		parameter integer C_M00_AXI_WUSER_WIDTH	= 0,
-		parameter integer C_M00_AXI_RUSER_WIDTH	= 0,
-		parameter integer C_M00_AXI_BUSER_WIDTH	= 0,
-
-		// Parameters of Axi Master Bus Interface M01_AXI
-		parameter  C_M01_AXI_START_DATA_VALUE	= 32'hAA000000,
-		parameter  C_M01_AXI_TARGET_SLAVE_BASE_ADDR	= 32'h40000000,
-		parameter integer C_M01_AXI_ADDR_WIDTH	= 32,
-		parameter integer C_M01_AXI_DATA_WIDTH	= 32,
-		parameter integer C_M01_AXI_TRANSACTIONS_NUM	= 4,
-
-		// Parameters of Axi Master Bus Interface M02_AXI
-		parameter  C_M02_AXI_TARGET_SLAVE_BASE_ADDR	= 32'h40000000,
-		parameter integer C_M02_AXI_BURST_LEN	= 16,
-		parameter integer C_M02_AXI_ID_WIDTH	= 1,
-		parameter integer C_M02_AXI_ADDR_WIDTH	= 32,
-		parameter integer C_M02_AXI_DATA_WIDTH	= 32,
-		parameter integer C_M02_AXI_AWUSER_WIDTH	= 0,
-		parameter integer C_M02_AXI_ARUSER_WIDTH	= 0,
-		parameter integer C_M02_AXI_WUSER_WIDTH	= 0,
-		parameter integer C_M02_AXI_RUSER_WIDTH	= 0,
-		parameter integer C_M02_AXI_BUSER_WIDTH	= 0,
-
-		// Parameters of Axi Slave Bus Interface S00_AXI
-		parameter integer C_S00_AXI_DATA_WIDTH	= 32,
-		parameter integer C_S00_AXI_ADDR_WIDTH	= 8,
-
-		// Parameters of Axi Slave Bus Interface S_AXI_INTR
-		parameter integer C_S_AXI_INTR_DATA_WIDTH	= 32,
-		parameter integer C_S_AXI_INTR_ADDR_WIDTH	= 5,
-		parameter integer C_NUM_OF_INTR	= 1,
-		parameter  C_INTR_SENSITIVITY	= 32'hFFFFFFFF,
-		parameter  C_INTR_ACTIVE_STATE	= 32'hFFFFFFFF,
-		parameter integer C_IRQ_SENSITIVITY	= 1,
-		parameter integer C_IRQ_ACTIVE_STATE	= 1
-	)
-
+||C_M00_AXI_BURST_LEN|16|
+||C_M00_AXI_ID_WIDTH|1|
+||C_M00_AXI_ADDR_WIDTH|32|
+||C_M00_AXI_DATA_WIDTH|32|
+||C_M00_AXI_AWUSER_WIDTH|0|
+||C_M00_AXI_ARUSER_WIDTH|0|
+||C_M00_AXI_WUSER_WIDTH|0|
+||C_M00_AXI_RUSER_WIDTH|0|
+||C_M00_AXI_BUSER_WIDTH|0|
+|M01_AXI|C_M01_AXI_START_DATA_VALUE|32'hAA000000|
+||C_M01_AXI_TARGET_SLAVE_BASE_ADDR|32'h40000000|
+||C_M01_AXI_ADDR_WIDTH|32|
+||C_M01_AXI_DATA_WIDTH|32|
+||C_M01_AXI_TRANSACTIONS_NUM|4|
+|M02_AXI|C_M02_AXI_TARGET_SLAVE_BASE_ADDR|32'h40000000|
+||C_M02_AXI_BURST_LEN|16|
+||C_M02_AXI_ID_WIDTH|1|
+||C_M02_AXI_ADDR_WIDTH|32|
+||C_M02_AXI_DATA_WIDTH|32|
+||C_M02_AXI_AWUSER_WIDTH|0|
+||C_M02_AXI_ARUSER_WIDTH|0|
+||C_M02_AXI_WUSER_WIDTH|0|
+||C_M02_AXI_BUSER_WIDTH|0|
+|S00_AXI|C_S00_AXI_DATA_WIDTH|32|
+||C_S00_AXI_ADDR_WIDTH|8|
+|S_AXI_INTR|C_S_AXI_INTR_DATA_WIDTH|32|
+||C_S_AXI_INTR_ADDR_WIDTH|5|
+||C_NUM_OF_INTR|1|
+||C_INTR_SENSITIVITY|32'hFFFFFFFF|
+||C_INTR_ACTIVE_STATE|32'hFFFFFFFF|
+||C_IRQ_SENSITIVITY|1|
+||C_IRQ_ACTIVE_STATE|1|
 
 ### 入出力一覧
 
