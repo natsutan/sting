@@ -143,178 +143,169 @@ STINGのTOP階層。
 
 ### 入出力一覧
 
-
-		// Ports of Axi Master Bus Interface M00_AXI
-		input wire  m00_axi_init_axi_txn,
-		output wire  m00_axi_txn_done,
-		output wire  m00_axi_error,
-		input wire  m00_axi_aclk,
-		input wire  m00_axi_aresetn,
-		output wire [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_awid,
-		output wire [C_M00_AXI_ADDR_WIDTH-1 : 0] m00_axi_awaddr,
-		output wire [7 : 0] m00_axi_awlen,
-		output wire [2 : 0] m00_axi_awsize,
-		output wire [1 : 0] m00_axi_awburst,
-		output wire  m00_axi_awlock,
-		output wire [3 : 0] m00_axi_awcache,
-		output wire [2 : 0] m00_axi_awprot,
-		output wire [3 : 0] m00_axi_awqos,
-		output wire [C_M00_AXI_AWUSER_WIDTH-1 : 0] m00_axi_awuser,
-		output wire  m00_axi_awvalid,
-		input wire  m00_axi_awready,
-		output wire [C_M00_AXI_DATA_WIDTH-1 : 0] m00_axi_wdata,
-		output wire [C_M00_AXI_DATA_WIDTH/8-1 : 0] m00_axi_wstrb,
-		output wire  m00_axi_wlast,
-		output wire [C_M00_AXI_WUSER_WIDTH-1 : 0] m00_axi_wuser,
-		output wire  m00_axi_wvalid,
-		input wire  m00_axi_wready,
-		input wire [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_bid,
-		input wire [1 : 0] m00_axi_bresp,
-		input wire [C_M00_AXI_BUSER_WIDTH-1 : 0] m00_axi_buser,
-		input wire  m00_axi_bvalid,
-		output wire  m00_axi_bready,
-		output wire [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_arid,
-		output wire [C_M00_AXI_ADDR_WIDTH-1 : 0] m00_axi_araddr,
-		output wire [7 : 0] m00_axi_arlen,
-		output wire [2 : 0] m00_axi_arsize,
-		output wire [1 : 0] m00_axi_arburst,
-		output wire  m00_axi_arlock,
-		output wire [3 : 0] m00_axi_arcache,
-		output wire [2 : 0] m00_axi_arprot,
-		output wire [3 : 0] m00_axi_arqos,
-		output wire [C_M00_AXI_ARUSER_WIDTH-1 : 0] m00_axi_aruser,
-		output wire  m00_axi_arvalid,
-		input wire  m00_axi_arready,
-		input wire [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_rid,
-		input wire [C_M00_AXI_DATA_WIDTH-1 : 0] m00_axi_rdata,
-		input wire [1 : 0] m00_axi_rresp,
-		input wire  m00_axi_rlast,
-		input wire [C_M00_AXI_RUSER_WIDTH-1 : 0] m00_axi_ruser,
-		input wire  m00_axi_rvalid,
-		output wire  m00_axi_rready,
-
-		// Ports of Axi Master Bus Interface M01_AXI
-		input wire  m01_axi_init_axi_txn,
-		output wire  m01_axi_error,
-		output wire  m01_axi_txn_done,
-		input wire  m01_axi_aclk,
-		input wire  m01_axi_aresetn,
-		output wire [C_M01_AXI_ADDR_WIDTH-1 : 0] m01_axi_awaddr,
-		output wire [2 : 0] m01_axi_awprot,
-		output wire  m01_axi_awvalid,
-		input wire  m01_axi_awready,
-		output wire [C_M01_AXI_DATA_WIDTH-1 : 0] m01_axi_wdata,
-		output wire [C_M01_AXI_DATA_WIDTH/8-1 : 0] m01_axi_wstrb,
-		output wire  m01_axi_wvalid,
-		input wire  m01_axi_wready,
-		input wire [1 : 0] m01_axi_bresp,
-		input wire  m01_axi_bvalid,
-		output wire  m01_axi_bready,
-		output wire [C_M01_AXI_ADDR_WIDTH-1 : 0] m01_axi_araddr,
-		output wire [2 : 0] m01_axi_arprot,
-		output wire  m01_axi_arvalid,
-		input wire  m01_axi_arready,
-		input wire [C_M01_AXI_DATA_WIDTH-1 : 0] m01_axi_rdata,
-		input wire [1 : 0] m01_axi_rresp,
-		input wire  m01_axi_rvalid,
-		output wire  m01_axi_rready,
-
-		// Ports of Axi Master Bus Interface M02_AXI
-		input wire  m02_axi_init_axi_txn,
-		output wire  m02_axi_txn_done,
-		output wire  m02_axi_error,
-		input wire  m02_axi_aclk,
-		input wire  m02_axi_aresetn,
-		output wire [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_awid,
-		output wire [C_M02_AXI_ADDR_WIDTH-1 : 0] m02_axi_awaddr,
-		output wire [7 : 0] m02_axi_awlen,
-		output wire [2 : 0] m02_axi_awsize,
-		output wire [1 : 0] m02_axi_awburst,
-		output wire  m02_axi_awlock,
-		output wire [3 : 0] m02_axi_awcache,
-		output wire [2 : 0] m02_axi_awprot,
-		output wire [3 : 0] m02_axi_awqos,
-		output wire [C_M02_AXI_AWUSER_WIDTH-1 : 0] m02_axi_awuser,
-		output wire  m02_axi_awvalid,
-		input wire  m02_axi_awready,
-		output wire [C_M02_AXI_DATA_WIDTH-1 : 0] m02_axi_wdata,
-		output wire [C_M02_AXI_DATA_WIDTH/8-1 : 0] m02_axi_wstrb,
-		output wire  m02_axi_wlast,
-		output wire [C_M02_AXI_WUSER_WIDTH-1 : 0] m02_axi_wuser,
-		output wire  m02_axi_wvalid,
-		input wire  m02_axi_wready,
-		input wire [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_bid,
-		input wire [1 : 0] m02_axi_bresp,
-		input wire [C_M02_AXI_BUSER_WIDTH-1 : 0] m02_axi_buser,
-		input wire  m02_axi_bvalid,
-		output wire  m02_axi_bready,
-		output wire [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_arid,
-		output wire [C_M02_AXI_ADDR_WIDTH-1 : 0] m02_axi_araddr,
-		output wire [7 : 0] m02_axi_arlen,
-		output wire [2 : 0] m02_axi_arsize,
-		output wire [1 : 0] m02_axi_arburst,
-		output wire  m02_axi_arlock,
-		output wire [3 : 0] m02_axi_arcache,
-		output wire [2 : 0] m02_axi_arprot,
-		output wire [3 : 0] m02_axi_arqos,
-		output wire [C_M02_AXI_ARUSER_WIDTH-1 : 0] m02_axi_aruser,
-		output wire  m02_axi_arvalid,
-		input wire  m02_axi_arready,
-		input wire [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_rid,
-		input wire [C_M02_AXI_DATA_WIDTH-1 : 0] m02_axi_rdata,
-		input wire [1 : 0] m02_axi_rresp,
-		input wire  m02_axi_rlast,
-		input wire [C_M02_AXI_RUSER_WIDTH-1 : 0] m02_axi_ruser,
-		input wire  m02_axi_rvalid,
-		output wire  m02_axi_rready,
-
-		// Ports of Axi Slave Bus Interface S00_AXI
-		input wire  s00_axi_aclk,
-		input wire  s00_axi_aresetn,
-		input wire [C_S00_AXI_ADDR_WIDTH-1 : 0] s00_axi_awaddr,
-		input wire [2 : 0] s00_axi_awprot,
-		input wire  s00_axi_awvalid,
-		output wire  s00_axi_awready,
-		input wire [C_S00_AXI_DATA_WIDTH-1 : 0] s00_axi_wdata,
-		input wire [(C_S00_AXI_DATA_WIDTH/8)-1 : 0] s00_axi_wstrb,
-		input wire  s00_axi_wvalid,
-		output wire  s00_axi_wready,
-		output wire [1 : 0] s00_axi_bresp,
-		output wire  s00_axi_bvalid,
-		input wire  s00_axi_bready,
-		input wire [C_S00_AXI_ADDR_WIDTH-1 : 0] s00_axi_araddr,
-		input wire [2 : 0] s00_axi_arprot,
-		input wire  s00_axi_arvalid,
-		output wire  s00_axi_arready,
-		output wire [C_S00_AXI_DATA_WIDTH-1 : 0] s00_axi_rdata,
-		output wire [1 : 0] s00_axi_rresp,
-		output wire  s00_axi_rvalid,
-		input wire  s00_axi_rready,
-
-		// Ports of Axi Slave Bus Interface S_AXI_INTR
-		input wire  s_axi_intr_aclk,
-		input wire  s_axi_intr_aresetn,
-		input wire [C_S_AXI_INTR_ADDR_WIDTH-1 : 0] s_axi_intr_awaddr,
-		input wire [2 : 0] s_axi_intr_awprot,
-		input wire  s_axi_intr_awvalid,
-		output wire  s_axi_intr_awready,
-		input wire [C_S_AXI_INTR_DATA_WIDTH-1 : 0] s_axi_intr_wdata,
-		input wire [(C_S_AXI_INTR_DATA_WIDTH/8)-1 : 0] s_axi_intr_wstrb,
-		input wire  s_axi_intr_wvalid,
-		output wire  s_axi_intr_wready,
-		output wire [1 : 0] s_axi_intr_bresp,
-		output wire  s_axi_intr_bvalid,
-		input wire  s_axi_intr_bready,
-		input wire [C_S_AXI_INTR_ADDR_WIDTH-1 : 0] s_axi_intr_araddr,
-		input wire [2 : 0] s_axi_intr_arprot,
-		input wire  s_axi_intr_arvalid,
-		output wire  s_axi_intr_arready,
-		output wire [C_S_AXI_INTR_DATA_WIDTH-1 : 0] s_axi_intr_rdata,
-		output wire [1 : 0] s_axi_intr_rresp,
-		output wire  s_axi_intr_rvalid,
-		input wire  s_axi_intr_rready,
-		output wire  irq
-	);
+| group|入出力|信号名|
+|----|----|----|
+|M00_AXI|input |  m00_axi_init_axi_txn|
+||output |  m00_axi_txn_done|
+||output |  m00_axi_error|
+||input |  m00_axi_aclk|
+||input |  m00_axi_aresetn|
+||output | [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_awid|
+||output | [C_M00_AXI_ADDR_WIDTH-1 : 0] m00_axi_awaddr|
+||output | [7 : 0] m00_axi_awlen|
+||output | [2 : 0] m00_axi_awsize|
+||output | [1 : 0] m00_axi_awburst|
+||output |  m00_axi_awlock|
+||output | [3 : 0] m00_axi_awcache|
+||output | [2 : 0] m00_axi_awprot|
+||output | [3 : 0] m00_axi_awqos|
+||output | [C_M00_AXI_AWUSER_WIDTH-1 : 0] m00_axi_awuser|
+||output |  m00_axi_awvalid|
+||input |  m00_axi_awready|
+||output | [C_M00_AXI_DATA_WIDTH-1 : 0] m00_axi_wdata|
+||output | [C_M00_AXI_DATA_WIDTH/8-1 : 0] m00_axi_wstrb|
+||output |  m00_axi_wlast|
+||output | [C_M00_AXI_WUSER_WIDTH-1 : 0] m00_axi_wuser|
+||output |  m00_axi_wvalid|
+||input |  m00_axi_wready|
+||input | [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_bid|
+||input | [1 : 0] m00_axi_bresp|
+||input | [C_M00_AXI_BUSER_WIDTH-1 : 0] m00_axi_buser|
+||input |  m00_axi_bvalid|
+||output |  m00_axi_bready|
+||output | [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_arid|
+||output | [C_M00_AXI_ADDR_WIDTH-1 : 0] m00_axi_araddr|
+||output | [7 : 0] m00_axi_arlen|
+||output | [2 : 0] m00_axi_arsize|
+||output | [1 : 0] m00_axi_arburst|
+||output |  m00_axi_arlock|
+||output | [3 : 0] m00_axi_arcache|
+||output | [2 : 0] m00_axi_arprot|
+||output | [3 : 0] m00_axi_arqos|
+||output | [C_M00_AXI_ARUSER_WIDTH-1 : 0] m00_axi_aruser|
+||output |  m00_axi_arvalid|
+||input |  m00_axi_arready|
+||input | [C_M00_AXI_ID_WIDTH-1 : 0] m00_axi_rid|
+||input | [C_M00_AXI_DATA_WIDTH-1 : 0] m00_axi_rdata|
+||input | [1 : 0] m00_axi_rresp|
+||input |  m00_axi_rlast|
+||input | [C_M00_AXI_RUSER_WIDTH-1 : 0] m00_axi_ruser|
+||input |  m00_axi_rvalid|
+||output |  m00_axi_rready|
+|M01_AXI|input |  m01_axi_init_axi_txn|
+||output |  m01_axi_error|
+||output |  m01_axi_txn_done|
+||input |  m01_axi_aclk|
+||input |  m01_axi_aresetn|
+||output | [C_M01_AXI_ADDR_WIDTH-1 : 0] m01_axi_awaddr|
+||output | [2 : 0] m01_axi_awprot|
+||output |  m01_axi_awvalid|
+||input |  m01_axi_awready|
+||output | [C_M01_AXI_DATA_WIDTH-1 : 0] m01_axi_wdata|
+||output | [C_M01_AXI_DATA_WIDTH/8-1 : 0] m01_axi_wstrb|
+||output |  m01_axi_wvalid|
+||input |  m01_axi_wready|
+||input | [1 : 0] m01_axi_bresp|
+||input |  m01_axi_bvalid|
+||output |  m01_axi_bready|
+||output | [C_M01_AXI_ADDR_WIDTH-1 : 0] m01_axi_araddr|
+||output | [2 : 0] m01_axi_arprot|
+||output |  m01_axi_arvalid|
+||input |  m01_axi_arready|
+||input | [C_M01_AXI_DATA_WIDTH-1 : 0] m01_axi_rdata|
+||input | [1 : 0] m01_axi_rresp|
+||input |  m01_axi_rvalid|
+||output |  m01_axi_rready|
+|M02_AXI|input |  m02_axi_init_axi_txn|
+||output |  m02_axi_txn_done|
+||output |  m02_axi_error|
+||input |  m02_axi_aclk|
+||input |  m02_axi_aresetn|
+||output | [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_awid|
+||output | [C_M02_AXI_ADDR_WIDTH-1 : 0] m02_axi_awaddr|
+||output | [7 : 0] m02_axi_awlen|
+||output | [2 : 0] m02_axi_awsize|
+||output | [1 : 0] m02_axi_awburst|
+||output |  m02_axi_awlock|
+||output | [3 : 0] m02_axi_awcache|
+||output | [2 : 0] m02_axi_awprot|
+||output | [3 : 0] m02_axi_awqos|
+||output | [C_M02_AXI_AWUSER_WIDTH-1 : 0] m02_axi_awuser|
+||output |  m02_axi_awvalid|
+||input |  m02_axi_awready|
+||output | [C_M02_AXI_DATA_WIDTH-1 : 0] m02_axi_wdata|
+||output | [C_M02_AXI_DATA_WIDTH/8-1 : 0] m02_axi_wstrb|
+||output |  m02_axi_wlast|
+||output | [C_M02_AXI_WUSER_WIDTH-1 : 0] m02_axi_wuser|
+||output |  m02_axi_wvalid|
+||input |  m02_axi_wready|
+||input | [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_bid|
+||input | [1 : 0] m02_axi_bresp|
+||input | [C_M02_AXI_BUSER_WIDTH-1 : 0] m02_axi_buser|
+||input |  m02_axi_bvalid|
+||output |  m02_axi_bready|
+||output | [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_arid|
+||output | [C_M02_AXI_ADDR_WIDTH-1 : 0] m02_axi_araddr|
+||output | [7 : 0] m02_axi_arlen|
+||output | [2 : 0] m02_axi_arsize|
+||output | [1 : 0] m02_axi_arburst|
+||output |  m02_axi_arlock|
+||output | [3 : 0] m02_axi_arcache|
+||output | [2 : 0] m02_axi_arprot|
+||output | [3 : 0] m02_axi_arqos|
+||output | [C_M02_AXI_ARUSER_WIDTH-1 : 0] m02_axi_aruser|
+||output |  m02_axi_arvalid|
+||input |  m02_axi_arready|
+||input | [C_M02_AXI_ID_WIDTH-1 : 0] m02_axi_rid|
+||input | [C_M02_AXI_DATA_WIDTH-1 : 0] m02_axi_rdata|
+||input | [1 : 0] m02_axi_rresp|
+||input |  m02_axi_rlast|
+||input | [C_M02_AXI_RUSER_WIDTH-1 : 0] m02_axi_ruser|
+||input |  m02_axi_rvalid|
+||output |  m02_axi_rready|
+|S00_AXI|input |  s00_axi_aclk|
+||input |  s00_axi_aresetn|
+||input | [C_S00_AXI_ADDR_WIDTH-1 : 0] s00_axi_awaddr|
+||input | [2 : 0] s00_axi_awprot|
+||input |  s00_axi_awvalid|
+||output |  s00_axi_awready|
+||input | [C_S00_AXI_DATA_WIDTH-1 : 0] s00_axi_wdata|
+||input | [(C_S00_AXI_DATA_WIDTH/8)-1 : 0] s00_axi_wstrb|
+||input |  s00_axi_wvalid|
+||output |  s00_axi_wready|
+||output | [1 : 0] s00_axi_bresp|
+||output |  s00_axi_bvalid|
+||input |  s00_axi_bready|
+||input | [C_S00_AXI_ADDR_WIDTH-1 : 0] s00_axi_araddr|
+||input | [2 : 0] s00_axi_arprot|
+||input |  s00_axi_arvalid|
+||output |  s00_axi_arready|
+||output | [C_S00_AXI_DATA_WIDTH-1 : 0] s00_axi_rdata|
+||output | [1 : 0] s00_axi_rresp|
+||output |  s00_axi_rvalid|
+||input |  s00_axi_rready|
+|S_AXI_INTR|input |  s_axi_intr_aclk|
+||input |  s_axi_intr_aresetn|
+||input | [C_S_AXI_INTR_ADDR_WIDTH-1 : 0] s_axi_intr_awaddr|
+||input | [2 : 0] s_axi_intr_awprot|
+||input |  s_axi_intr_awvalid|
+||output |  s_axi_intr_awready|
+||input | [C_S_AXI_INTR_DATA_WIDTH-1 : 0] s_axi_intr_wdata|
+||input | [(C_S_AXI_INTR_DATA_WIDTH/8)-1 : 0] s_axi_intr_wstrb|
+||input |  s_axi_intr_wvalid|
+||output |  s_axi_intr_wready|
+||output | [1 : 0] s_axi_intr_bresp|
+||output |  s_axi_intr_bvalid|
+||input |  s_axi_intr_bready|
+||input | [C_S_AXI_INTR_ADDR_WIDTH-1 : 0] s_axi_intr_araddr|
+||input | [2 : 0] s_axi_intr_arprot|
+||input |  s_axi_intr_arvalid|
+||output |  s_axi_intr_arready|
+||output | [C_S_AXI_INTR_DATA_WIDTH-1 : 0] s_axi_intr_rdata|
+||output | [1 : 0] s_axi_intr_rresp|
+||output |  s_axi_intr_rvalid|
+||input |  s_axi_intr_rready|
+||output |  irq |
 
 
 
