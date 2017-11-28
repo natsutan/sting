@@ -426,7 +426,7 @@ Vivadoが生成するAXI信号は省略
 ### 動作説明
 
 #### 1ライン目動作（パディング無し）
-通常モード時の開始時の動作を示す。
+分割モード時の開始時の動作を示す。
 
 <img src=wave/axi_rd1.jpg>  
 
@@ -435,8 +435,18 @@ Vivadoが生成するAXI信号は省略
 - ③CC2_CONTROLがAXI_RD_INPUT_READをHにしてラインバッファを読み出す。同時に、AXI経由で次のデータを1ライン分読み出す。読み出しが完了するまでAXI_RD_INPUT_READYをLにする。  
 - ④読み出されたデータは、AXI_RD_DATA_VALIDに合わせて出力される。最初のデータと、最後のデータは左右の0パディングのために0が出力される。  
 - ⑤次のデータの1ライン分の読み出しが終わると、AXI_RD_INPUT_READYをHにする。
+- ⑥CC2_CONTROLがAXI_RD_INPUT_READをHにして、次のデータを読み出す。
 
 #### 1ライン目動作（パディング有り）
+通常モード時の動作を示す。分割モード時との違いは、1ライン目の読み出しに0パディングが入ることである。
+
+<img src=wave/axi_rd1.jpg>  
+
+- ①通常モード時は、AXI_RD_INPUT_TOP_PADDING_ENABLEをHにする。  
+- ②CC2_CONTROLがAXI_RD_INPUT_STARTをHすると同時に、AXI_RD_INPUT_FIRSTLINEもHにする。AXI_RD_INPUT_FIRSTLINEは、AXI_RD_INPUT_READがHになるまでHを維持する。AXI_RD_INPUT_FIRSTLINEがHの時は、ラインバッファへは2ライン分を書き込む。
+- ③最初の読み出し時のみ、AXI_RD_INPUT_DATA0は0を出力する。以後は、1ライン目動作（パディング有り）と同じ動作である。  
+
+上記以外の動作は、1ライン目動作（パディング有り）と同じである。
 
 
 #### 最終ライン動作（パディング無し）
