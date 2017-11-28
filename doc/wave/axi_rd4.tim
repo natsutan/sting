@@ -1,7 +1,7 @@
 Timing Analyzer Settings 
      Version:           0.9899
      Time_Scale:        1.0E-9
-     Time_Per_Division: 33
+     Time_Per_Division: 26
      Number_Divisions:  160
      Start_Time:        0
      End_Time:          1600
@@ -47,16 +47,6 @@ Digital_Signal
      Rise_Time:         1.0
      Fall_Time:         1.0
      IO_Type:           Output
-          Edge
-              Min:             10.1
-              Max:             10.1
-              State:            H
-          Edge_End
-          Edge
-              Min:             20.1
-              Max:             20.1
-              State:            L
-          Edge_End
 Digital_Signal_End
 Digital_Signal
      Position:          3
@@ -65,29 +55,39 @@ Digital_Signal
      Rise_Time:         1.0
      Fall_Time:         1.0
      IO_Type:           Output
+          Edge
+              Min:             290.1
+              Max:             290.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             300.1
+              Max:             300.1
+              State:            L
+          Edge_End
 Digital_Signal_End
 Digital_Signal
      Position:          4
      Name:              AXI_RD_INPUT_TOP_PADDING_ENABLE
-     Start_State:       H
+     Start_State:       L
      Rise_Time:         1.0
      Fall_Time:         1.0
      IO_Type:           Output
           Edge
-              Min:             40.1
-              Max:             40.1
-              State:            1
+              Min:             240.1
+              Max:             240.1
+              State:            H
           Edge_End
           Edge
-              Min:             50.1
-              Max:             50.1
-              State:            H
+              Min:             250.1
+              Max:             250.1
+              State:            L
           Edge_End
 Digital_Signal_End
 Digital_Signal
      Position:          5
      Name:              AXI_RD_INPUT_BOTTOM_PADDING_ENABLE
-     Start_State:       L
+     Start_State:       H
      Rise_Time:         1.0
      Fall_Time:         1.0
      IO_Type:           Output
@@ -99,16 +99,6 @@ Digital_Signal
      Rise_Time:         1.0
      Fall_Time:         1.0
      IO_Type:           Output
-          Edge
-              Min:             10.1
-              Max:             20.1
-              State:            H
-          Edge_End
-          Edge
-              Min:             90.1
-              Max:             90.1
-              State:            L
-          Edge_End
 Digital_Signal_End
 Digital_Signal
      Position:          7
@@ -117,6 +107,16 @@ Digital_Signal
      Rise_Time:         1.0
      Fall_Time:         1.0
      IO_Type:           Output
+          Edge
+              Min:             70.1
+              Max:             70.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             100.1
+              Max:             100.1
+              State:            L
+          Edge_End
 Digital_Signal_End
 Digital_Signal
      Position:          8
@@ -136,13 +136,13 @@ Digital_Signal
               State:            L
           Edge_End
           Edge
-              Min:             270.1
-              Max:             270.1
+              Min:             370.1
+              Max:             370.1
               State:            H
           Edge_End
           Edge
-              Min:             330.1
-              Max:             330.1
+              Min:             480.1
+              Max:             490.1
               State:            L
           Edge_End
 Digital_Signal_End
@@ -164,13 +164,13 @@ Digital_Signal
               State:            L
           Edge_End
           Edge
-              Min:             280.1
-              Max:             280.1
+              Min:             380.1
+              Max:             380.1
               State:            H
           Edge_End
           Edge
-              Min:             400.1
-              Max:             400.1
+              Min:             500.1
+              Max:             500.1
               State:            L
           Edge_End
 Digital_Signal_End
@@ -194,6 +194,66 @@ Digital_Bus
               State:            0
           Edge_End
           Edge
+              Min:             100.1
+              Max:             100.1
+              State:            1
+          Edge_End
+          Edge
+              Min:             110.1
+              Max:             110.1
+              State:            D0
+          Edge_End
+          Edge
+              Min:             120.1
+              Max:             120.1
+              State:            D1
+          Edge_End
+          Edge
+              Min:             130.1
+              Max:             130.1
+              State:            D4
+          Edge_End
+          Edge
+              Min:             140.1
+              Max:             140.1
+              State:            D12
+          Edge_End
+          Edge
+              Min:             150.1
+              Max:             150.1
+              State:            D7
+          Edge_End
+          Edge
+              Min:             160.1
+              Max:             160.1
+              State:            D11
+          Edge_End
+          Edge
+              Min:             170.1
+              Max:             170.1
+              State:            D10
+          Edge_End
+          Edge
+              Min:             180.1
+              Max:             180.1
+              State:            D19
+          Edge_End
+          Edge
+              Min:             190.1
+              Max:             190.1
+              State:            D20
+          Edge_End
+          Edge
+              Min:             200.1
+              Max:             200.1
+              State:            D25
+          Edge_End
+          Edge
+              Min:             210.1
+              Max:             210.1
+              State:            0
+          Edge_End
+          Edge
               Min:             220.1
               Max:             220.1
               State:            X
@@ -204,78 +264,78 @@ Digital_Bus
               State:            0
           Edge_End
           Edge
-              Min:             270.1
-              Max:             270.1
-              State:            X
-          Edge_End
-          Edge
-              Min:             280.1
-              Max:             280.1
-              State:            0
-          Edge_End
-          Edge
-              Min:             290.1
-              Max:             290.1
-              State:            1
-          Edge_End
-          Edge
-              Min:             300.1
-              Max:             300.1
-              State:            4
-          Edge_End
-          Edge
-              Min:             310.1
-              Max:             310.1
-              State:            7
-          Edge_End
-          Edge
-              Min:             320.1
-              Max:             320.1
-              State:            10
-          Edge_End
-          Edge
-              Min:             330.1
-              Max:             330.1
-              State:            13
-          Edge_End
-          Edge
-              Min:             340.1
-              Max:             340.1
-              State:            16
-          Edge_End
-          Edge
-              Min:             350.1
-              Max:             350.1
-              State:            19
-          Edge_End
-          Edge
-              Min:             360.1
-              Max:             360.1
-              State:            22
-          Edge_End
-          Edge
               Min:             370.1
               Max:             370.1
-              State:            25
+              State:            X
           Edge_End
           Edge
               Min:             380.1
               Max:             380.1
-              State:            28
+              State:            0
           Edge_End
           Edge
               Min:             390.1
               Max:             390.1
-              State:            0
+              State:            1
           Edge_End
           Edge
               Min:             400.1
               Max:             400.1
-              State:            X
+              State:            4
           Edge_End
           Edge
               Min:             410.1
               Max:             410.1
+              State:            7
+          Edge_End
+          Edge
+              Min:             420.1
+              Max:             420.1
+              State:            10
+          Edge_End
+          Edge
+              Min:             430.1
+              Max:             430.1
+              State:            13
+          Edge_End
+          Edge
+              Min:             440.1
+              Max:             440.1
+              State:            16
+          Edge_End
+          Edge
+              Min:             450.1
+              Max:             450.1
+              State:            19
+          Edge_End
+          Edge
+              Min:             460.1
+              Max:             460.1
+              State:            22
+          Edge_End
+          Edge
+              Min:             470.1
+              Max:             470.1
+              State:            25
+          Edge_End
+          Edge
+              Min:             480.1
+              Max:             480.1
+              State:            28
+          Edge_End
+          Edge
+              Min:             490.1
+              Max:             490.1
+              State:            0
+          Edge_End
+          Edge
+              Min:             500.1
+              Max:             500.1
+              State:            X
+          Edge_End
+          Edge
+              Min:             510.1
+              Max:             510.1
               State:            0
           Edge_End
 Digital_Bus_End
@@ -369,78 +429,78 @@ Digital_Bus
               State:            0
           Edge_End
           Edge
-              Min:             270.1
-              Max:             270.1
-              State:            X
-          Edge_End
-          Edge
-              Min:             280.1
-              Max:             280.1
-              State:            0
-          Edge_End
-          Edge
-              Min:             290.1
-              Max:             290.1
-              State:            2
-          Edge_End
-          Edge
-              Min:             300.1
-              Max:             300.1
-              State:            5
-          Edge_End
-          Edge
-              Min:             310.1
-              Max:             310.1
-              State:            8
-          Edge_End
-          Edge
-              Min:             320.1
-              Max:             320.1
-              State:            11
-          Edge_End
-          Edge
-              Min:             330.1
-              Max:             330.1
-              State:            14
-          Edge_End
-          Edge
-              Min:             340.1
-              Max:             340.1
-              State:            17
-          Edge_End
-          Edge
-              Min:             350.1
-              Max:             350.1
-              State:            20
-          Edge_End
-          Edge
-              Min:             360.1
-              Max:             360.1
-              State:            23
-          Edge_End
-          Edge
               Min:             370.1
               Max:             370.1
-              State:            26
+              State:            X
           Edge_End
           Edge
               Min:             380.1
               Max:             380.1
-              State:            29
+              State:            0
           Edge_End
           Edge
               Min:             390.1
               Max:             390.1
-              State:            0
+              State:            2
           Edge_End
           Edge
               Min:             400.1
               Max:             400.1
-              State:            X
+              State:            5
           Edge_End
           Edge
               Min:             410.1
               Max:             410.1
+              State:            8
+          Edge_End
+          Edge
+              Min:             420.1
+              Max:             420.1
+              State:            11
+          Edge_End
+          Edge
+              Min:             430.1
+              Max:             430.1
+              State:            14
+          Edge_End
+          Edge
+              Min:             440.1
+              Max:             440.1
+              State:            17
+          Edge_End
+          Edge
+              Min:             450.1
+              Max:             450.1
+              State:            20
+          Edge_End
+          Edge
+              Min:             460.1
+              Max:             460.1
+              State:            23
+          Edge_End
+          Edge
+              Min:             470.1
+              Max:             470.1
+              State:            26
+          Edge_End
+          Edge
+              Min:             480.1
+              Max:             480.1
+              State:            29
+          Edge_End
+          Edge
+              Min:             490.1
+              Max:             490.1
+              State:            0
+          Edge_End
+          Edge
+              Min:             500.1
+              Max:             500.1
+              State:            X
+          Edge_End
+          Edge
+              Min:             510.1
+              Max:             510.1
               State:            0
           Edge_End
 Digital_Bus_End
@@ -464,66 +524,6 @@ Digital_Bus
               State:            0
           Edge_End
           Edge
-              Min:             100.1
-              Max:             100.1
-              State:            3
-          Edge_End
-          Edge
-              Min:             110.1
-              Max:             110.1
-              State:            d
-          Edge_End
-          Edge
-              Min:             120.1
-              Max:             120.1
-              State:            D3
-          Edge_End
-          Edge
-              Min:             130.1
-              Max:             130.1
-              State:            D6
-          Edge_End
-          Edge
-              Min:             140.1
-              Max:             140.1
-              State:            D14
-          Edge_End
-          Edge
-              Min:             150.1
-              Max:             150.1
-              State:            D9
-          Edge_End
-          Edge
-              Min:             160.1
-              Max:             160.1
-              State:            D17
-          Edge_End
-          Edge
-              Min:             170.1
-              Max:             170.1
-              State:            D18
-          Edge_End
-          Edge
-              Min:             180.1
-              Max:             180.1
-              State:            D23
-          Edge_End
-          Edge
-              Min:             190.1
-              Max:             190.1
-              State:            D24
-          Edge_End
-          Edge
-              Min:             200.1
-              Max:             200.1
-              State:            D27
-          Edge_End
-          Edge
-              Min:             210.1
-              Max:             210.1
-              State:            0
-          Edge_End
-          Edge
               Min:             220.1
               Max:             220.1
               State:            X
@@ -534,78 +534,78 @@ Digital_Bus
               State:            0
           Edge_End
           Edge
-              Min:             270.1
-              Max:             270.1
-              State:            X
-          Edge_End
-          Edge
-              Min:             280.1
-              Max:             280.1
-              State:            0
-          Edge_End
-          Edge
-              Min:             290.1
-              Max:             290.1
-              State:            3
-          Edge_End
-          Edge
-              Min:             300.1
-              Max:             300.1
-              State:            6
-          Edge_End
-          Edge
-              Min:             310.1
-              Max:             310.1
-              State:            9
-          Edge_End
-          Edge
-              Min:             320.1
-              Max:             320.1
-              State:            12
-          Edge_End
-          Edge
-              Min:             330.1
-              Max:             330.1
-              State:            15
-          Edge_End
-          Edge
-              Min:             340.1
-              Max:             340.1
-              State:            18
-          Edge_End
-          Edge
-              Min:             350.1
-              Max:             350.1
-              State:            21
-          Edge_End
-          Edge
-              Min:             360.1
-              Max:             360.1
-              State:            24
-          Edge_End
-          Edge
               Min:             370.1
               Max:             370.1
-              State:            27
+              State:            X
           Edge_End
           Edge
               Min:             380.1
               Max:             380.1
-              State:            30
+              State:            0
           Edge_End
           Edge
               Min:             390.1
               Max:             390.1
-              State:            0
+              State:            3
           Edge_End
           Edge
               Min:             400.1
               Max:             400.1
-              State:            X
+              State:            6
           Edge_End
           Edge
               Min:             410.1
               Max:             410.1
+              State:            9
+          Edge_End
+          Edge
+              Min:             420.1
+              Max:             420.1
+              State:            12
+          Edge_End
+          Edge
+              Min:             430.1
+              Max:             430.1
+              State:            15
+          Edge_End
+          Edge
+              Min:             440.1
+              Max:             440.1
+              State:            18
+          Edge_End
+          Edge
+              Min:             450.1
+              Max:             450.1
+              State:            21
+          Edge_End
+          Edge
+              Min:             460.1
+              Max:             460.1
+              State:            24
+          Edge_End
+          Edge
+              Min:             470.1
+              Max:             470.1
+              State:            27
+          Edge_End
+          Edge
+              Min:             480.1
+              Max:             480.1
+              State:            30
+          Edge_End
+          Edge
+              Min:             490.1
+              Max:             490.1
+              State:            0
+          Edge_End
+          Edge
+              Min:             500.1
+              Max:             500.1
+              State:            X
+          Edge_End
+          Edge
+              Min:             510.1
+              Max:             510.1
               State:            0
           Edge_End
 Digital_Bus_End
@@ -630,11 +630,21 @@ Digital_Signal
           Edge
               Min:             210.1
               Max:             210.1
+              State:            0
+          Edge_End
+          Edge
+              Min:             240.1
+              Max:             240.1
+              State:            L
+          Edge_End
+          Edge
+              Min:             340.1
+              Max:             340.1
               State:            H
           Edge_End
           Edge
-              Min:             300.1
-              Max:             300.1
+              Min:             400.1
+              Max:             400.1
               State:            L
           Edge_End
 Digital_Signal_End

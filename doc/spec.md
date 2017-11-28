@@ -440,22 +440,32 @@ Vivadoが生成するAXI信号は省略
 #### 1ライン目動作（パディング有り）
 通常モード時の動作を示す。分割モード時との違いは、1ライン目の読み出しに0パディングが入ることである。
 
-<img src=wave/axi_rd1.jpg>  
+<img src=wave/axi_rd2.jpg>  
 
 - ①通常モード時は、AXI_RD_INPUT_TOP_PADDING_ENABLEをHにする。  
 - ②CC2_CONTROLがAXI_RD_INPUT_STARTをHすると同時に、AXI_RD_INPUT_FIRSTLINEもHにする。AXI_RD_INPUT_FIRSTLINEは、AXI_RD_INPUT_READがHになるまでHを維持する。AXI_RD_INPUT_FIRSTLINEがHの時は、ラインバッファへは2ライン分を書き込む。
-- ③最初の読み出し時のみ、AXI_RD_INPUT_DATA0は0を出力する。以後は、1ライン目動作（パディング有り）と同じ動作である。  
+- ③最初の読み出し時のみ、AXI_RD_INPUT_DATA0は0を出力する。以後は、[1ライン目動作（パディング有り）](#1ライン目動作パディング有り)と同じ動作である。  
 
 上記以外の動作は、[1ライン目動作（パディング有り）](#1ライン目動作パディング有り)と同じである。
 
 
 #### 最終ライン動作（パディング無し）
+分割モード時の、あるフレームの最終ラインから、次のフレームへ処理を移す時の動作を示す。
 
+<img src=wave/axi_rd3.jpg>  
+
+- ①最終ラインの処理は、AXI_RD_INPUT_READのHと同時に、AXI_RD_INPUT_LASTLINEをHにする。AXI_RD_INPUT_LASTLINEがHの時は、次のラインのリードを停止する。  
+- ②後段の計算終了後、CC2_CONTROLがAXI_RD_INPUT_NEXT_FRAMEをHにする。このとき、AXIの読み出しアドレスを次のフレームの先頭へ設定する。  
+- ③AXI_RD_INPUT_STARTをHにして次のフレームの動作を開始する。
 
 
 #### 最終ライン動作（パディング有り）
+通常モード時の最終ラインの処理を示す。最終ラインに0パディングが入る以外は、[最終ライン動作（パディング無し）](#最終ライン動作（パディング無し）)と同じである。
 
+<img src=wave/axi_rd4.jpg>  
 
+- ①通常モード時は、AXI_RD_INPUT_BOTTOM_PADDING_ENABLEをHにする。AXI_RD_INPUT_READのHと同時に、AXI_RD_INPUT_LASTLINEをHにする。  
+- ②リードデータ読み出し時に、AXI_RD_INPUT_DATA2は0を出力する。
 
 ## CC2\_AXI\_RD\_WEIGHT
 ### 機能
