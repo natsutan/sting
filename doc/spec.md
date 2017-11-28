@@ -550,24 +550,52 @@ AXIポートから出力データをR/Wする
 | input | [8:0] REG_AXI\_RW\_OUTPUT_XSIZE | 出力データのXsize |
 | input | [8:0] REG_AXI\_RW\_OUTPUT_FSIZE | 出力データのフレームサイズ。 |
 | input | AXI\_RW\_OUTPUT_START | 1で動作開始 |
+| input | AXI\_RW\_OUTPUT_FIRST | 1の時、1回目の読み出し。 |
+| input | AXI\_RW\_OUTPUT_NEXT_LINE | 1で次のフレームへ |
 | input | AXI\_RW\_OUTPUT_NEXT_FRAME | 1で次のフレームへ |
-| input | AXI\_RW\_OUTPUT_NEXT_FRAME | 1で次のフレームへ |
-| input | AXI\_RW\_OUTPUT_FIRST | 1の時AXIからデータを読まずに、全て0のデータを出力する。 |
-| output | AXI\_RW\_OUTPUT_READY | 出力データの読み出し、書き込みが終わったことを示す | 
-| output | [31:0] AXI\_RW_OUTPUT_RDDATA | AXIから読み出したデータ。float32 |
 | input |  AXI\_RW_OUTPUT_RDEN | 読み出し信号|
-| input | [31:0] AXI\_RW_OUTPUT_WRDATA | AXIに書き込むデータ。float32 |
+| input |  AXI\_RW_OUTPUT_RDVALID | 読み出しデータのVALID信号 |
+| output | [31:0] AXI\_RW_OUTPUT_RDDATA | AXIから読み出したデータ。float32 |
 | input |  AXI\_RW_OUTPUT_WREN | 書き込み信号|
+| input | [31:0] AXI\_RW_OUTPUT_WRDATA | AXIに書き込むデータ。float32 |
+| output | AXI\_RW\_OUTPUT_READY | 出力データの読み出し、書き込みが終わったことを示す | 
+| output | AXI_RW_OUTPUT_FIFO_EMPTY |出力データ用のラインバッファが空の時1 | 
 
 vivadoが出力するAXIの信号は省略
 
 ### 動作説明
 
 #### 起動時
+CC2\_AXI\_RW\_OUTPUTの起動時の動きを以下に示す。  
 
-#### 通常時読み出し
+<img src=wave/axi_rw1.jpg>
 
-#### 次のフレームへ
+- ①AXI_RW_OUTPUT_START がHになると動作を開始する。AXI_RW_OUTPUT_FIRSTがHで、最初のリードであることを示す。  
+- ②AXIから読み出したデータが利用可能になり、ライト用のラインバッファに空きがでると、AXI_RW_OUTPUT_READY信号がHになる。AXI_RW_OUTPUT_FIRSTがHの時はAXIへのリードは行わないので、ライトのラインバッファの状態のみで、AXI_RW_OUTPUT_READYがHになる。  
+- ③AXI_RW_OUTPUT_RDENがHで、リード用ラインバッファの読み出しを開始し、AXI_RW_OUTPUT_READYをLにする。  
+- ④AXI_RW_OUTPUT_RDDATAに0を出力し、有効なデータの期間AXI_RW_OUTPUT_RDVALIDをHにする。  
+- ⑤足し合わせたデータが、AXI_RW_OUTPUT_WRDATAに出力される。AXI_RW_OUTPUT_WREがHの時、データが有効である。  
+- ⑥リードデータの読み出しが完了した後、AXI_RW_OUTPUT_NEXT_LINEがHになる。AXI_RW_OUTPUT_FIRSTがHなのでAXIからのデータ読み出しは実行しない。  
+- ⑦ライト用のラインバッファに空きがでると、AXI_RW_OUTPUT_READY信号がHになる。以後、③からの動作を繰り返す。  
+
+#### 通常動作時
+2回目以降の書き込み時は、AXIからデータを読み出して、CC_CONV2で加算後書き戻す動作を行う。[起動時](#起動時)との動作の違いのみを示す。
+
+<img src=wave/axi_rw2.jpg>
+
+- ①AXI_RW_OUTPUT_FIRSTがLでAXI_RW_OUTPUT_STARTがHになり、動作を開始する。AXI経由で最初のラインのデータを読み込む。  
+- ②1ラインのリードが完了した後、AXI_RW_OUTPUT_READYがHになる。  
+- ③リードデータ読み出し時には、0ではなく①で読み出しだデータを出力する。  
+- ④AXI_RW_OUTPUT_NEXT_LINEがHで次のラインのデータを読み出す。  
+
+#### 最終ライン動作時
+最終ラインの動作を示す。
+
+<img src=wave/axi_rw3.jpg>
+
+- ①最後のラインのラインバッファへの書き込みが終了した後、ラインバッファのデータをAXIバスに書き込む。書き込み終了後にAXI_RW_OUTPUT_FIFO_EMPTYがHになる。その後、AXI_RW_OUTPUT_NEXT_FRAMEがHになり、次のフレームのアドレス計算を行う。  
+- ②AXI_RW_OUTPUT_STARTのHで、動作を開始する。
+
 
 ## CC2\_DSP3x3
 ### 機能

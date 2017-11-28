@@ -1,0 +1,384 @@
+Timing Analyzer Settings 
+     Version:           0.9899
+     Time_Scale:        1.0E-9
+     Time_Per_Division: 28
+     Number_Divisions:  160
+     Start_Time:        0
+     End_Time:          1600
+Part_Constraint
+     Name:               thold
+     Min_Constraint:     4.0
+     Max_Constraint:     4.0
+     Description:        Example hold constraint
+Part_Constraint_End
+Part_Constraint
+     Name:               tsetup
+     Min_Constraint:     10.0
+     Max_Constraint:     10.0
+     Description:        Example setup constraint
+Part_Constraint_End
+Jitter_Margin
+     Name:               p1jitter
+     Plus_Margin:        1.0
+     Minus_Margin:       1.0
+     Description:        Example part jitter
+Jitter_Margin_End
+Jitter_Margin
+     Name:               p2jitter
+     Plus_Margin:        0.5
+     Minus_Margin:       0.5
+     Description:        Example part jitter
+Jitter_Margin_End
+Digital_Clock
+     Position:          1
+     Name:              M_AXI_ACLK
+     Frequency:         1.0E8
+     Duty_Cycle:        50
+     Start_Delay:       0.0
+     Start_State:       H
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+Digital_Clock_End
+Digital_Signal
+     Position:          2
+     Name:              AXI_RW_OUTPUT_START
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             30.1
+              Max:             30.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             40.1
+              Max:             40.1
+              State:            L
+          Edge_End
+Digital_Signal_End
+Digital_Signal
+     Position:          3
+     Name:              AXI_RW\_OUTPUT_FIRST
+     Start_State:       H
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+Digital_Signal_End
+Digital_Signal
+     Position:          4
+     Name:              AXI_RW_OUTPUT_NEXT_LINE
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+Digital_Signal_End
+Digital_Signal
+     Position:          5
+     Name:              AXI_RW_OUTPUT_NEXT_FRAME
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             120.001
+              Max:             120.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             130.001
+              Max:             130.001
+              State:            L
+          Edge_End
+          Edge
+              Min:             250.001
+              Max:             250.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             260.0
+              Max:             260.0
+              State:            L
+          Edge_End
+Digital_Signal_End
+Digital_Signal
+     Position:          6
+     Name:              AXI_RW_OUTPUT_RDEN
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             60.1
+              Max:             60.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             100.001
+              Max:             100.001
+              State:            L
+          Edge_End
+          Edge
+              Min:             190.001
+              Max:             190.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             240.001
+              Max:             240.001
+              State:            L
+          Edge_End
+Digital_Signal_End
+Digital_Signal
+     Position:          7
+     Name:              AXI_RW_OUTPUT_RDVALID
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             70.001
+              Max:             70.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             110.001
+              Max:             110.001
+              State:            L
+          Edge_End
+          Edge
+              Min:             200.001
+              Max:             200.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             250.001
+              Max:             250.001
+              State:            L
+          Edge_End
+Digital_Signal_End
+Digital_Bus
+     Position:          8
+     Name:              AXI_RW_OUTPUT_RDDATA[31:0]
+     Start_State:       Z
+     State_Format:      Hex
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             60.001
+              Max:             60.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             70.001
+              Max:             70.001
+              State:            0
+          Edge_End
+          Edge
+              Min:             110.001
+              Max:             110.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             120.001
+              Max:             120.001
+              State:            Z
+          Edge_End
+          Edge
+              Min:             190.001
+              Max:             190.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             200.001
+              Max:             200.001
+              State:            00000000
+          Edge_End
+          Edge
+              Min:             250.001
+              Max:             250.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             260.0
+              Max:             260.0
+              State:            Z
+          Edge_End
+Digital_Bus_End
+Digital_Signal
+     Position:          9
+     Name:              AXI_RW_OUTPUT_WREN
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             90.001
+              Max:             90.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             150.001
+              Max:             150.001
+              State:            L
+          Edge_End
+          Edge
+              Min:             220.001
+              Max:             220.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             280.001
+              Max:             280.001
+              State:            L
+          Edge_End
+Digital_Signal_End
+Digital_Bus
+     Position:          10
+     Name:              AXI_RW_OUTPUT_WRDATA [31:0]
+     Start_State:       Z
+     State_Format:      Hex
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             10.001
+              Max:             10.1
+              State:            Z
+          Edge_End
+          Edge
+              Min:             20.001
+              Max:             20.1
+              State:            Z
+          Edge_End
+          Edge
+              Min:             80.001
+              Max:             80.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             90.001
+              Max:             90.001
+              State:            00000006
+          Edge_End
+          Edge
+              Min:             100.001
+              Max:             100.001
+              State:            00000001
+          Edge_End
+          Edge
+              Min:             110.001
+              Max:             110.001
+              State:            00000002
+          Edge_End
+          Edge
+              Min:             120.001
+              Max:             120.001
+              State:            00000003
+          Edge_End
+          Edge
+              Min:             130.001
+              Max:             130.001
+              State:            00000004
+          Edge_End
+          Edge
+              Min:             140.001
+              Max:             140.001
+              State:            00000005
+          Edge_End
+          Edge
+              Min:             150.001
+              Max:             150.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             160.001
+              Max:             160.001
+              State:            Z
+          Edge_End
+          Edge
+              Min:             210.001
+              Max:             210.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             220.001
+              Max:             220.001
+              State:            00000001
+          Edge_End
+          Edge
+              Min:             230.001
+              Max:             230.001
+              State:            00000002
+          Edge_End
+          Edge
+              Min:             240.001
+              Max:             240.001
+              State:            00000003
+          Edge_End
+          Edge
+              Min:             250.001
+              Max:             250.001
+              State:            00000004
+          Edge_End
+          Edge
+              Min:             260.0
+              Max:             260.0
+              State:            00000005
+          Edge_End
+          Edge
+              Min:             270.001
+              Max:             270.001
+              State:            00000006
+          Edge_End
+          Edge
+              Min:             280.001
+              Max:             280.001
+              State:            X
+          Edge_End
+          Edge
+              Min:             290.001
+              Max:             290.001
+              State:            Z
+          Edge_End
+Digital_Bus_End
+Digital_Signal
+     Position:          11
+     Name:              AXI_RW\_OUTPUT_READY
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             40.1
+              Max:             40.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             70.1
+              Max:             70.1
+              State:            L
+          Edge_End
+          Edge
+              Min:             180.001
+              Max:             180.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             210.001
+              Max:             210.001
+              State:            L
+          Edge_End
+          Edge
+              Min:             300.001
+              Max:             300.001
+              State:            H
+          Edge_End
+          Edge
+              Min:             330.001
+              Max:             330.001
+              State:            L
+          Edge_End
+Digital_Signal_End
