@@ -1,7 +1,7 @@
 Timing Analyzer Settings 
      Version:           0.9899
      Time_Scale:        1.0E-9
-     Time_Per_Division: 26
+     Time_Per_Division: 52
      Number_Divisions:  160
      Start_Time:        0
      End_Time:          1600

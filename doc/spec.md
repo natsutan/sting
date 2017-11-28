@@ -489,6 +489,7 @@ AXI経由で重みデータ(3x3)を読み出す。
 | input | REG_AXI_RD_WEIGHT_SOFTRESET | 正論理のソフトリセット | 
 |input | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 入力データの先頭アドレス | 
 | input | AXI\_RD\_WEIGHT_START | 1で動作開始 |
+| input | AXI\_RD\_WEIGHT_NEXT | 1で動作開始 |
 | output | [31:0] AXI\_RD\_WEIGHT_DATA00 | 重みの出力 weight[0][0], float32 |
 | output | [31:0] AXI\_RD\_WEIGHT_DATA01 | 重みの出力 weight[0][1], float32|
 | output | [31:0] AXI\_RD\_WEIGHT_DATA02 | 重みの出力 weight[0][2], float32 |
@@ -498,11 +499,20 @@ AXI経由で重みデータ(3x3)を読み出す。
 | output | [31:0] AXI\_RD\_WEIGHT_DATA20 | 重みの出力 weight[2][0], float32 |
 | output | [31:0] AXI\_RD\_WEIGHT_DATA21 | 重みの出力 weight[2][1], float32 |
 | output | [31:0] AXI\_RD\_WEIGHT_DATA22 | 重みの出力 weight[2][2], float32 |
+| output | [31:0] AXI\_RD\_WEIGHT_BN0 | BNの重みデータ0, float32 |
+| output | [31:0] AXI\_RD\_WEIGHT_BN1 | BNの重みデータ1, float32 |
 | output | AXI\_RD\_WEIGHT_READY | 重みの読み出しが終わったことを示す | 
 
 ### 動作説明
 #### 重み読み出し
+重み読み出しの動作を以下に示す。
 
+<img src=wave/axi_w.jpg>
+
+- ①AXI_RD_WEIGHT_STARTのHで動作開始。AXIより3x3の重みデータ、バッチノーマライゼーションのパラメータ2つを2回読み出す。  
+- ②2回読み出すうちの1つ目のデータはすぐに出力し、2回分のデータの読み出しが完了後、AXI_RD_WEIGHT_READYをHにする。  
+- ③AXI_RD_WEIGHT_NEXTがHになると、次の重みデータを出力し、AXI_RD_WEIGHT_READYをLにする。AXI経由で次の重みデータをリードする。  
+- ④次の重みデータのリードが完了した時点でAXI_RD_WEIGHT_READYをHにする。
 
 ## CC2\_AXI\_RW\_OUTPUT
 

@@ -1,0 +1,165 @@
+Timing Analyzer Settings 
+     Version:           0.9899
+     Time_Scale:        1.0E-9
+     Time_Per_Division: 24
+     Number_Divisions:  160
+     Start_Time:        0
+     End_Time:          1600
+Part_Constraint
+     Name:               thold
+     Min_Constraint:     4.0
+     Max_Constraint:     4.0
+     Description:        Example hold constraint
+Part_Constraint_End
+Part_Constraint
+     Name:               tsetup
+     Min_Constraint:     10.0
+     Max_Constraint:     10.0
+     Description:        Example setup constraint
+Part_Constraint_End
+Jitter_Margin
+     Name:               p1jitter
+     Plus_Margin:        1.0
+     Minus_Margin:       1.0
+     Description:        Example part jitter
+Jitter_Margin_End
+Jitter_Margin
+     Name:               p2jitter
+     Plus_Margin:        0.5
+     Minus_Margin:       0.5
+     Description:        Example part jitter
+Jitter_Margin_End
+Digital_Clock
+     Position:          1
+     Name:              M_AXI_ACLK
+     Frequency:         1.0E8
+     Duty_Cycle:        50
+     Start_Delay:       0.0
+     Start_State:       H
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+Digital_Clock_End
+Digital_Signal
+     Position:          2
+     Name:              AXI_RD_WEIGHT_START
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Input
+          Edge
+              Min:             20.1
+              Max:             20.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             30.1
+              Max:             30.1
+              State:            L
+          Edge_End
+Digital_Signal_End
+Digital_Signal
+     Position:          3
+     Name:              AXI_RD_WEIGHT_NEXT
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Input
+          Edge
+              Min:             100.1
+              Max:             100.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             110.1
+              Max:             110.1
+              State:            L
+          Edge_End
+          Edge
+              Min:             160.1
+              Max:             160.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             170.1
+              Max:             170.1
+              State:            L
+          Edge_End
+Digital_Signal_End
+Digital_Bus
+     Position:          4
+     Name:              AXI_RD_WEIGHT_DATAnn[31:0]
+     Start_State:       Z
+     State_Format:      Dec
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             10.1
+              Max:             40.1
+              State:            X
+          Edge_End
+          Edge
+              Min:             40.1
+              Max:             50.1
+              State:            1
+          Edge_End
+          Edge
+              Min:             110.1
+              Max:             110.1
+              State:            2
+          Edge_End
+          Edge
+              Min:             170.1
+              Max:             170.1
+              State:            3
+          Edge_End
+          Edge
+              Min:             280.1
+              Max:             280.1
+              State:            Z
+          Edge_End
+Digital_Bus_End
+Digital_Signal
+     Position:          5
+     Name:              AXI_RD_WEIGHT_READY
+     Start_State:       L
+     Rise_Time:         1.0
+     Fall_Time:         1.0
+     IO_Type:           Output
+          Edge
+              Min:             50.1
+              Max:             50.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             80.1
+              Max:             80.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             80.1
+              Max:             80.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             81.4
+              Max:             81.4
+              State:            H
+          Edge_End
+          Edge
+              Min:             110.1
+              Max:             110.1
+              State:            L
+          Edge_End
+          Edge
+              Min:             140.1
+              Max:             140.1
+              State:            H
+          Edge_End
+          Edge
+              Min:             170.1
+              Max:             170.1
+              State:            L
+          Edge_End
+Digital_Signal_End
