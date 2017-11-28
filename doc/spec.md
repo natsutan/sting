@@ -446,7 +446,7 @@ Vivadoが生成するAXI信号は省略
 - ②CC2_CONTROLがAXI_RD_INPUT_STARTをHすると同時に、AXI_RD_INPUT_FIRSTLINEもHにする。AXI_RD_INPUT_FIRSTLINEは、AXI_RD_INPUT_READがHになるまでHを維持する。AXI_RD_INPUT_FIRSTLINEがHの時は、ラインバッファへは2ライン分を書き込む。
 - ③最初の読み出し時のみ、AXI_RD_INPUT_DATA0は0を出力する。以後は、1ライン目動作（パディング有り）と同じ動作である。  
 
-上記以外の動作は、1ライン目動作（パディング有り）と同じである。
+上記以外の動作は、[1ライン目動作（パディング有り）](#1ライン目動作パディング有り)と同じである。
 
 
 #### 最終ライン動作（パディング無し）
