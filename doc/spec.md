@@ -415,6 +415,7 @@ AXIポートから入力データを読み出す。
 | input | AXI\_RD\_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
 | input | AXI\_RD\_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
 | input | AXI\_RD\_INPUT_READ | 1 の時ラインバッファの読み出し |
+| output | AXI\_RD\_DATA_VALID | 1 のデータの出力が有効 |
 | output | [31:0] AXI\_RD\_INPUT_DATA0 | ラインバッファの出力, float32 |
 | output | [31:0] AXI\_RD\_INPUT_DATA1 | ラインバッファの出力 float32|
 | output | [31:0] AXI\_RD\_INPUT_DATA2 | ラインバッファの出力 float32|
