@@ -598,13 +598,42 @@ CC2\_AXI\_RW\_OUTPUTの起動時の動きを以下に示す。
 
 ## CC2\_DSP3x3
 ### 機能
+CC2_AXI_RD_INPUTからの3ラインデータと、CC2_AXI_RD_WEIGHTからの3x3フィルターをかけて足し、その結果を出力する。
 
 ### パラメータ
 無し
 
 ### 入出力
 
+|入出力|信号名|説明 |
+|----|----|----|
+|input |  M_AXI_ACLK| Global Clock Signal |
+|input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
+|input | REG_CC2_DSP3x3_SOFTRESET | 正論理のソフトリセット | 
+| input | DSP_INPUT_DATA_VALID | 1の時、入力データが有効 |
+| input | [31:0] DSP_INPUT_DATA0 | 入力データ0, float32 |
+| input | [31:0] DSP_INPUT_DATA1 | 入力データ1,  float32|
+| input | [31:0] DSP_INPUT_DATA1 | 入力データ2,  float32|
+| input | [31:0] DSP_WEIGHT_DATA00 | 重みの入力 weight[0][0], float32 |
+| input | [31:0] DSP_WEIGHT_DATA01 | 重みの入力 weight[0][1], float32|
+| input | [31:0] DSP_WEIGHT_DATA02 | 重みの入力 weight[0][2], float32 |
+| input | [31:0] DSP_WEIGHT_DATA10 | 重みの入力 weight[1][0], float32 |
+| input | [31:0] DSP_WEIGHT_DATA11 | 重みの入力 weight[1][1], float32 |
+| input | [31:0] DSP_WEIGHT_DATA12 | 重みの入力 weight[1][2], float32 |
+| input | [31:0] DSP_WEIGHT_DATA20 | 重みの入力 weight[2][0], float32 |
+| input | [31:0] DSP_WEIGHT_DATA21 | 重みの入力 weight[2][1], float32 |
+| input | [31:0] DSP_WEIGHT_DATA22 | 重みの入力 weight[2][2], float32 |
+| output | DSP_OUTPUIT_DATA_VALID | 1の時、出力データが有効 |
+| output | [31:0] DSP_OUTPUT_DATA | 出力データ, float32 |
+
+
 ### 動作説明
+
+#### データの入出力
+
+<img src=wave/dsp.jpg>
+DSP_INPUT_DATA_VALIDがHの時のデータに対して、一定の遅延の後計算結果がDSP_OUTPUIT_DATA_VALIDに合わせて出力される。
+
 
 ## CC2\_CONV
 ### 機能
