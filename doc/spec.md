@@ -596,7 +596,6 @@ CC2\_AXI\_RW\_OUTPUTの起動時の動きを以下に示す。
 - ①最後のラインのラインバッファへの書き込みが終了した後、ラインバッファのデータをAXIバスに書き込む。書き込み終了後にAXI_RW_OUTPUT_FIFO_EMPTYがHになる。その後、AXI_RW_OUTPUT_NEXT_FRAMEがHになり、次のフレームのアドレス計算を行う。  
 - ②AXI_RW_OUTPUT_STARTのHで、動作を開始する。
 
-
 ## CC2\_DSP3x3
 ### 機能
 
