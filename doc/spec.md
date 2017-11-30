@@ -336,17 +336,28 @@ STINGのTOP階層。
 |output|[1 : 0] S_AXI_RRESP||
 |output|S_AXI_RVALID||
 |input|S_AXI_RREADY||
+|output | REG_AXI_CC_CONTROL_SOFTRESET | CC_CONTROLのソフトリセット(正論理) |
+|output | REG_AXI_RD_INPUT_SOFTRESET | AXI_RD_INPUTのソフトリセット（正論理）|
+|output | REG_AXI_RD_WEIGHT_SOFTRESET | AXI_RD_WEIGHTのソフトリセット（正論理）|
+|output | REG_AXI_RW_OUTPUT_SOFTRESET | AXI_RW_OUTPUTのソフトリセット（正論理）|
+ット | 
+| output | REG_AXI_CC2_CONV_SOFTRESET | AXI_CC2_CONVのソフトリセット（正論理）|
+| output | REG_MODE | 0:通常モード, 1：分割モード |
+| output | REG_RUN | 1で動作開始、HWで自動的に0クリアーされる。 |
+| output | [8:0] REG_AXI_RD_INPUT_XSIZE | 入力データのXsizeを示す。 |
+| output | [8:0] REG_AXI_RD_INPUT_YSIZE | 入力データのXsizeを示す。 |
+| output | [31:0] REG_AXI_RD_INPUT_START_ADR | 入力データの開始アドレス |
+| output | [8:0] REG_AXI_RD_INPUT_XSIZE | 入力データのXSIZE ~
+| output | [31:0] REG_AXI_RD_INPUT_FSIZE | 入力データのフレームサイズ |
+|output | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 重みの先頭アドレス | 
+|output | [31:0] REG_AXI_RD_WEIGHT_START_ADR2 | 重みの先頭アドレス(BN) | 
+| ouptut | [31:0] REG_AXI_RW_OUTPUT_START_ADR | 出力データの先頭アドレス | 
+| output | [8:0] REG_AXI_RW_OUTPUT_XSIZE | 出力データのXSIZE |
+| output | [31:0] REG_AXI_RW_OUTPUT_FSIZE | 出力データのフレームサイズ | 
+| output | REG_CONV_LRERU_EN | 1でLRERUが有効 |
+| output | REG_CONV_BN_EN | 1の時BNが有効 |
+| output | [31:0] REG_LEAKY_RELU | LeakyRELUの係数, float32 |
 
-<font color="red">[TODO] 後で入出力入れ替え</font>
-```
-| input | [8:0] REG_AXI_RD\_INPUT_XSIZE | 入力データのXsizeを示す。 |
-| input | [8:0] REG_AXI_RD\_INPUT_YSIZE | 入力データのXsizeを示す。 |
-| input | REG_AXI_RD_WEIGHT_SOFTRESET | 正論理のソフトリセット | 
-|input | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 入力データの先頭アドレス | 
-| input | REG_MODE | 0:通常モード, 1：分割モード |
-| input | REG_RUN | 1で動作開始 |
-
-```
 
 <font color="red">[TODO] レジスタの出力追加</font>
 
@@ -439,20 +450,20 @@ AXIポートから入力データを読み出す。
 |input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
 | input | REG_AXI_RD_INPUT_SOFTRESET | 正論理のソフトリセット | 
 |input | [31:0] REG_AXI_RD_INPUT_START_ADR | 入力データの先頭アドレス | 
-| input | [8:0] REG_AXI\_RD\_INPUT_XSIZE | 入力データのXsize |
-| input | [8:0] REG_AXI\_RD\_INPUT_FSIZE | 入力データのフレームサイズ。 |
-| input | AXI\_RD\_INPUT_START | 1で動作開始 |
-| input | AXI\_RD\_INPUT_NEXT_FRAME | 1で次のフレームへ |
-| input | AXI\_RD\_INPUT_TOP_PADDING_ENABLE | 1の時、一番上に0のパディングを入れる | 
-| input | AXI\_RD\_INPUT_BOTTOM_PADDING_ENABLE | 1の時、一番下に0のパディングを入れる | 
-| input | AXI\_RD\_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
-| input | AXI\_RD\_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
-| input | AXI\_RD\_INPUT_READ | 1 の時ラインバッファの読み出し |
-| output | AXI\_RD\_DATA_VALID | 1 のデータの出力が有効 |
-| output | [31:0] AXI\_RD\_INPUT_DATA0 | ラインバッファの出力, float32 |
-| output | [31:0] AXI\_RD\_INPUT_DATA1 | ラインバッファの出力 float32|
-| output | [31:0] AXI\_RD\_INPUT_DATA2 | ラインバッファの出力 float32|
-| output | AXI\_RD\_INPUT_READY | ラインバッファにデータが書き込まれたことを示す |
+| input | [8:0] REG_AXI_RD_INPUT_XSIZE | 入力データのXsize |
+| input | [31:0] REG_AXI_RD_INPUT_FSIZE | 入力データのフレームサイズ。 |
+| input | AXI_RD_INPUT_START | 1で動作開始 |
+| input | AXI_RD_INPUT_NEXT_FRAME | 1で次のフレームへ |
+| input | AXI_RD_INPUT_TOP_PADDING_ENABLE | 1の時、一番上に0のパディングを入れる | 
+| input | AXI_RD_INPUT_BOTTOM_PADDING_ENABLE | 1の時、一番下に0のパディングを入れる | 
+| input | AXI_RD_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
+| input | AXI_RD_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
+| input | AXI_RD_INPUT_READ | 1 の時ラインバッファの読み出し |
+| output | AXI_RD_DATA_VALID | 1 のデータの出力が有効 |
+| output | [31:0] AXI_RD_INPUT_DATA0 | ラインバッファの出力, float32 |
+| output | [31:0] AXI_RD_INPUT_DATA1 | ラインバッファの出力 float32|
+| output | [31:0] AXI_RD_INPUT_DATA2 | ラインバッファの出力 float32|
+| output | AXI_RD_INPUT_READY | ラインバッファにデータが書き込まれたことを示す |
 
 Vivadoが生成するAXI信号は省略
 
@@ -520,7 +531,8 @@ AXI経由で重みデータ(3x3)を読み出す。
 |input |  M_AXI_ACLK| Global Clock Signal |
 |input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
 | input | REG_AXI_RD_WEIGHT_SOFTRESET | 正論理のソフトリセット | 
-|input | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 入力データの先頭アドレス | 
+|input | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 重みデータの先頭アドレス | 
+|input | [31:0] REG_AXI_RD_WEIGHT_START_ADR2 | 重みデータの先頭アドレス(BN) | 
 | input | AXI\_RD\_WEIGHT_START | 1で動作開始 |
 | input | AXI\_RD\_WEIGHT_NEXT | 1で動作開始 |
 | output | [31:0] AXI\_RD\_WEIGHT_DATA00 | 重みの出力 weight[0][0], float32 |
@@ -580,18 +592,18 @@ AXIポートから出力データをR/Wする
 |input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
 | input | REG_AXI_RW_OUTPUT_SOFTRESET | 正論理のソフトリセット | 
 |input | [31:0] REG_AXI_RW_OUTPUT_START_ADR | 出力データの先頭アドレス | 
-| input | [8:0] REG_AXI\_RW\_OUTPUT_XSIZE | 出力データのXsize |
-| input | [8:0] REG_AXI\_RW\_OUTPUT_FSIZE | 出力データのフレームサイズ。 |
-| input | AXI\_RW\_OUTPUT_START | 1で動作開始 |
-| input | AXI\_RW\_OUTPUT_FIRST | 1の時、1回目の読み出し。 |
-| input | AXI\_RW\_OUTPUT_NEXT_LINE | 1で次のフレームへ |
-| input | AXI\_RW\_OUTPUT_NEXT_FRAME | 1で次のフレームへ |
-| input |  AXI\_RW_OUTPUT_RDEN | 読み出し信号|
-| input |  AXI\_RW_OUTPUT_RDVALID | 読み出しデータのVALID信号 |
-| output | [31:0] AXI\_RW_OUTPUT_RDDATA | AXIから読み出したデータ。float32 |
-| input |  AXI\_RW_OUTPUT_WREN | 書き込み信号|
-| input | [31:0] AXI\_RW_OUTPUT_WRDATA | AXIに書き込むデータ。float32 |
-| output | AXI\_RW\_OUTPUT_READY | 出力データの読み出し、書き込みが終わったことを示す | 
+| input | [8:0] REG_AXI_RW_OUTPUT_XSIZE | 出力データのXsize |
+| input | [31:0] REG_AXI_RW_OUTPUT_FSIZE | 出力データのフレームサイズ。 |
+| input | AXI_RW_OUTPUT_START | 1で動作開始 |
+| input | AXI_RW_OUTPUT_FIRST | 1の時、1回目の読み出し。 |
+| input | AXI_RW_OUTPUT_NEXT_LINE | 1で次のフレームへ |
+| input | AXI_RW_OUTPUT_NEXT_FRAME | 1で次のフレームへ |
+| input |  AXI_RW_OUTPUT_RDEN | 読み出し信号|
+| input |  AXI_RW_OUTPUT_RDVALID | 読み出しデータのVALID信号 |
+| output | [31:0] AXI_RW_OUTPUT_RDDATA | AXIから読み出したデータ。float32 |
+| input |  AXI_RW_OUTPUT_WREN | 書き込み信号|
+| input | [31:0] AXI_RW_OUTPUT_WRDATA | AXIに書き込むデータ。float32 |
+| output | AXI_RW_OUTPUT_READY | 出力データの読み出し、書き込みが終わったことを示す | 
 | output | AXI_RW_OUTPUT_FIFO_EMPTY |出力データ用のラインバッファが空の時1 | 
 
 vivadoが出力するAXIの信号は省略
