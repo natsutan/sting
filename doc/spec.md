@@ -352,29 +352,43 @@ AXI信号の説明は省略。
 ### 動作説明
 
 ## CC2\_CONTROL
-<font color="red">[TODO] 後で書く</font>
 
 ### 機能
+全体のシーケンス制御を行う。
+- AXI_RD_INPUT_NEXT_FRAMEを使用し、1ラインの処理を開始する。  
+- レジスタ値と内部カウンターを使い、パディング処理など特別な処理の制御を行う。  
+- 処理終了後に割り込みを発生させる。
+
 ### 入出力一覧
 
-<font color="red">[TODO] 後で入出力入れ替え</font>
+|入出力|信号名|説明 |
+|----|----|----|
+|input |  M_AXI_ACLK| Global Clock Signal |
+|input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
+| output | irq | 割り込み信号 |
+| output | AXI_RD_INPUT_START | 1で動作開始 |
+| output | AXI_RD_INPUT_NEXT_FRAME | 1で次のフレームへ |
+| output | AXI_RD_INPUT_TOP_PADDING_ENABLE | 1の時、一番上に0のパディングを入れる | 
+| output | AXI_RD_INPUT_BOTTOM_PADDING_ENABLE | 1の時、一番下に0のパディングを入れる | 
+| output | AXI_RD_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
+| output | AXI_RD_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
 
-```
-|input | [31:0] REG_AXI_RD_INPUT_START_ADR | 入力データの先頭アドレス | 
-| input | [8:0] REG_AXI\_RD\_INPUT_XSIZE | 入力データのXsize |
-| input | [8:0] REG_AXI\_RD\_INPUT_FSIZE | 入力データのフレームサイズ。 |
-| input | AXI\_RD\_INPUT_START | 1で動作開始 |
-| input | AXI\_RD\_INPUT_NEXT_FRAME | 1で次のフレームへ |
-| input | AXI\_RD\_INPUT_TOP_PADDING_ENABLE | 1の時、一番上に0のパディングを入れる | 
-| input | AXI\_RD\_INPUT_BOTTOM_PADDING_ENABLE | 1の時、一番下に0のパディングを入れる | 
-| input | AXI\_RD\_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
-| input | AXI\_RD\_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
+| output | AXI_RD_WEIGHT_START | 1で動作開始 |
+| input | AXI_RD_WEIGHT_READY | 重みの読み出しが終わったことを示す | 
+| input | AXI_RD_INPUT_READY | ラインバッファにデータが書き込まれたことを示す |
+| output | CONV_LAST | 1の時LeakyRELUとBNの処理を行う。 |
+| input | AXI_RW_OUTPUT_READY | 出力データの読み出し、書き込みが終わったことを示す | 
+| input | AXI_RW_OUTPUT_FIFO_EMPTY |出力データ用のラインバッファが空の時1 |   
 
-|input | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 入力データの先頭アドレス | 
-| input | AXI\_RD\_WEIGHT_START | 1で動作開始 |
-```
 
 ### 動作説明
+
+#### 起動時
+
+#### 通常動作時
+
+#### 割り込み動作
+
 
 ## CC2\_AXI\_RD\_INPUT
 ### 機能
@@ -634,16 +648,45 @@ CC2_AXI_RD_INPUTからの3ラインデータと、CC2_AXI_RD_WEIGHTからの3x3�
 <img src=wave/dsp.jpg>
 DSP_INPUT_DATA_VALIDがHの時のデータに対して、一定の遅延の後計算結果がDSP_OUTPUIT_DATA_VALIDに合わせて出力される。
 
-
 ## CC2\_CONV
 ### 機能
+CC2_DSP3x3の計算結果を、出力データとしてメモリ上の値に加算する。最終チャネル(nが最大）の処理時は、LeakyRELUとバッチノーマライゼーションの処理を行い、AXI経由でメモリに書き込む。
 
 ### パラメータ
 無し
 
 ### 入出力
 
+|入出力|信号名|説明 |
+|----|----|----|
+|input |  M_AXI_ACLK| Global Clock Signal |
+|input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
+|input | [8:0] REG_AXI_RW_OUTPUT_XSIZE | 出力データのXsize |
+|input | CONV_LAST | 1の時LeakyRELUとBNの処理を行う。 |
+|input | REG_CONV_LRERU_EN | 1の時LeakyRELUの処理が有効 |
+|input | REG_CONV_BN_EN | 1の時BNの処理が有効 |
+|input | [31:0] REG_LEAKY_RELU | LeakyReluの係数, float32 |
+| input | DSP_OUTPUIT_DATA_VALID | 1の時、CC2_DSP3x3からの出力データが有効 |
+| input | [31:0] DSP_OUTPUT_DATA | CC2_DSP3x3の出力データ, float32 |
+| output |  AXI_RW_OUTPUT_RDEN | AXI_RW_OUTPUTへの読み出し信号|
+| output |  AXI_RW_OUTPUT_RDVALID | AXI_RW_OUTPUT読み出しデータのVALID信号 |
+| input | [31:0] AXI_RW_OUTPUT_RDDATA | AXI_RW_OUTPUTから読み出したデータ。float32 |
+| output |  AXI_RW_OUTPUT_WREN | AXI_RW_OUTPUTへの書き込み信号|
+| output | [31:0] AXI_RW_OUTPUT_WRDATA | AXI_RW_OUTPUTに書き込むデータ。float32 |
+| input | [31:0] AXI_RD_WEIGHT_BN0 | BNの重みデータ0, float32 |
+| input | [31:0] AXI_RD_WEIGHT_BN1 | BNの重みデータ1, float32 |
+
 ### 動作説明
+
+#### 通常動作
+<img src=wave/conv.jpg>
+
+- ①DSP_OUTPUIT_DATA_VALIDが1になり、CC2_DSP3x3から計算結果がDSP_OUTPUT_DATAに出力される。  
+- ②AXI_RW_OUTPUT_RDENを1にし、データの読み出しを開始する。  
+- ③AXI_RW_OUTPUTからの読み出しデータが、AXI_RW_OUTPUT_RDDATAに出力される。AXI_RW_OUTPUT_RDVALIDがHの時、データは有効である。  
+- ④内部で加算した結果を、AXI_RW_OUTPUT_WRDATAに出力する。AXI_RW_OUTPUT_WRENが1の時、データは有効である。
+
+CONV_LASTによって、演算の内容が変化するが③と④のタイミングが変わるだけで、シーケンスは全く同じである。
 
 # レジスタ一覧
 
