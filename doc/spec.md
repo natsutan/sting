@@ -339,9 +339,12 @@ STINGのTOP階層。
 
 <font color="red">[TODO] 後で入出力入れ替え</font>
 ```
-| input | [8:0] REG_AXI\_RD\_INPUT_XSIZE | 入力データのXsizeを示す。 |
+| input | [8:0] REG_AXI_RD\_INPUT_XSIZE | 入力データのXsizeを示す。 |
+| input | [8:0] REG_AXI_RD\_INPUT_YSIZE | 入力データのXsizeを示す。 |
 | input | REG_AXI_RD_WEIGHT_SOFTRESET | 正論理のソフトリセット | 
 |input | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 入力データの先頭アドレス | 
+| input | REG_MODE | 0:通常モード, 1：分割モード |
+| input | REG_RUN | 1で動作開始 |
 
 ```
 
@@ -366,29 +369,44 @@ AXI信号の説明は省略。
 |input |  M_AXI_ACLK| Global Clock Signal |
 |input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
 | output | irq | 割り込み信号 |
-| output | AXI_RD_INPUT_START | 1で動作開始 |
+| output | AXI_RD_INPUT_START | 1でAXI_RD_INPUTが動作開始 |
+| output | AXI_RD_INPUT_READ | 1でAXI_RD_INPUTのリード開始 |
 | output | AXI_RD_INPUT_NEXT_FRAME | 1で次のフレームへ |
 | output | AXI_RD_INPUT_TOP_PADDING_ENABLE | 1の時、一番上に0のパディングを入れる | 
 | output | AXI_RD_INPUT_BOTTOM_PADDING_ENABLE | 1の時、一番下に0のパディングを入れる | 
 | output | AXI_RD_INPUT_FIRSTLINE | 1の時、次のライン読み込みが最初のラインであることを示す |
 | output | AXI_RD_INPUT_LASTLINE | 1の時、次のライン読み込みが最後を示す |
-
-| output | AXI_RD_WEIGHT_START | 1で動作開始 |
+| output | AXI_RD_WEIGHT_START | 1でAXI_RD_INPUTが動作開始 |
 | input | AXI_RD_WEIGHT_READY | 重みの読み出しが終わったことを示す | 
 | input | AXI_RD_INPUT_READY | ラインバッファにデータが書き込まれたことを示す |
 | output | CONV_LAST | 1の時LeakyRELUとBNの処理を行う。 |
+| input | AXI_RW_OUTPUT_START | 出力データの読み出し開始 | 
 | input | AXI_RW_OUTPUT_READY | 出力データの読み出し、書き込みが終わったことを示す | 
 | input | AXI_RW_OUTPUT_FIFO_EMPTY |出力データ用のラインバッファが空の時1 |   
+| input | [8:0] REG_INPUT_YSIZE | 入力データのYsize |
+| input | REG_MODE | 0:通常モード, 1：分割モード |
+| input | REG_RUN | 1で動作開始 |
 
 
 ### 動作説明
 
 #### 起動時
 
-#### 通常動作時
+<img src=wave/cntr1.jpg>  
+
+- ①RUNレジスタのライトで動作を開始する。  
+- ②AXI_RD_INPUT_START、AXI_RD_WEIGHT_START、AXI_RW_OUTPUT_STARTをHにして、それぞの読出しを開始する。  
+- ③AXI_RD_INPUT_READY, AXI_RD_WEIGHT_READY,AXI_RW_OUTPUT_READYすべてがHになると、AXI_RD_INPUT_READをHにしてAXI_RD_INPUTからデータを読み出す。AXI_RD_INPUT_READYは自動的にLになり、次のラインのデータを読み込みを開始する。  
+- ④AXI_RD_INPUT_READYのH、AXI_RD_WEIGHT_READYのH、AXI_RW_OUTPUT_READYのL→Hの遷移で、AXI_RD_INPUT_READをHにして次のラインの動作を開始する。
+以後、③、④の繰り返し
 
 #### 割り込み動作
 
+<img src=wave/cntr2.jpg>  
+
+- ①最終フレームの最終ラインの処理後、AXI_RW_OUTPUT_FIFO_EMPTYが1になったとき、irqを1にしてCPUに割り込みを通知する。
+
+[CC2_AXI_RW_OUTPUTの最終ライン動作時](#最終ライン動作時)も参照のこと。
 
 ## CC2\_AXI\_RD\_INPUT
 ### 機能
