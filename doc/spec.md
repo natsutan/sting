@@ -27,7 +27,7 @@ Zynqで使用するIPコアとしては以下の機能を持つ。
 # ブロック図
 Sitngのブロック図を以下に示す。
 
-<img src="blk.png">
+<img src="img/blk.png">
 
 各ブロックは以下の機能を持つ。
 
@@ -60,7 +60,7 @@ StingはCPUからのレジスタライトで起動する。高速化のために
 ## 変数定義
 Stingでは計算の変数について以下の定義を使用する。変数名はコキュートスの出力Cソースと対応している。
 
-<img src="val.png">
+<img src="img/val.png">
 
 | 変数名 | 意味 |
 |:----|:----|
@@ -73,29 +73,29 @@ Stingでは計算の変数について以下の定義を使用する。変数名
 通常モードでは一回の起動で全ての処理を完了する。
 
 はじめにf=0について全ての計算を行う。
-<img src="seq_n1.png">  
+<img src="img/seq_n1.png">  
 
 次にf=1について全ての計算を行う。
-<img src="seq_n2.png">
+<img src="img/seq_n2.png">
 
 以下全ての計算が終了するまでfの値を増やしていく。
 
 ## 分割モード動作時
 
 はじめにf=0について、分割した部分の計算を行う。分割の単位はレジスタで指定する。
-<img src="seq_d1.png">
+<img src="img/seq_d1.png">
 
 分割した箇所についてf=1の計算を行う。
-<img src="seq_d2.png">
+<img src="img/seq_d2.png">
 
 fの最後まで計算すると割り込みが入り、stingは動作を完了する。
-<img src="seq_d3.png">
+<img src="img/seq_d3.png">
 
 新しくレジスタを設定し、次の分割の単位の計算を開始させる。（f=0)
-<img src="seq_d4.png">
+<img src="img/seq_d4.png">
 
 今まで同様にf=1から 最後まで順に処理を行い、最後に割り込みを発生させ動作を終了する。
-<img src="seq_d5.png">
+<img src="img/seq_d5.png">
 
 # ブロック仕様
 
@@ -368,6 +368,7 @@ AXI信号の説明は省略。
 |----|----|----|
 |input |  M_AXI_ACLK| Global Clock Signal |
 |input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
+| input | REG_AXI_CC_CONTROL_SOFTRESET | 正論理のソフトリセット | 
 | output | irq | 割り込み信号 |
 | output | AXI_RD_INPUT_START | 1でAXI_RD_INPUTが動作開始 |
 | output | AXI_RD_INPUT_READ | 1でAXI_RD_INPUTのリード開始 |
@@ -679,6 +680,7 @@ CC2_DSP3x3の計算結果を、出力データとしてメモリ上の値に加�
 |----|----|----|
 |input |  M_AXI_ACLK| Global Clock Signal |
 |input |  M_AXI_ARESETN| Global Reset Singal. This Signal is Active Low |
+| input | REG_AXI_CC2_CONV_SOFTRESET | 正論理のソフトリセット | 
 |input | [8:0] REG_AXI_RW_OUTPUT_XSIZE | 出力データのXsize |
 |input | CONV_LAST | 1の時LeakyRELUとBNの処理を行う。 |
 |input | REG_CONV_LRERU_EN | 1の時LeakyRELUの処理が有効 |
