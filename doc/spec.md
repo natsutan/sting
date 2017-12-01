@@ -345,9 +345,8 @@ STINGのTOP階層。
 | output | REG_MODE | 0:通常モード, 1：分割モード |
 | output | REG_RUN | 1で動作開始、HWで自動的に0クリアーされる。 |
 | output | [8:0] REG_AXI_RD_INPUT_XSIZE | 入力データのXsizeを示す。 |
-| output | [8:0] REG_AXI_RD_INPUT_YSIZE | 入力データのXsizeを示す。 |
+| output | [8:0] REG_AXI_RD_INPUT_YSIZE | 入力データのYsizeを示す。 |
 | output | [31:0] REG_AXI_RD_INPUT_START_ADR | 入力データの開始アドレス |
-| output | [8:0] REG_AXI_RD_INPUT_XSIZE | 入力データのXSIZE ~
 | output | [31:0] REG_AXI_RD_INPUT_FSIZE | 入力データのフレームサイズ |
 |output | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 重みの先頭アドレス | 
 |output | [31:0] REG_AXI_RD_WEIGHT_START_ADR2 | 重みの先頭アドレス(BN) | 
@@ -721,6 +720,36 @@ CC2_DSP3x3の計算結果を、出力データとしてメモリ上の値に加�
 CONV_LASTによって、演算の内容が変化するが③と④のタイミングが変わるだけで、シーケンスは全く同じである。
 
 # レジスタ一覧
+
+| offset |レジスタ名|説明 |
+|----|----|----|
+| 0x00 | CTRL | stringの制御を行う(ライトオンリー) |
+| 0x04 | STATUS | stingのステータスを読み出す(リードオンリー) |
+| 0x08 | MODE | 動作の設定を行う。 |
+| 0x0C | IXSIZE | 入力データのXsize |
+| 0x10 | IYSIZE | 入力データのYsize |
+| 0x14 | ISADR  | 入力データの開始アドレス |
+| 0x18 | IFSIZE | 入力データのフレームサイズ |
+| 0x1C | WSADR1 | 重みの先頭アドレス1 |
+| 0x20 | WSADR2 | 重みの先頭アドレス2 (BN) | 
+| 0x24 | OXSIZE | 出力データのXSIZE | 
+| 0x24 | OSADR  | 出力データの先頭アドレス | 
+| 0x28 | OFSIZE | 出力データのフレームサイズ |
+| 0x2C | LRELU | LeakyRELUの係数|
+
+## CTRL
+
+| bit| 31：2 | 1| 0|
+|*----|----|---*|----*|
+|機能| - | RUN | RST|
+
+- RST:1のライトでソフトウェアリセットを発行する。write only。
+- RUN:1のライトで処理を開始する。write only。
+
+
+# ソフトウェア設定例
+
+
 
 # リファレンス
 
