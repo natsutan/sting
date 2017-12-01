@@ -355,6 +355,8 @@ STINGのTOP階層。
 | output | [31:0] REG_AXI_RW_OUTPUT_FSIZE | 出力データのフレームサイズ | 
 | output | REG_CONV_LRERU_EN | 1でLRERUが有効 |
 | output | REG_CONV_BN_EN | 1の時BNが有効 |
+| output | [15:0] REG_NSIZE | 入力データのチャネル数(n) |
+| output | [15:0] REG_FSIZE | フィルター数(f) |
 | output | [31:0] REG_LEAKY_RELU | LeakyRELUの係数, float32 |
 
 
@@ -395,6 +397,8 @@ AXI信号の説明は省略。
 | input | AXI_RW_OUTPUT_READY | 出力データの読み出し、書き込みが終わったことを示す | 
 | input | AXI_RW_OUTPUT_FIFO_EMPTY |出力データ用のラインバッファが空の時1 |   
 | input | [8:0] REG_INPUT_YSIZE | 入力データのYsize |
+| input | [15:0] REG_NSIZE | 入力データのチャネル数(n) |
+| input | [15:0] REG_FSIZE | フィルター数(f) |
 | input | REG_MODE | 0:通常モード, 1：分割モード |
 | input | REG_RUN | 1で動作開始 |
 
@@ -671,13 +675,6 @@ CC2_AXI_RD_INPUTからの3ラインデータと、CC2_AXI_RD_WEIGHTからの3x3�
 | output | [31:0] DSP_OUTPUT_DATA | 出力データ, float32 |
 
 
-### 動作説明
-
-#### データの入出力
-
-<img src=wave/dsp.jpg>
-DSP_INPUT_DATA_VALIDがHの時のデータに対して、一定の遅延の後計算結果がDSP_OUTPUIT_DATA_VALIDに合わせて出力される。
-
 ## CC2\_CONV
 ### 機能
 CC2_DSP3x3の計算結果を、出力データとしてメモリ上の値に加算する。最終チャネル(nが最大）の処理時は、LeakyRELUとバッチノーマライゼーションの処理を行い、AXI経由でメモリに書き込む。
@@ -719,6 +716,13 @@ CC2_DSP3x3の計算結果を、出力データとしてメモリ上の値に加�
 
 CONV_LASTによって、演算の内容が変化するが③と④のタイミングが変わるだけで、シーケンスは全く同じである。
 
+### 動作説明
+
+#### データの入出力
+
+<img src=wave/dsp.jpg>
+DSP_INPUT_DATA_VALIDがHの時のデータに対して、一定の遅延の後計算結果がDSP_OUTPUIT_DATA_VALIDに合わせて出力される。
+
 # レジスタ一覧
 
 | offset |レジスタ名|説明 |
@@ -736,8 +740,12 @@ CONV_LASTによって、演算の内容が変化するが③と④のタイミ�
 | 0x24 | OSADR  | 出力データの先頭アドレス | 
 | 0x28 | OFSIZE | 出力データのフレームサイズ |
 | 0x2C | LRELU | LeakyRELUの係数|
+| 0x30 | FNSIZE | 入力チャネルとフィルター数 | 
+| 0x34 | DEBCNT0 | 処理カウンター0 |
+| 0x38 | DEBCNT0 | 処理カウンター1 |
 
 ## CTRL
+stringの制御を行う
 
 | bit| 31:2 | 1| 0|
 |----|----|---|----|
@@ -746,6 +754,147 @@ CONV_LASTによって、演算の内容が変化するが③と④のタイミ�
 - RST:1のライトでソフトウェアリセットを発行する。write only。
 - RUN:1のライトで処理を開始する。write only。
 
+## STATUS 
+
+stingのステータスを読み出す(リードオンリー)
+
+| bit| 31:16 | 15:8 | 7:2|   1|   0|
+|----|-------|------|----|----|----|
+|機能| FNUM  | YNUM |-   | INT| RUNNING|
+
+- RUNNING:1の時stingは動作中。
+- INT:割り込みのステータス
+- YNUM:処理中のyを読み出す  
+- FNUM:処理中のfの値を読み出す
+
+## MODE 
+動作の設定を行う。
+
+| bit| 31:3 |      2|   1|   0|
+|----|-------|------|----|----|
+|機能| -   | LRERU | BN | MODE |
+
+- MODE:0:通常モード, 1：分割モード  
+- BN:1でバッチノーマライゼーションが有効  
+- LRERU:1でLeakyRELUが有効
+
+## IXSIZE 
+入力データのXsize
+
+| bit| 31:9 | 8:0|
+|----|-------|----|
+|機能| -   | IXSIZE |
+
+- IXSIZE:入力データのXsize
+
+## IYSIZE 
+入力データのYsize
+
+| bit| 31:9 | 8:0|
+|----|-------|----|
+|機能| -   | IYSIZE |
+
+- IYSIZE:入力データのYsize
+
+## ISADR
+入力データの開始アドレス
+
+| bit| 31:0  |
+|----|-------|
+|機能| ISADR |
+
+- ISADR:入力データのYsize
+
+## IFSIZE 
+入力データのフレームサイズ
+
+| bit| 31:0  |
+|----|-------|
+|機能| IFSIZE |
+
+- IFSIZE:入力データのフレームサイズ
+
+## WSADR1 
+重みの先頭アドレス1  
+
+| bit| 31:0  |
+|----|-------|
+|機能| WSADR1|
+
+- WSADR1:コンボリューションの重みの先頭アドレス。
+
+## WSADR2 
+重みの先頭アドレス2 (BN) 
+
+| bit| 31:0  |
+|----|-------|
+|機能| WSADR2|
+
+- WSADR2:バッチノーマライゼーションの重みの先頭アドレス。
+
+## OXSIZE 
+出力データのXSIZE
+
+| bit| 31:9 | 8:0|
+|----|-------|----|
+|機能| -   | OXSIZE |
+
+- OXSIZE:出力データのXsize
+
+## OSADR
+出力データの先頭アドレス 
+
+| bit| 31:0  |
+|----|-------|
+|機能| OSADR|
+
+- OSADR:出力データの先頭アドレス
+
+## OFSIZE 
+出力データのフレームサイズ
+
+| bit| 31:0  |
+|----|-------|
+|機能| OFSIZE |
+
+- OFSIZE:出力データのフレームサイズ
+
+## LRELU 
+LeakyRELUの係数
+
+| bit| 31:0  |
+|----|-------|
+|機能| LRELU |
+
+- LRELU:LeakyRELUの係数, float32
+
+## FNSIZE
+fとnのサイズ指定  
+
+| bit| 31:16 |15:0|
+|----|-------|-----|
+|機能| FSIZE | NSIZE |
+
+- NSIZE:入力チャネル数(n)  
+- FSIZE:フィルター数(f)
+
+## DEBCNT0
+デバッグ用カウンター  
+
+| bit| 31:0|
+|----|-----
+|機能| DEBCNT0 |
+
+- DEBCNT0: 処理サイクル数測定用カウンター(下位32bit)。ソフトリセットでクリアー。read only。
+
+## DEBCNT1
+デバッグ用カウンター  
+
+| bit| 31:0|
+|----|-----
+|機能| DEBCNT1 |
+
+- DEBCNT1: 処理サイクル数測定用カウンター(上位2bit)。ソフトリセットでクリアー。read only。
 
 # ソフトウェア設定例
 
