@@ -37,3 +37,4 @@ vivado/zybo/Table.xlsx
 vivado/zybo/sting_ip/sting_ip.srcs/sources_1/bd/design_1/ipshared/*
 vivado/zybo/zybo_sting/zybo_sting.cache/wt/webtalk_pa.xml
 vivado/zybo/sting_ip/sting_ip.srcs/sources_1/bd/design_1/hdl/design_1.hwdef
+*.h~

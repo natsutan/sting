@@ -34,7 +34,7 @@ Sitngのブロック図を以下に示す。
 | ブロック名|サブブロック名|機能|
 |:----|:----|:----|
 | STING\_TOP| - | TOP階層 |
-| CC2\_REG\_IF| - | レジスタI/F|
+| sting\_wrap\_v1\_0\_S00_AXI | - | レジスタI/F|
 | CC2\_CONTROL|- | 全体制御|
 | |CC2\_INTC| 割り込み|
 | CC2\_AXI\_RD\_INPUT |-|入力データのリード|
@@ -44,7 +44,7 @@ Sitngのブロック図を以下に示す。
 | CC2\_CONV | - | コンボリューションの実行|
 || CC2\_BIAS | BIAS項の加算|
 || CC2\_BN |バッチノーマライゼーションの計算 |
-|| CC2\_LRERU |LeakyRELUの計算 |
+|| CC2\_LRELU |LeakyRELUの計算 |
 
 各ブロックの詳細はブロック仕様にて記載する。
 
@@ -307,7 +307,7 @@ STINGのTOP階層。
 ||input |  s_axi_intr_rready|
 ||output |  irq |
 
-## CC2\_REG\_IF
+## sting\_wrap\_v1\_0\_S00_AXI
 ### 機能
 レジスタI/F。AXIバスを通して、Sting内部レジスタのR/Wを行う。
 
@@ -353,12 +353,13 @@ STINGのTOP階層。
 | ouptut | [31:0] REG_AXI_RW_OUTPUT_START_ADR | 出力データの先頭アドレス | 
 | output | [8:0] REG_AXI_RW_OUTPUT_XSIZE | 出力データのXSIZE |
 | output | [31:0] REG_AXI_RW_OUTPUT_FSIZE | 出力データのフレームサイズ | 
-| output | REG_CONV_LRERU_EN | 1でLRERUが有効 |
+| output | REG_CONV_LRELU_EN | 1でLRELUが有効 |
 | output | REG_CONV_BN_EN | 1の時BNが有効 |
 | output | [15:0] REG_NSIZE | 入力データのチャネル数(n) |
 | output | [15:0] REG_FSIZE | フィルター数(f) |
 | output | [31:0] REG_LEAKY_RELU | LeakyRELUの係数, float32 |
-
+| input  | [31:0] DEBCNT0 | 処理のカウント 下位32bit |
+| input  | [31:0] DEBCNT1 | 処理のカウント 上位32bit |
 
 <font color="red">[TODO] レジスタの出力追加</font>
 
@@ -401,6 +402,9 @@ AXI信号の説明は省略。
 | input | [15:0] REG_FSIZE | フィルター数(f) |
 | input | REG_MODE | 0:通常モード, 1：分割モード |
 | input | REG_RUN | 1で動作開始 |
+| output  | [31:0] DEBCNT0 | 処理のカウント 下位32bit |
+| output  | [31:0] DEBCNT1 | 処理のカウント 上位32bit |
+
 
 
 ### 動作説明
@@ -691,7 +695,7 @@ CC2_DSP3x3の計算結果を、出力データとしてメモリ上の値に加�
 | input | REG_AXI_CC2_CONV_SOFTRESET | 正論理のソフトリセット | 
 |input | [8:0] REG_AXI_RW_OUTPUT_XSIZE | 出力データのXsize |
 |input | CONV_LAST | 1の時LeakyRELUとBNの処理を行う。 |
-|input | REG_CONV_LRERU_EN | 1の時LeakyRELUの処理が有効 |
+|input | REG_CONV_LRELU_EN | 1の時LeakyRELUの処理が有効 |
 |input | REG_CONV_BN_EN | 1の時BNの処理が有効 |
 |input | [31:0] REG_LEAKY_RELU | LeakyReluの係数, float32 |
 | input | DSP_OUTPUIT_DATA_VALID | 1の時、CC2_DSP3x3からの出力データが有効 |
@@ -727,7 +731,7 @@ DSP_INPUT_DATA_VALIDがHの時のデータに対して、一定の遅延の後�
 
 | offset |レジスタ名|説明 |
 |----|----|----|
-| 0x00 | CTRL | stringの制御を行う(ライトオンリー) |
+| 0x00 | CTRL | stingの制御を行う(ライトオンリー) |
 | 0x04 | STATUS | stingのステータスを読み出す(リードオンリー) |
 | 0x08 | MODE | 動作の設定を行う。 |
 | 0x0C | IXSIZE | 入力データのXsize |
@@ -742,7 +746,7 @@ DSP_INPUT_DATA_VALIDがHの時のデータに対して、一定の遅延の後�
 | 0x2C | LRELU | LeakyRELUの係数|
 | 0x30 | FNSIZE | 入力チャネルとフィルター数 | 
 | 0x34 | DEBCNT0 | 処理カウンター0 |
-| 0x38 | DEBCNT0 | 処理カウンター1 |
+| 0x38 | DEBCNT1 | 処理カウンター1 |
 
 ## CTRL
 stringの制御を行う
@@ -772,11 +776,11 @@ stingのステータスを読み出す(リードオンリー)
 
 | bit| 31:3 |      2|   1|   0|
 |----|-------|------|----|----|
-|機能| -   | LRERU | BN | MODE |
+|機能| -   | LRELU | BN | MODE |
 
 - MODE:0:通常モード, 1：分割モード  
 - BN:1でバッチノーマライゼーションが有効  
-- LRERU:1でLeakyRELUが有効
+- LRELU:1でLeakyRELUが有効
 
 ## IXSIZE 
 入力データのXsize

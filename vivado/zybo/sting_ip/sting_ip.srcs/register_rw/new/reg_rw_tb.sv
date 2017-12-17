@@ -2,6 +2,8 @@
 
 import axi_vip_v1_0_2_pkg::*;
 import design_1_axi_vip_0_1_pkg::*;
+
+`inlucde "sting_reg.h"
     
 module reg_rw_tb();
 
@@ -62,10 +64,30 @@ module reg_rw_tb();
            rst_gen();
         join_none
 
-        clk_dly(100);
+       clk_dly(100);
 
-       reg_wr(32'h04, 32'h12345678);
-        clk_dly(100);
+       reg_wr(`REG_CTRL, `REG_CTRL_RESET);
+       reg_wr(`REG_CTRL, `REG_CTRL_RUN);
+       
+       reg_wr(`REG_MODE, `REG_MODE_DIVMODE);
+       reg_wr(`REG_MODE, `REG_MODE_BNEN);
+       reg_wr(`REG_MODE, `REG_MODE_LRELUEN);
+
+       reg_wr(`REG_IXSIZE, 128);
+       reg_wr(`REG_IYSIZE, 1024);
+       reg_wr(`REG_ISADR,  32'h80000000);
+       reg_wr(`REG_IFSIZE, 32'h80010000);
+       reg_wr(`REG_WSADR1, 32'h80020000);
+
+       reg_wr(`REG_WSADR2, 32'h80030000);
+       reg_wr(`REG_OXSIZE, 64);
+       
+       reg_wr(`REG_OSADR, 32'h90000000);
+       reg_wr(`REG_OFSIZE,  500);
+
+       reg_wr(`REG_LRELU, 32h'12345678);
+       reg_wr(`REG_FNSIZE, 32'h02000300);
+       
 
         clk_dly(1000);
         $finish(2);
