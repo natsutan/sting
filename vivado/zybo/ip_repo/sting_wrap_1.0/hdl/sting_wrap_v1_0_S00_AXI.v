@@ -171,6 +171,7 @@ module sting_wrap_v1_0_S00_AXI #
    assign  REG_AXI_RD_INPUT_SOFTRESET = slv_reg0[0];
    assign  REG_AXI_RD_WEIGHT_SOFTRESET = slv_reg0[0];
    assign  REG_AXI_RW_ASSIGN_SOFTRESET = slv_reg0[0];
+   assign  REG_AXI_RW_OUTPUT_SOFTRESET = slv_reg0[0];
    assign  REG_AXI_CC2_CONV_SOFTRESET = slv_reg0[0];
    assign  REG_RUN = slv_reg0[1];   
    assign  REG_MODE = slv_reg2[0];
@@ -315,10 +316,7 @@ module sting_wrap_v1_0_S00_AXI #
 	                 // Respective byte enables are asserted as per write strobes 
 	                 // Slave register 0
 	                 slv_reg0[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end else begin
-			 //Ž©“®‚ÅƒNƒŠƒA[
-	                 slv_reg0[(byte_index*8) +: 8] <= 0;
-		      end
+	              end
 	          6'h01:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
@@ -411,7 +409,7 @@ module sting_wrap_v1_0_S00_AXI #
 	                 slv_reg13[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end  
 	          default : begin
-	             slv_reg0 <= slv_reg0;
+	             slv_reg0 <= 32'00000000;
 	             slv_reg1 <= slv_reg1;
 	             slv_reg2 <= slv_reg2;
 	             slv_reg3 <= slv_reg3;

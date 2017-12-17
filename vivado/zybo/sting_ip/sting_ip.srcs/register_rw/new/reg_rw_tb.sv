@@ -3,7 +3,7 @@
 import axi_vip_v1_0_2_pkg::*;
 import design_1_axi_vip_0_1_pkg::*;
 
-`inlucde "sting_reg.h"
+`include "sting_reg.h"
     
 module reg_rw_tb();
 
@@ -85,7 +85,7 @@ module reg_rw_tb();
        reg_wr(`REG_OSADR, 32'h90000000);
        reg_wr(`REG_OFSIZE,  500);
 
-       reg_wr(`REG_LRELU, 32h'12345678);
+       reg_wr(`REG_LRELU, 32'h12345678);
        reg_wr(`REG_FNSIZE, 32'h02000300);
        
 

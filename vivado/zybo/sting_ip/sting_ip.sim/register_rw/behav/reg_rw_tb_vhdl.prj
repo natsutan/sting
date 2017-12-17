@@ -1,0 +1,8 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  "../../../../ip_repo/sting_wrap_1.0/src/float_mul/sim/float_mul.vhd"
+vhdl xil_defaultlib  "../../../../ip_repo/sting_wrap_1.0/src/float_mul/demo_tb/tb_float_mul.vhd"
+vhdl xil_defaultlib  "../../../../ip_repo/sting_wrap_1.0/src/floating_add/sim/floating_add.vhd"
+vhdl xil_defaultlib  "../../../../ip_repo/sting_wrap_1.0/src/floating_add/demo_tb/tb_floating_add.vhd"
+
+# Do not sort compile order
+nosort
