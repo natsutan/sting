@@ -189,8 +189,8 @@ module sting_wrap_v1_0_S00_AXI #
    assign  REG_AXI_RD_WEIGHT_START_ADR1 = slv_reg7;
    assign  REG_AXI_RD_WEIGHT_START_ADR2 = slv_reg8;
 
-   assign  REG_AXI_RW_OUTPUT_START_ADR = slv_reg9;
-   assign  REG_AXI_RW_OUTPUT_XSIZE = slv_reg10[8:0];
+   assign  REG_AXI_RW_OUTPUT_XSIZE = slv_reg9[8:0];
+   assign  REG_AXI_RW_OUTPUT_START_ADR = slv_reg10;
    assign  REG_AXI_RW_OUTPUT_FSIZE = slv_reg11;
 
    assign  REG_NSIZE = slv_reg12[15:0];
