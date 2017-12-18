@@ -14,7 +14,9 @@ module reg_rw_tb();
     logic aresetn, aclk;
     logic axi_init;
     wire irq;
-    
+   integer rd_data;
+   
+ 
    design_1 design_1(
     .aclk(aclk),
     .aresetn(aresetn),
@@ -57,11 +59,36 @@ module reg_rw_tb();
    endtask 
 
    
+   task reg_rd(input integer adr, output integer data);
+      axi_transaction  rd_transaction;
 
+
+      rd_transaction   = design_1_axi_vip_0_1_mst.rd_driver.create_transaction( "register read");
+      RD_TRANSACTION_FAIL: assert(rd_transaction.randomize());
+      rd_transaction.set_addr(adr);
+      design_1_axi_vip_0_1_mst.rd_driver.send(rd_transaction);
+
+      
+      data = rd_transaction.get_data_block();
+   endtask 
+
+   task rd_ready();
+      
+      axi_ready_gen                           rready_gen;
+      
+      rready_gen = design_1_axi_vip_0_1_mst.rd_driver.create_ready("rready");
+      rready_gen.set_ready_policy(XIL_AXI_READY_GEN_AFTER_VALID_OSC);
+      rready_gen.set_low_time(2);
+      rready_gen.set_high_time(1);
+      design_1_axi_vip_0_1_mst.rd_driver.send_rready(rready_gen);
+
+   endtask
+      
    
     // Testscenario
     initial begin
 
+       
         fork
            clk_gen();
            rst_gen();
@@ -69,7 +96,8 @@ module reg_rw_tb();
 
        clk_dly(100);
 
-
+      // rd_ready();
+       
 
        
        reg_wr(`REG_CTRL, `REG_CTRL_RESET);
@@ -92,8 +120,13 @@ module reg_rw_tb();
 
        reg_wr(`REG_LRELU, 32'h12345678);
        reg_wr(`REG_FNSIZE, 32'h02000300);
-       
 
+        clk_dly(100);
+       
+       REG_IXSIZE_FAIL0 : assert(reg_rw_tb.design_1.sting_wrap_0.inst.sting_wrap_v1_0_S00_AXI_inst.REG_AXI_RD_INPUT_XSIZE==128);
+       REG_IXSIZE_FAIL1 : assert(reg_rw_tb.design_1.sting_wrap_0.inst.sting_wrap_v1_0_S00_AXI_inst.REG_AXI_RD_INPUT_XSIZE==60);
+
+       
         clk_dly(1000);
         $finish(2);
     end
