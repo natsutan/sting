@@ -126,7 +126,7 @@ module reg_rw_tb();
        assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rd_weight_start_adr2==32'h80030000) else $error("REG_WSADR2_0");
        assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rw_output_start_adr==32'h90000000) else $error("REG_OSADR0");
        assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rw_output_xsize==64) else $error("REG_OXSIZE0"); 
-       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rw_output_fsize==512) else $error("REG_OFSIZE0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rw_output_fsize==500) else $error("REG_OFSIZE0");
        assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_nsize==16'h0300) else $error("REG_NSIZE0");
        assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_fsize==16'h0200) else $error("REG_FSIZE0");
        assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_leaky_relu==32'h12345678) else $error("REG_LRELU0");

@@ -192,10 +192,10 @@ module sting_wrap_v1_0_S00_AXI #
    assign  REG_AXI_RW_OUTPUT_XSIZE = slv_reg9[8:0];
    assign  REG_AXI_RW_OUTPUT_START_ADR = slv_reg10;
    assign  REG_AXI_RW_OUTPUT_FSIZE = slv_reg11;
+   assign  REG_LEAKY_RELU = slv_reg12[31:0];
+   assign  REG_NSIZE = slv_reg13[15:0];
+   assign  REG_FSIZE = slv_reg13[31:16];
 
-   assign  REG_NSIZE = slv_reg12[15:0];
-   assign  REG_FSIZE = slv_reg12[31:16];
-   assign  REG_LEAKY_RELU = slv_reg13[31:0];
    
 
 
