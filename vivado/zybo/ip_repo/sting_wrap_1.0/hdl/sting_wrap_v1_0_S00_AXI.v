@@ -29,7 +29,7 @@ module sting_wrap_v1_0_S00_AXI #
     output [8:0] 			      REG_AXI_RD_INPUT_YSIZE,
     output [31:0] 			      REG_AXI_RD_INPUT_START_ADR,
     output [31:0] 			      REG_AXI_RD_INPUT_FSIZE,
-    output [31:0] 			      REG_AXI_RD_WEIGHT_START_ADR,
+    output [31:0] 			      REG_AXI_RD_WEIGHT_START_ADR1,
     output [31:0] 			      REG_AXI_RD_WEIGHT_START_ADR2,
     output [31:0] 			      REG_AXI_RW_OUTPUT_START_ADR,
     output [8:0] 			      REG_AXI_RW_OUTPUT_XSIZE,
@@ -186,7 +186,7 @@ module sting_wrap_v1_0_S00_AXI #
    assign  REG_AXI_RD_INPUT_YSIZE = slv_reg4[8:0];
    assign  REG_AXI_RD_INPUT_START_ADR = slv_reg5;
    assign  REG_AXI_RD_INPUT_FSIZE = slv_reg6;
-   assign  REG_AXI_RD_WEIGHT_START_ADR = slv_reg7;
+   assign  REG_AXI_RD_WEIGHT_START_ADR1 = slv_reg7;
    assign  REG_AXI_RD_WEIGHT_START_ADR2 = slv_reg8;
 
    assign  REG_AXI_RW_OUTPUT_START_ADR = slv_reg9;

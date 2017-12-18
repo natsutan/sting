@@ -96,10 +96,6 @@ module reg_rw_tb();
 
        clk_dly(100);
 
-      // rd_ready();
-       
-
-       
        reg_wr(`REG_CTRL, `REG_CTRL_RESET);
        reg_wr(`REG_CTRL, `REG_CTRL_RUN);
        
@@ -112,7 +108,6 @@ module reg_rw_tb();
        reg_wr(`REG_ISADR,  32'h80000000);
        reg_wr(`REG_IFSIZE, 32'h80010000);
        reg_wr(`REG_WSADR1, 32'h80020000);
-
        reg_wr(`REG_WSADR2, 32'h80030000);
        reg_wr(`REG_OSADR, 32'h90000000);
        reg_wr(`REG_OXSIZE, 64);       
@@ -121,11 +116,20 @@ module reg_rw_tb();
        reg_wr(`REG_LRELU, 32'h12345678);
        reg_wr(`REG_FNSIZE, 32'h02000300);
 
-        clk_dly(100);
+       clk_dly(1000);
        
-       REG_IXSIZE_FAIL0 : assert(reg_rw_tb.design_1.sting_wrap_0.inst.sting_wrap_v1_0_S00_AXI_inst.REG_AXI_RD_INPUT_XSIZE==128);
-       REG_IXSIZE_FAIL1 : assert(reg_rw_tb.design_1.sting_wrap_0.inst.sting_wrap_v1_0_S00_AXI_inst.REG_AXI_RD_INPUT_XSIZE==60);
-
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rd_input_xsize==9'd128) else $error("REG_IXSIZE_FAIL0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rd_input_ysize==9'd1024) else $error("REG_IYSIZE_FAIL0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rd_input_fsize==32'h80010000) else $error("REG_INPUT_FSIZE0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rd_input_start_adr==32'h80000000) else $error("REG_INPUT_ISR0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rd_weight_start_adr1==32'h80020000) else $error("REG_WSADR1_0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rd_weight_start_adr2==32'h80030000) else $error("REG_WSADR2_0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rw_output_start_adr==32'h90000000) else $error("REG_OSADR0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rw_output_xsize==64) else $error("REG_OXSIZE0"); 
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_axi_rw_output_fsize==512) else $error("REG_OFSIZE0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_nsize==16'h0300) else $error("REG_NSIZE0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_fsize==16'h0200) else $error("REG_FSIZE0");
+       assert(reg_rw_tb.design_1.sting_wrap_0.inst.reg_leaky_relu==32'h12345678) else $error("REG_LRELU0");
        
         clk_dly(1000);
         $finish(2);
