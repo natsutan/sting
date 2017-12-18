@@ -15,14 +15,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="495500001fs"></ZoomEndTime>
-      <Cursor1Time time="75001000fs"></Cursor1Time>
+      <ZoomEndTime time="90300000001fs"></ZoomEndTime>
+      <Cursor1Time time="20995000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="70"></ValueColumnWidth>
+      <NameColumnWidth column_width="275"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="51" />
+   <WVObjectSize size="94" />
    <wvobject fp_name="/reg_rw_tb/aresetn" type="logic">
       <obj_property name="ElementShortName">aresetn</obj_property>
       <obj_property name="ObjectShortName">aresetn</obj_property>
@@ -226,5 +226,178 @@
    <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/S_AXI_AWVALID" type="logic">
       <obj_property name="ElementShortName">S_AXI_AWVALID</obj_property>
       <obj_property name="ObjectShortName">S_AXI_AWVALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_MODE" type="logic">
+      <obj_property name="ElementShortName">REG_MODE</obj_property>
+      <obj_property name="ObjectShortName">REG_MODE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_RUN" type="logic">
+      <obj_property name="ElementShortName">REG_RUN</obj_property>
+      <obj_property name="ObjectShortName">REG_RUN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_CC_CONTROL_SOFTRESET" type="logic">
+      <obj_property name="ElementShortName">REG_AXI_CC_CONTROL_SOFTRESET</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_CC_CONTROL_SOFTRESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RD_INPUT_SOFTRESET" type="logic">
+      <obj_property name="ElementShortName">REG_AXI_RD_INPUT_SOFTRESET</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RD_INPUT_SOFTRESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RD_WEIGHT_SOFTRESET" type="logic">
+      <obj_property name="ElementShortName">REG_AXI_RD_WEIGHT_SOFTRESET</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RD_WEIGHT_SOFTRESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RW_OUTPUT_SOFTRESET" type="logic">
+      <obj_property name="ElementShortName">REG_AXI_RW_OUTPUT_SOFTRESET</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RW_OUTPUT_SOFTRESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_CC2_CONV_SOFTRESET" type="logic">
+      <obj_property name="ElementShortName">REG_AXI_CC2_CONV_SOFTRESET</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_CC2_CONV_SOFTRESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_MODE" type="logic">
+      <obj_property name="ElementShortName">REG_MODE</obj_property>
+      <obj_property name="ObjectShortName">REG_MODE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_RUN" type="logic">
+      <obj_property name="ElementShortName">REG_RUN</obj_property>
+      <obj_property name="ObjectShortName">REG_RUN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RD_INPUT_XSIZE" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RD_INPUT_XSIZE[8:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RD_INPUT_XSIZE[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RD_INPUT_YSIZE" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RD_INPUT_YSIZE[8:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RD_INPUT_YSIZE[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RD_INPUT_START_ADR" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RD_INPUT_START_ADR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RD_INPUT_START_ADR[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RD_INPUT_FSIZE" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RD_INPUT_FSIZE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RD_INPUT_FSIZE[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RD_WEIGHT_START_ADR2" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RD_WEIGHT_START_ADR2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RD_WEIGHT_START_ADR2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RW_OUTPUT_START_ADR" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RW_OUTPUT_START_ADR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RW_OUTPUT_START_ADR[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RW_OUTPUT_XSIZE" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RW_OUTPUT_XSIZE[8:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RW_OUTPUT_XSIZE[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_AXI_RW_OUTPUT_FSIZE" type="array">
+      <obj_property name="ElementShortName">REG_AXI_RW_OUTPUT_FSIZE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_AXI_RW_OUTPUT_FSIZE[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_CONV_LRELU_EN" type="logic">
+      <obj_property name="ElementShortName">REG_CONV_LRELU_EN</obj_property>
+      <obj_property name="ObjectShortName">REG_CONV_LRELU_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_CONV_BN_EN" type="logic">
+      <obj_property name="ElementShortName">REG_CONV_BN_EN</obj_property>
+      <obj_property name="ObjectShortName">REG_CONV_BN_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_NSIZE" type="array">
+      <obj_property name="ElementShortName">REG_NSIZE[15:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_NSIZE[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_FSIZE" type="array">
+      <obj_property name="ElementShortName">REG_FSIZE[15:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_FSIZE[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/sting_wrap_v1_0_S00_AXI_inst/REG_LEAKY_RELU" type="array">
+      <obj_property name="ElementShortName">REG_LEAKY_RELU[31:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_LEAKY_RELU[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_cc_control_softreset" type="logic">
+      <obj_property name="ElementShortName">reg_axi_cc_control_softreset</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_cc_control_softreset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_input_softreset" type="logic">
+      <obj_property name="ElementShortName">reg_axi_rd_input_softreset</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_input_softreset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_weight_softreset" type="logic">
+      <obj_property name="ElementShortName">reg_axi_rd_weight_softreset</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_weight_softreset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rw_output_softreset" type="logic">
+      <obj_property name="ElementShortName">reg_axi_rw_output_softreset</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rw_output_softreset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_cc2_conv_softreset" type="logic">
+      <obj_property name="ElementShortName">reg_axi_cc2_conv_softreset</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_cc2_conv_softreset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_mode" type="logic">
+      <obj_property name="ElementShortName">reg_mode</obj_property>
+      <obj_property name="ObjectShortName">reg_mode</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_run" type="logic">
+      <obj_property name="ElementShortName">reg_run</obj_property>
+      <obj_property name="ObjectShortName">reg_run</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_input_xsize" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_input_xsize[8:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_input_xsize[8:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_input_ysize" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_input_ysize[8:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_input_ysize[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_input_start_adr" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_input_start_adr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_input_start_adr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_input_fsize" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_input_fsize[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_input_fsize[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_weight_start_adr1" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_weight_start_adr1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_weight_start_adr1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rd_weight_start_adr2" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_weight_start_adr2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_weight_start_adr2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rw_output_start_adr" type="array">
+      <obj_property name="ElementShortName">reg_axi_rw_output_start_adr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rw_output_start_adr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rw_output_xsize" type="array">
+      <obj_property name="ElementShortName">reg_axi_rw_output_xsize[8:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rw_output_xsize[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_axi_rw_output_fsize" type="array">
+      <obj_property name="ElementShortName">reg_axi_rw_output_fsize[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rw_output_fsize[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_conv_lrelu_en" type="logic">
+      <obj_property name="ElementShortName">reg_conv_lrelu_en</obj_property>
+      <obj_property name="ObjectShortName">reg_conv_lrelu_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_conv_bn_en" type="logic">
+      <obj_property name="ElementShortName">reg_conv_bn_en</obj_property>
+      <obj_property name="ObjectShortName">reg_conv_bn_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_nsize" type="array">
+      <obj_property name="ElementShortName">reg_nsize[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_nsize[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_fsize" type="array">
+      <obj_property name="ElementShortName">reg_fsize[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_fsize[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/reg_rw_tb/design_1/sting_wrap_0/inst/reg_leaky_relu" type="array">
+      <obj_property name="ElementShortName">reg_leaky_relu[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_leaky_relu[31:0]</obj_property>
    </wvobject>
 </wave_config>
