@@ -342,6 +342,10 @@ STINGのTOP階層。
 |output | REG_AXI_RW_OUTPUT_SOFTRESET | AXI_RW_OUTPUTのソフトリセット（正論理）|
 ット | 
 | output | REG_AXI_CC2_CONV_SOFTRESET | AXI_CC2_CONVのソフトリセット（正論理）|
+| input  | REG_STS_RUNNING | 動作中時に1、リセット、動作終了後に0 |
+| input  | REG_STS_INT | 割り込み発生時に1、リセット、割り込みクリアーで0 |
+| input  | [7:0] REG_STS_YNUM | 処理中のLINE(Y)の値 |
+| input  | [15:0] REG_STS_FNUM | 処理中のFrame(F)の値 |
 | output | REG_MODE | 0:通常モード, 1：分割モード |
 | output | REG_RUN | 1で動作開始、HWで自動的に0クリアーされる。 |
 | output | [8:0] REG_AXI_RD_INPUT_XSIZE | 入力データのXsizeを示す。 |
@@ -361,7 +365,6 @@ STINGのTOP階層。
 | input  | [31:0] DEBCNT0 | 処理のカウント 下位32bit |
 | input  | [31:0] DEBCNT1 | 処理のカウント 上位32bit |
 
-<font color="red">[TODO] レジスタの出力追加</font>
 
 AXI信号の説明は省略。
 
@@ -401,7 +404,11 @@ AXI信号の説明は省略。
 | input | [15:0] REG_NSIZE | 入力データのチャネル数(n) |
 | input | [15:0] REG_FSIZE | フィルター数(f) |
 | input | REG_MODE | 0:通常モード, 1：分割モード |
-| input | REG_RUN | 1で動作開始 |
+| ouyput | REG_RUN | 1で動作開始 |
+| output  | REG_STS_RUNNING | 動作中時に1、リセット、動作終了後に0 |
+| output  | REG_STS_INT | 割り込み発生時に1、リセット、割り込みクリアーで0 |
+| output  | [7:0] REG_STS_YNUM | 処理中のLINE(Y)の値 |
+| output  | [15:0] REG_STS_FNUM | 処理中のFrame(F)の値 |
 | output  | [31:0] DEBCNT0 | 処理のカウント 下位32bit |
 | output  | [31:0] DEBCNT1 | 処理のカウント 上位32bit |
 
@@ -741,13 +748,12 @@ DSP_INPUT_DATA_VALIDがHの時のデータに対して、一定の遅延の後�
 | 0x1C | WSADR1 | 重みの先頭アドレス1 |
 | 0x20 | WSADR2 | 重みの先頭アドレス2 (BN) | 
 | 0x24 | OXSIZE | 出力データのXSIZE | 
-[TODO]0x28から振り直し
-| 0x24 | OSADR  | 出力データの先頭アドレス | 
-| 0x28 | OFSIZE | 出力データのフレームサイズ |
-| 0x2C | LRELU | LeakyRELUの係数|
-| 0x30 | FNSIZE | 入力チャネルとフィルター数 | 
-| 0x34 | DEBCNT0 | 処理カウンター0 |
-| 0x38 | DEBCNT1 | 処理カウンター1 |
+| 0x28 | OSADR  | 出力データの先頭アドレス | 
+| 0x2C | OFSIZE | 出力データのフレームサイズ |
+| 0x30 | LRELU | LeakyRELUの係数|
+| 0x34 | FNSIZE | 入力チャネルとフィルター数 | 
+| 0x38 | DEBCNT0 | 処理カウンター0 |
+| 0x3C | DEBCNT1 | 処理カウンター1 |
 
 ## CTRL
 stringの制御を行う

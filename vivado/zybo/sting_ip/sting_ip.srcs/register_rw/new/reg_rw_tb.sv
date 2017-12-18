@@ -55,6 +55,9 @@ module reg_rw_tb();
 
       design_1_axi_vip_0_1_mst.wr_driver.send(wr_transaction);
    endtask 
+
+   
+
    
     // Testscenario
     initial begin
@@ -66,6 +69,9 @@ module reg_rw_tb();
 
        clk_dly(100);
 
+
+
+       
        reg_wr(`REG_CTRL, `REG_CTRL_RESET);
        reg_wr(`REG_CTRL, `REG_CTRL_RUN);
        
@@ -80,9 +86,8 @@ module reg_rw_tb();
        reg_wr(`REG_WSADR1, 32'h80020000);
 
        reg_wr(`REG_WSADR2, 32'h80030000);
-       reg_wr(`REG_OXSIZE, 64);
-       
        reg_wr(`REG_OSADR, 32'h90000000);
+       reg_wr(`REG_OXSIZE, 64);       
        reg_wr(`REG_OFSIZE,  500);
 
        reg_wr(`REG_LRELU, 32'h12345678);

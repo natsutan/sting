@@ -39,7 +39,12 @@ module sting_wrap_v1_0_S00_AXI #
     output [15:0] 			      REG_NSIZE,
     output [15:0] 			      REG_FSIZE,
     output [31:0] 			      REG_LEAKY_RELU,
-    
+
+    input 				      REG_STS_RUNNING,
+    input 				      REG_STS_INT,
+    input [7:0] 			      REG_STS_YNUM,
+    input [15:0] 			      REG_STS_FNUM,
+
     input [31:0] 			      DEBCNT0,
     input [31:0] 			      DEBCNT1,
 
@@ -183,9 +188,11 @@ module sting_wrap_v1_0_S00_AXI #
    assign  REG_AXI_RD_INPUT_FSIZE = slv_reg6;
    assign  REG_AXI_RD_WEIGHT_START_ADR = slv_reg7;
    assign  REG_AXI_RD_WEIGHT_START_ADR2 = slv_reg8;
-   assign  REG_AXI_RW_ASSIGN_START_ADR = slv_reg9;
-   assign  REG_AXI_RW_ASSIGN_XSIZE = slv_reg10[8:0];
-   assign  REG_AXI_RW_ASSIGN_FSIZE = slv_reg11;
+
+   assign  REG_AXI_RW_OUTPUT_START_ADR = slv_reg9;
+   assign  REG_AXI_RW_OUTPUT_XSIZE = slv_reg10[8:0];
+   assign  REG_AXI_RW_OUTPUT_FSIZE = slv_reg11;
+
    assign  REG_NSIZE = slv_reg12[15:0];
    assign  REG_FSIZE = slv_reg12[31:16];
    assign  REG_LEAKY_RELU = slv_reg13[31:0];
@@ -409,8 +416,8 @@ module sting_wrap_v1_0_S00_AXI #
 	                 slv_reg13[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end  
 	          default : begin
-	             slv_reg0 <= 32'00000000;
-	             slv_reg1 <= slv_reg1;
+	             slv_reg0 <= 32'h00000000;
+	             slv_reg1 <= {REG_STS_FNUM, REG_STS_YNUM, 6'b000000, REG_STS_INT, REG_STS_RUNNING};
 	             slv_reg2 <= slv_reg2;
 	             slv_reg3 <= slv_reg3;
 	             slv_reg4 <= slv_reg4;
