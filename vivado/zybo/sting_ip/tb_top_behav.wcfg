@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="axi_vip_v1_0_2_pkg" />
+            <top_module name="glbl" />
+            <top_module name="std" />
+            <top_module name="tb_top" />
+            <top_module name="xil_common_vip_v1_0_0_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="246837750fs"></ZoomStartTime>
+      <ZoomEndTime time="3371837751fs"></ZoomEndTime>
+      <Cursor1Time time="1225000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="271"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/tb_top/aresetn" type="logic">
+      <obj_property name="ElementShortName">aresetn</obj_property>
+      <obj_property name="ObjectShortName">aresetn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/aclk" type="logic">
+      <obj_property name="ElementShortName">aclk</obj_property>
+      <obj_property name="ObjectShortName">aclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/axi_init" type="logic">
+      <obj_property name="ElementShortName">axi_init</obj_property>
+      <obj_property name="ObjectShortName">axi_init</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/irq" type="logic">
+      <obj_property name="ElementShortName">irq</obj_property>
+      <obj_property name="ObjectShortName">irq</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/rd_data" type="array">
+      <obj_property name="ElementShortName">rd_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/LP_CLK_PERI" type="array">
+      <obj_property name="ElementShortName">LP_CLK_PERI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">LP_CLK_PERI[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/LP_RST_PERI" type="array">
+      <obj_property name="ElementShortName">LP_RST_PERI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">LP_RST_PERI[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/reg_run" type="logic">
+      <obj_property name="ElementShortName">reg_run</obj_property>
+      <obj_property name="ObjectShortName">reg_run</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/reg_axi_rd_weight_softreset" type="logic">
+      <obj_property name="ElementShortName">reg_axi_rd_weight_softreset</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_weight_softreset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/reg_axi_rd_weight_start_adr1" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_weight_start_adr1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_weight_start_adr1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/reg_axi_rd_weight_start_adr2" type="array">
+      <obj_property name="ElementShortName">reg_axi_rd_weight_start_adr2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_axi_rd_weight_start_adr2[31:0]</obj_property>
+   </wvobject>
+</wave_config>
