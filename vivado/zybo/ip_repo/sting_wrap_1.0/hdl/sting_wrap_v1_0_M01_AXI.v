@@ -145,8 +145,6 @@ module sting_wrap_v1_0_M01_AXI #
    reg 		      axi_wvalid;
    //read address valid
    reg 		      axi_arvalid;
-   //read data acceptance
-   reg 		      axi_rready;
    //write response acceptance
    reg 		      axi_bready;
    //write address
@@ -208,13 +206,6 @@ module sting_wrap_v1_0_M01_AXI #
    //Write Response (B)
    assign M_AXI_BREADY	= 1'b0;
 
-   //Read Address (AR)
-   assign M_AXI_ARADDR	= C_M_TARGET_SLAVE_BASE_ADDR + axi_araddr;
-   assign M_AXI_ARVALID	= axi_arvalid;
-   assign M_AXI_ARPROT	= 3'b001;
-   //Read and Read Response (R)
-   assign M_AXI_RREADY	= axi_rready;
-   //Example design I/O
    assign TXN_DONE	= compare_done;
    assign init_txn_pulse	= (!init_txn_ff2) && init_txn_ff;
 
@@ -375,6 +366,8 @@ module sting_wrap_v1_0_M01_AXI #
    reg [31:0] axi_radr;
    reg        axi_ravalid;
    reg        axi_rready;
+   reg 	      weight_ready;
+   
    
    //implement master command interface state machine                         
    always @ ( posedge M_AXI_ACLK)
@@ -407,16 +400,16 @@ module sting_wrap_v1_0_M01_AXI #
 		if(M_AXI_ARREADY)begin
 		   mst_exec_state <= WRD_END_ST;
 		   case(rd_cnt)
-		     0:weight_data00_next < M_AXI_RDATA;
-		     1:weight_data01_next < M_AXI_RDATA;
-		     2:weight_data02_next < M_AXI_RDATA;
-		     3:weight_data10_next < M_AXI_RDATA;
-		     4:weight_data11_next < M_AXI_RDATA;
-		     5:weight_data12_next < M_AXI_RDATA;		     
-		     6:weight_data20_next < M_AXI_RDATA;
-		     7:weight_data21_next < M_AXI_RDATA;
+		     0:weight_data00_next <= M_AXI_RDATA;
+		     1:weight_data01_next <= M_AXI_RDATA;
+		     2:weight_data02_next <= M_AXI_RDATA;
+		     3:weight_data10_next <= M_AXI_RDATA;
+		     4:weight_data11_next <= M_AXI_RDATA;
+		     5:weight_data12_next <= M_AXI_RDATA;		     
+		     6:weight_data20_next <= M_AXI_RDATA;
+		     7:weight_data21_next <= M_AXI_RDATA;
 		     default:
-		       weight_data22_next < M_AXI_RDATA;
+		       weight_data22_next <= M_AXI_RDATA;
 		   endcase // case (rd_cnt)
 
 		   if(rd_cnt == 8)begin
@@ -429,18 +422,19 @@ module sting_wrap_v1_0_M01_AXI #
 		end
 	     end
 	     WRD_END_ST:begin
-
-
+		
+		
 	     end
 	     
 	     default :
 	       begin 
-	          mst_exec_state  <= IDLE;                                     
+	          mst_exec_state  <= IDLE_ST;                                     
 	       end 
-	   endcase
-	end 
-     end //MASTER_EXECUTION_PROC                                                      
-   
+	   endcase // case (mst_exec_state)
+	   
+	end // else: !if(reset == 1'b1)
+     end // always @ ( posedge M_AXI_ACLK)
+      
    //axiのアドレスとVALID出力
    always @ ( posedge M_AXI_ACLK) begin
       if (reset == 1'b1)  begin 
@@ -489,7 +483,7 @@ module sting_wrap_v1_0_M01_AXI #
 
    assign M_AXI_ARADDR = axi_radr;
    assign M_AXI_ARVALID = axi_arvalid;
-   assign M_AXI_ARPROT = 3'b000;
+   assign M_AXI_ARPROT = 3'b001;
    assign M_AXI_RREADY = axi_rready;
    
 
