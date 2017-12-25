@@ -261,106 +261,143 @@ module sting_wrap_v1_0 #
    
    wire [31:0] 	debcnt0;
    wire [31:0] 	debcnt1;
-   
 
-
+   wire 	AXI_RD_WEIGHT_START; 
+   wire 	AXI_RD_WEIGHT_NEXT; 
+   wire [31:0] 	AXI_RD_WEIGHT_DATA00;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA01;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA02;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA10;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA11;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA12;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA20;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA21;
+   wire [31:0] 	AXI_RD_WEIGHT_DATA22;
+   wire [31:0] 	AXI_RD_WEIGHT_BN0;
+   wire [31:0] 	AXI_RD_WEIGHT_BN1;
+   wire 	AXI_RD_WEIGHT_READY; 
 
    
    // Instantiation of Axi Bus Interface M00_AXI
-   sting_wrap_v1_0_M00_AXI # ( 
-			       .C_M_TARGET_SLAVE_BASE_ADDR(C_M00_AXI_TARGET_SLAVE_BASE_ADDR),
-			       .C_M_AXI_BURST_LEN(C_M00_AXI_BURST_LEN),
-			       .C_M_AXI_ID_WIDTH(C_M00_AXI_ID_WIDTH),
-			       .C_M_AXI_ADDR_WIDTH(C_M00_AXI_ADDR_WIDTH),
-			       .C_M_AXI_DATA_WIDTH(C_M00_AXI_DATA_WIDTH),
-			       .C_M_AXI_AWUSER_WIDTH(C_M00_AXI_AWUSER_WIDTH),
-			       .C_M_AXI_ARUSER_WIDTH(C_M00_AXI_ARUSER_WIDTH),
-			       .C_M_AXI_WUSER_WIDTH(C_M00_AXI_WUSER_WIDTH),
-			       .C_M_AXI_RUSER_WIDTH(C_M00_AXI_RUSER_WIDTH),
-			       .C_M_AXI_BUSER_WIDTH(C_M00_AXI_BUSER_WIDTH)
-			       ) sting_wrap_v1_0_M00_AXI_inst (
-							       .INIT_AXI_TXN(m00_axi_init_axi_txn),
-							       .TXN_DONE(m00_axi_txn_done),
-							       .ERROR(m00_axi_error),
-							       .M_AXI_ACLK(m00_axi_aclk),
-							       .M_AXI_ARESETN(m00_axi_aresetn),
-							       .M_AXI_AWID(m00_axi_awid),
-							       .M_AXI_AWADDR(m00_axi_awaddr),
-							       .M_AXI_AWLEN(m00_axi_awlen),
-							       .M_AXI_AWSIZE(m00_axi_awsize),
-							       .M_AXI_AWBURST(m00_axi_awburst),
-							       .M_AXI_AWLOCK(m00_axi_awlock),
-							       .M_AXI_AWCACHE(m00_axi_awcache),
-							       .M_AXI_AWPROT(m00_axi_awprot),
-							       .M_AXI_AWQOS(m00_axi_awqos),
-							       .M_AXI_AWUSER(m00_axi_awuser),
-							       .M_AXI_AWVALID(m00_axi_awvalid),
-							       .M_AXI_AWREADY(m00_axi_awready),
-							       .M_AXI_WDATA(m00_axi_wdata),
-							       .M_AXI_WSTRB(m00_axi_wstrb),
-							       .M_AXI_WLAST(m00_axi_wlast),
-							       .M_AXI_WUSER(m00_axi_wuser),
-							       .M_AXI_WVALID(m00_axi_wvalid),
-							       .M_AXI_WREADY(m00_axi_wready),
-							       .M_AXI_BID(m00_axi_bid),
-							       .M_AXI_BRESP(m00_axi_bresp),
-							       .M_AXI_BUSER(m00_axi_buser),
-							       .M_AXI_BVALID(m00_axi_bvalid),
-							       .M_AXI_BREADY(m00_axi_bready),
-							       .M_AXI_ARID(m00_axi_arid),
-							       .M_AXI_ARADDR(m00_axi_araddr),
-							       .M_AXI_ARLEN(m00_axi_arlen),
-							       .M_AXI_ARSIZE(m00_axi_arsize),
-							       .M_AXI_ARBURST(m00_axi_arburst),
-							       .M_AXI_ARLOCK(m00_axi_arlock),
-							       .M_AXI_ARCACHE(m00_axi_arcache),
-							       .M_AXI_ARPROT(m00_axi_arprot),
-							       .M_AXI_ARQOS(m00_axi_arqos),
-							       .M_AXI_ARUSER(m00_axi_aruser),
-							       .M_AXI_ARVALID(m00_axi_arvalid),
-							       .M_AXI_ARREADY(m00_axi_arready),
-							       .M_AXI_RID(m00_axi_rid),
-							       .M_AXI_RDATA(m00_axi_rdata),
-							       .M_AXI_RRESP(m00_axi_rresp),
-							       .M_AXI_RLAST(m00_axi_rlast),
-							       .M_AXI_RUSER(m00_axi_ruser),
-							       .M_AXI_RVALID(m00_axi_rvalid),
-							       .M_AXI_RREADY(m00_axi_rready)
-							       );
+   sting_wrap_v1_0_M00_AXI # 
+     ( 
+       .C_M_TARGET_SLAVE_BASE_ADDR(C_M00_AXI_TARGET_SLAVE_BASE_ADDR),
+       .C_M_AXI_BURST_LEN(C_M00_AXI_BURST_LEN),
+       .C_M_AXI_ID_WIDTH(C_M00_AXI_ID_WIDTH),
+       .C_M_AXI_ADDR_WIDTH(C_M00_AXI_ADDR_WIDTH),
+       .C_M_AXI_DATA_WIDTH(C_M00_AXI_DATA_WIDTH),
+       .C_M_AXI_AWUSER_WIDTH(C_M00_AXI_AWUSER_WIDTH),
+       .C_M_AXI_ARUSER_WIDTH(C_M00_AXI_ARUSER_WIDTH),
+       .C_M_AXI_WUSER_WIDTH(C_M00_AXI_WUSER_WIDTH),
+       .C_M_AXI_RUSER_WIDTH(C_M00_AXI_RUSER_WIDTH),
+       .C_M_AXI_BUSER_WIDTH(C_M00_AXI_BUSER_WIDTH)
+       ) 
+   sting_wrap_v1_0_M00_AXI_inst 
+     (
+      .INIT_AXI_TXN(m00_axi_init_axi_txn),
+      .TXN_DONE(m00_axi_txn_done),
+      .ERROR(m00_axi_error),
+      .M_AXI_ACLK(m00_axi_aclk),
+      .M_AXI_ARESETN(m00_axi_aresetn),
+      .M_AXI_AWID(m00_axi_awid),
+      .M_AXI_AWADDR(m00_axi_awaddr),
+      .M_AXI_AWLEN(m00_axi_awlen),
+      .M_AXI_AWSIZE(m00_axi_awsize),
+      .M_AXI_AWBURST(m00_axi_awburst),
+      .M_AXI_AWLOCK(m00_axi_awlock),
+      .M_AXI_AWCACHE(m00_axi_awcache),
+      .M_AXI_AWPROT(m00_axi_awprot),
+      .M_AXI_AWQOS(m00_axi_awqos),
+      .M_AXI_AWUSER(m00_axi_awuser),
+      .M_AXI_AWVALID(m00_axi_awvalid),
+      .M_AXI_AWREADY(m00_axi_awready),
+      .M_AXI_WDATA(m00_axi_wdata),
+      .M_AXI_WSTRB(m00_axi_wstrb),
+      .M_AXI_WLAST(m00_axi_wlast),
+      .M_AXI_WUSER(m00_axi_wuser),
+      .M_AXI_WVALID(m00_axi_wvalid),
+      .M_AXI_WREADY(m00_axi_wready),
+      .M_AXI_BID(m00_axi_bid),
+      .M_AXI_BRESP(m00_axi_bresp),
+      .M_AXI_BUSER(m00_axi_buser),
+      .M_AXI_BVALID(m00_axi_bvalid),
+      .M_AXI_BREADY(m00_axi_bready),
+      .M_AXI_ARID(m00_axi_arid),
+      .M_AXI_ARADDR(m00_axi_araddr),
+      .M_AXI_ARLEN(m00_axi_arlen),
+      .M_AXI_ARSIZE(m00_axi_arsize),
+      .M_AXI_ARBURST(m00_axi_arburst),
+      .M_AXI_ARLOCK(m00_axi_arlock),
+      .M_AXI_ARCACHE(m00_axi_arcache),
+      .M_AXI_ARPROT(m00_axi_arprot),
+      .M_AXI_ARQOS(m00_axi_arqos),
+      .M_AXI_ARUSER(m00_axi_aruser),
+      .M_AXI_ARVALID(m00_axi_arvalid),
+      .M_AXI_ARREADY(m00_axi_arready),
+      .M_AXI_RID(m00_axi_rid),
+      .M_AXI_RDATA(m00_axi_rdata),
+      .M_AXI_RRESP(m00_axi_rresp),
+      .M_AXI_RLAST(m00_axi_rlast),
+      .M_AXI_RUSER(m00_axi_ruser),
+      .M_AXI_RVALID(m00_axi_rvalid),
+      .M_AXI_RREADY(m00_axi_rready)
+      );
 
    // Instantiation of Axi Bus Interface M01_AXI
-   sting_wrap_v1_0_M01_AXI # ( 
-			       .C_M_START_DATA_VALUE(C_M01_AXI_START_DATA_VALUE),
-			       .C_M_TARGET_SLAVE_BASE_ADDR(C_M01_AXI_TARGET_SLAVE_BASE_ADDR),
-			       .C_M_AXI_ADDR_WIDTH(C_M01_AXI_ADDR_WIDTH),
-			       .C_M_AXI_DATA_WIDTH(C_M01_AXI_DATA_WIDTH),
-			       .C_M_TRANSACTIONS_NUM(C_M01_AXI_TRANSACTIONS_NUM)
-			       ) sting_wrap_v1_0_M01_AXI_inst (
-							       .INIT_AXI_TXN(m01_axi_init_axi_txn),
-							       .ERROR(m01_axi_error),
-							       .TXN_DONE(m01_axi_txn_done),
-							       .M_AXI_ACLK(m01_axi_aclk),
-							       .M_AXI_ARESETN(m01_axi_aresetn),
-							       .M_AXI_AWADDR(m01_axi_awaddr),
-							       .M_AXI_AWPROT(m01_axi_awprot),
-							       .M_AXI_AWVALID(m01_axi_awvalid),
-							       .M_AXI_AWREADY(m01_axi_awready),
-							       .M_AXI_WDATA(m01_axi_wdata),
-							       .M_AXI_WSTRB(m01_axi_wstrb),
-							       .M_AXI_WVALID(m01_axi_wvalid),
-							       .M_AXI_WREADY(m01_axi_wready),
-							       .M_AXI_BRESP(m01_axi_bresp),
-							       .M_AXI_BVALID(m01_axi_bvalid),
-							       .M_AXI_BREADY(m01_axi_bready),
-							       .M_AXI_ARADDR(m01_axi_araddr),
-							       .M_AXI_ARPROT(m01_axi_arprot),
-							       .M_AXI_ARVALID(m01_axi_arvalid),
-							       .M_AXI_ARREADY(m01_axi_arready),
-							       .M_AXI_RDATA(m01_axi_rdata),
-							       .M_AXI_RRESP(m01_axi_rresp),
-							       .M_AXI_RVALID(m01_axi_rvalid),
-							       .M_AXI_RREADY(m01_axi_rready)
-							       );
+   sting_wrap_v1_0_M01_AXI # 
+     ( 
+       .C_M_START_DATA_VALUE(C_M01_AXI_START_DATA_VALUE),
+       .C_M_TARGET_SLAVE_BASE_ADDR(C_M01_AXI_TARGET_SLAVE_BASE_ADDR),
+       .C_M_AXI_ADDR_WIDTH(C_M01_AXI_ADDR_WIDTH),
+       .C_M_AXI_DATA_WIDTH(C_M01_AXI_DATA_WIDTH),
+       .C_M_TRANSACTIONS_NUM(C_M01_AXI_TRANSACTIONS_NUM)
+       ) sting_wrap_v1_0_M01_AXI_inst 
+       (
+
+	.REG_AXI_RD_WEIGHT_SOFTRESET(reg_axi_rd_weight_softreset), // 正論理のソフトリセット
+	.REG_AXI_RD_WEIGHT_START_ADR1(reg_axi_rd_weight_start_adr1), // 重みデータの先頭アドレス
+	.REG_AXI_RD_WEIGHT_START_ADR2(reg_axi_rd_weight_start_adr2), // 重みデータの先頭アドレス(BN)
+	.REG_BN_EN(reg_conv_bn_en), //バッチノーマライゼーションのイネーブル。
+	.AXI_RD_WEIGHT_START(axi_rd_weight_start), // 1で動作開始
+	.AXI_RD_WEIGHT_NEXT(axi_rd_weight_next), // 1で動作開始
+	.AXI_RD_WEIGHT_DATA00(axi_rd_weight_data00), // 重みの出力 weight[0][0], float32
+	.AXI_RD_WEIGHT_DATA01(axi_rd_weight_data01), // 重みの出力 weight[0][1], float32
+	.AXI_RD_WEIGHT_DATA02(axi_rd_weight_data02), // 重みの出力 weight[0][2], float32
+	.AXI_RD_WEIGHT_DATA10(axi_rd_weight_data10), // 重みの出力 weight[1][0], float32
+	.AXI_RD_WEIGHT_DATA11(axi_rd_weight_data11), // 重みの出力 weight[1][1], float32
+	.AXI_RD_WEIGHT_DATA12(axi_rd_weight_data12), // 重みの出力 weight[1][2], float32
+	.AXI_RD_WEIGHT_DATA20(axi_rd_weight_data20), // 重みの出力 weight[2][0], float32
+	.AXI_RD_WEIGHT_DATA21(axi_rd_weight_data21), // 重みの出力 weight[2][1], float32
+	.AXI_RD_WEIGHT_DATA22(axi_rd_weight_data22), // 重みの出力 weight[2][2], float32
+	.AXI_RD_WEIGHT_BN0(axi_rd_weight_bn0), // BNの重みデータ0(), float32
+	.AXI_RD_WEIGHT_BN1(axi_rd_weight_bn1), // BNの重みデータ1(), float32
+	.AXI_RD_WEIGHT_READY(axi_rd_weight_ready), // 重みの読み出しが終わったことを示す
+	
+	.INIT_AXI_TXN(m01_axi_init_axi_txn),
+	.ERROR(m01_axi_error),
+	.TXN_DONE(m01_axi_txn_done),
+	.M_AXI_ACLK(m01_axi_aclk),
+	.M_AXI_ARESETN(m01_axi_aresetn),
+	.M_AXI_AWADDR(m01_axi_awaddr),
+	.M_AXI_AWPROT(m01_axi_awprot),
+	.M_AXI_AWVALID(m01_axi_awvalid),
+	.M_AXI_AWREADY(m01_axi_awready),
+	.M_AXI_WDATA(m01_axi_wdata),
+	.M_AXI_WSTRB(m01_axi_wstrb),
+	.M_AXI_WVALID(m01_axi_wvalid),
+	.M_AXI_WREADY(m01_axi_wready),
+	.M_AXI_BRESP(m01_axi_bresp),
+	.M_AXI_BVALID(m01_axi_bvalid),
+	.M_AXI_BREADY(m01_axi_bready),
+	.M_AXI_ARADDR(m01_axi_araddr),
+	.M_AXI_ARPROT(m01_axi_arprot),
+	.M_AXI_ARVALID(m01_axi_arvalid),
+	.M_AXI_ARREADY(m01_axi_arready),
+	.M_AXI_RDATA(m01_axi_rdata),
+	.M_AXI_RRESP(m01_axi_rresp),
+	.M_AXI_RVALID(m01_axi_rvalid),
+	.M_AXI_RREADY(m01_axi_rready)
+	);
 
    // Instantiation of Axi Bus Interface M02_AXI
    sting_wrap_v1_0_M02_AXI # ( 

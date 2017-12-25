@@ -153,8 +153,7 @@ module tb_top();
      while (!$feof(fd)) begin
 	$fread(write_data, fd, offset, 4);
 	dram_w.mem_model.backdoor_memory_write(adr+offset, write_data, 4'b1111);
-	offset += 4;
-	
+	offset += 4;	
      end
 
      $fclose(fd);

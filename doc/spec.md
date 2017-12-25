@@ -547,6 +547,7 @@ AXI経由で重みデータ(3x3)を読み出す。
 | input | REG_AXI_RD_WEIGHT_SOFTRESET | 正論理のソフトリセット | 
 |input | [31:0] REG_AXI_RD_WEIGHT_START_ADR | 重みデータの先頭アドレス | 
 |input | [31:0] REG_AXI_RD_WEIGHT_START_ADR2 | 重みデータの先頭アドレス(BN) | 
+| input | REG_BN_EN | バッチノーマライゼーションのイネーブル |
 | input | AXI\_RD\_WEIGHT_START | 1で動作開始 |
 | input | AXI\_RD\_WEIGHT_NEXT | 1で動作開始 |
 | output | [31:0] AXI\_RD\_WEIGHT_DATA00 | 重みの出力 weight[0][0], float32 |
@@ -568,7 +569,7 @@ AXI経由で重みデータ(3x3)を読み出す。
 
 <img src=wave/axi_w.jpg>
 
-- ①AXI_RD_WEIGHT_STARTのHで動作開始。AXIより3x3の重みデータ、バッチノーマライゼーションのパラメータ2つを2回読み出す。  
+- ①AXI_RD_WEIGHT_STARTのHで動作開始。REG_BN_EN が1の時、AXIより3x3の重みデータ、バッチノーマライゼーションのパラメータ2つを2回読み出す。REG_BN_ENが0の時は、3x3の重みデータのみ読み出す。
 - ②2回読み出すうちの1つ目のデータはすぐに出力し、2回分のデータの読み出しが完了後、AXI_RD_WEIGHT_READYをHにする。  
 - ③AXI_RD_WEIGHT_NEXTがHになると、次の重みデータを出力し、AXI_RD_WEIGHT_READYをLにする。AXI経由で次の重みデータをリードする。  
 - ④次の重みデータのリードが完了した時点でAXI_RD_WEIGHT_READYをHにする。

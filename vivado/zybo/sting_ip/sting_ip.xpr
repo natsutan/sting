@@ -238,7 +238,7 @@
     </FileSet>
     <FileSet Name="unit_test" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/unit_test">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/unit_test/new/weight_read.v">
+      <File Path="$PSRCDIR/unit_test/new/weight_read.sv">
         <FileInfo SFType="SVerilog">
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
