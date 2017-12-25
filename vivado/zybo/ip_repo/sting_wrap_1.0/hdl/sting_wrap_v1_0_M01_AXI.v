@@ -1,4 +1,3 @@
-
 `timescale 1 ns / 1 ps
 
 module sting_wrap_v1_0_M01_AXI #
@@ -51,7 +50,7 @@ module sting_wrap_v1_0_M01_AXI #
     // Initiate AXI transactions
     input wire 				     INIT_AXI_TXN,
     // Asserts when ERROR is detected
-    output reg 				     ERROR,
+    output  				     ERROR,
     // Asserts when AXI transactions is complete
     output wire 			     TXN_DONE,
     // AXI clock signal
@@ -110,91 +109,25 @@ module sting_wrap_v1_0_M01_AXI #
     output wire 			     M_AXI_RREADY
     );
 
-   // function called clogb2 that returns an integer which has the
-   // value of the ceiling of the log base 2
-
-   function integer clogb2 (input integer bit_depth);
-      begin
-	 for(clogb2=0; bit_depth>0; clogb2=clogb2+1)
-	   bit_depth = bit_depth >> 1;
-      end
-   endfunction
-
-   // TRANS_NUM_BITS is the width of the index counter for 
-   // number of write or read transaction.
-   localparam integer TRANS_NUM_BITS = clogb2(C_M_TRANSACTIONS_NUM-1);
-
-   // Example State machine to initialize counter, initialize write transactions, 
-   // initialize read transactions and comparison of read data with the 
-   // written data words.
    parameter  [7:0] IDLE_ST = 0;
    parameter  [7:0] WRD_ADR0_ST = 1, WRD_DATA0_ST = 2, WRD_END_ST = 3;
    parameter  [7:0] READY_ST = 30;
 
-
    wire 	      reset;
-   assign reset = !M_AXI_ARESETN & REG_AXI_RD_WEIGHT_SOFTRESET;
+   assign reset = !M_AXI_ARESETN | REG_AXI_RD_WEIGHT_SOFTRESET;
    
    
    reg [7:0] 	      mst_exec_state;
 
    // AXI4LITE signals
-   //write address valid
-   reg 		      axi_awvalid;
-   //write data valid
-   reg 		      axi_wvalid;
-   //read address valid
-   reg 		      axi_arvalid;
-   //write response acceptance
-   reg 		      axi_bready;
-   //write address
-   reg [C_M_AXI_ADDR_WIDTH-1 : 0] axi_awaddr;
-   //write data
-   reg [C_M_AXI_DATA_WIDTH-1 : 0] axi_wdata;
-   //read addresss
-   reg [C_M_AXI_ADDR_WIDTH-1 : 0] axi_araddr;
-   //Asserts when there is a write response error
-   wire 			  write_resp_error;
-   //Asserts when there is a read response error
-   wire 			  read_resp_error;
-   //A pulse to initiate a write transaction
-   reg 				  start_single_write;
-   //A pulse to initiate a read transaction
-   reg 				  start_single_read;
-   //Asserts when a single beat write transaction is issued and remains asserted till the completion of write trasaction.
-   reg 				  write_issued;
-   //Asserts when a single beat read transaction is issued and remains asserted till the completion of read trasaction.
-   reg 				  read_issued;
-   //flag that marks the completion of write trasactions. The number of write transaction is user selected by the parameter C_M_TRANSACTIONS_NUM.
-   reg 				  writes_done;
-   //flag that marks the completion of read trasactions. The number of read transaction is user selected by the parameter C_M_TRANSACTIONS_NUM
-   reg 				  reads_done;
-   //The error register is asserted when any of the write response error, read response error or the data mismatch flags are asserted.
-   reg 				  error_reg;
-   //index counter to track the number of write transaction issued
-   reg [TRANS_NUM_BITS : 0] 	  write_index;
-   //index counter to track the number of read transaction issued
-   reg [TRANS_NUM_BITS : 0] 	  read_index;
-   //Expected read data used to compare with the read data.
-   reg [C_M_AXI_DATA_WIDTH-1 : 0] expected_rdata;
-   //Flag marks the completion of comparison of the read data with the expected read data
-   reg 				  compare_done;
-   //This flag is asserted when there is a mismatch of the read data with the expected read data.
-   reg 				  read_mismatch;
-   //Flag is asserted when the write index reaches the last write transction number
-   reg 				  last_write;
-   //Flag is asserted when the read index reaches the last read transction number
-   reg 				  last_read;
    reg 				  init_txn_ff;
    reg 				  init_txn_ff2;
-   reg 				  init_txn_edge;
    wire 			  init_txn_pulse;
-
 
    // I/O Connections assignments
 
    //Adding the offset address to the base addr of the slave
-   assign M_AXI_AWADDR	= C_M_TARGET_SLAVE_BASE_ADDR + axi_awaddr;
+   assign M_AXI_AWADDR	= 32'h00000000;
    //AXI 4 write data
    assign M_AXI_WDATA	= 32'h00000000;
    assign M_AXI_AWPROT	= 3'b000;
@@ -205,8 +138,9 @@ module sting_wrap_v1_0_M01_AXI #
    assign M_AXI_WSTRB	= 4'b1111;
    //Write Response (B)
    assign M_AXI_BREADY	= 1'b0;
-
-   assign TXN_DONE	= compare_done;
+   assign ERROR = 0;
+   
+   assign TXN_DONE	= 0;
    assign init_txn_pulse	= (!init_txn_ff2) && init_txn_ff;
 
 
@@ -226,121 +160,13 @@ module sting_wrap_v1_0_M01_AXI #
 	  end                                                                      
      end     
 
-
-   //--------------------
-   //Write Address Channel
-   //--------------------
-   // ïsóvÇ»ÇÃÇ≈çÌèú
    assign write_resp_error = 0;
+   assign read_resp_error = 0;
 
-
-   //----------------------------
-   //Read Address Channel
-   //----------------------------
-
-   // A new axi_arvalid is asserted when there is a valid read address              
-   // available by the master. start_single_read triggers a new read                
-   // transaction                                                                   
-   always @(posedge M_AXI_ACLK)                                                     
-     begin                                                                            
-	if (reset == 1'b1 || init_txn_pulse == 1'b1)                                                       
-	  begin                                                                        
-	     axi_arvalid <= 1'b0;                                                       
-	  end                                                                          
-	//Signal a new read address command is available by user logic                 
-	else if (start_single_read)                                                    
-	  begin                                                                        
-	     axi_arvalid <= 1'b1;                                                       
-	  end                                                                          
-	//RAddress accepted by interconnect/slave (issue of M_AXI_ARREADY by slave)    
-	else if (M_AXI_ARREADY && axi_arvalid)                                         
-	  begin                                                                        
-	     axi_arvalid <= 1'b0;                                                       
-	  end                                                                          
-	// retain the previous value                                                   
-     end                                                                              
-
-
-   //--------------------------------
-   //Read Data (and Response) Channel
-   //--------------------------------
-
-   //The Read Data channel returns the results of the read request 
-   //The master will accept the read data by asserting axi_rready
-   //when there is a valid read data available.
-   //While not necessary per spec, it is advisable to reset READY signals in
-   //case of differing reset latencies between master/slave.
-
-   always @(posedge M_AXI_ACLK)                                    
-     begin                                                                 
-	if (reset == 1'b1 || init_txn_pulse == 1'b1)                                            
-	  begin                                                             
-	     axi_rready <= 1'b0;                                             
-	  end                                                               
-	// accept/acknowledge rdata/rresp with axi_rready by the master     
-	// when M_AXI_RVALID is asserted by slave                           
-	else if (M_AXI_RVALID && ~axi_rready)                               
-	  begin                                                             
-	     axi_rready <= 1'b1;                                             
-	  end                                                               
-	// deassert after one clock cycle                                   
-	else if (axi_rready)                                                
-	  begin                                                             
-	     axi_rready <= 1'b0;                                             
-	  end                                                               
-	// retain the previous value                                        
-     end                                                                   
-   
-   //Flag write errors                                                     
-   assign read_resp_error = (axi_rready & M_AXI_RVALID & M_AXI_RRESP[1]);  
-
-
-   //--------------------------------
-   //User Logic
-   //--------------------------------
-
-   //Address/Data Stimulus
-
-   //Address/data pairs for this example. The read and write values should
-   //match.
-   //Modify these as desired for different address patterns.
-
-   
-   //Read Addresses                                              
-   always @(posedge M_AXI_ACLK)                                  
-     begin                                                     
-	if (reset == 1'b1  || init_txn_pulse == 1'b1)                                
-	  begin                                                 
-	     axi_araddr <= 0;                                    
-	  end                                                   
-	// Signals a new write address/ write data is         
-	// available by user logic                            
-	else if (M_AXI_ARREADY && axi_arvalid)                  
-	  begin                                                 
-	     axi_araddr <= axi_araddr + 32'h00000004;            
-	  end                                                   
-     end                                                       
-   
-   
-   
-   always @(posedge M_AXI_ACLK)                                  
-     begin                                                     
-	if (M_AXI_ARESETN == 0  || init_txn_pulse == 1'b1)                                
-	  begin                                                 
-	     expected_rdata <= C_M_START_DATA_VALUE;             
-	  end                                                   
-	// Signals a new write address/ write data is         
-	// available by user logic                            
-	else if (M_AXI_RVALID && axi_rready)                    
-	  begin                                                 
-	     expected_rdata <= C_M_START_DATA_VALUE + read_index;
-	  end                                                   
-     end                                                       
 
    reg [3:0] rd_cnt;
    reg [31:0] conv_adr;
    reg [31:0] bn_adr;
-   reg 	      ready;
    reg 	      second_read;
    
    reg [31:0] weight_data00_r;
@@ -376,7 +202,16 @@ module sting_wrap_v1_0_M01_AXI #
 	   mst_exec_state  <= IDLE_ST; 
            rd_cnt <= 0;
 	   weight_ready <= 0;
-	   second_read <= 0;	   
+	   second_read <= 0;
+	   weight_data00_next <= 0;
+	   weight_data01_next <= 0;
+	   weight_data02_next <= 0;
+	   weight_data10_next <= 0;
+	   weight_data11_next <= 0;
+	   weight_data12_next <= 0;		     
+	   weight_data20_next <= 0;
+	   weight_data21_next <= 0;
+	   weight_data22_next <= 0;
 	end else begin
 	   case (mst_exec_state)
 	     IDLE_ST: begin
@@ -397,7 +232,7 @@ module sting_wrap_v1_0_M01_AXI #
 		end
 	     end
 	     WRD_DATA0_ST:begin
-		if(M_AXI_ARREADY)begin
+		if(M_AXI_RVALID && axi_rready)begin
 		   mst_exec_state <= WRD_END_ST;
 		   case(rd_cnt)
 		     0:weight_data00_next <= M_AXI_RDATA;
@@ -466,7 +301,7 @@ module sting_wrap_v1_0_M01_AXI #
 	 axi_rready <= 0;
       end else begin
 	 if (mst_exec_state == WRD_DATA0_ST)begin
-	    if(M_AXI_ARREADY)begin
+	    if((M_AXI_RVALID == 1'b1) && (axi_rready == 0))begin
 	       axi_rready <= 1;
 	    end else begin
 	       axi_rready <= 0;
@@ -476,17 +311,40 @@ module sting_wrap_v1_0_M01_AXI #
 	 end
       end
    end
-   
-   
 
+   always @ ( posedge M_AXI_ACLK) begin
+      if (reset == 1'b1)  begin
+	 weight_data00_r <= 0;
+	 weight_data01_r <= 0;
+	 weight_data02_r <= 0;
+	 weight_data10_r <= 0;
+	 weight_data11_r <= 0;
+	 weight_data12_r <= 0;
+	 weight_data20_r <= 0;
+	 weight_data21_r <= 0;
+	 weight_data22_r <= 0;
+      end
+   end
+   
    assign AXI_RD_WEIGHT_READY = weight_ready;
 
    assign M_AXI_ARADDR = axi_radr;
-   assign M_AXI_ARVALID = axi_arvalid;
+   assign M_AXI_ARVALID = axi_ravalid;
    assign M_AXI_ARPROT = 3'b001;
    assign M_AXI_RREADY = axi_rready;
    
-
+   assign AXI_RD_WEIGHT_DATA00 = weight_data00_r;
+   assign AXI_RD_WEIGHT_DATA01 = weight_data01_r;
+   assign AXI_RD_WEIGHT_DATA02 = weight_data02_r;
+   assign AXI_RD_WEIGHT_DATA10 = weight_data10_r;
+   assign AXI_RD_WEIGHT_DATA11 = weight_data11_r;
+   assign AXI_RD_WEIGHT_DATA12 = weight_data12_r;
+   assign AXI_RD_WEIGHT_DATA20 = weight_data20_r;
+   assign AXI_RD_WEIGHT_DATA21 = weight_data21_r;
+   assign AXI_RD_WEIGHT_DATA22 = weight_data22_r;
+   assign AXI_RD_WEIGHT_BN0 = 0;
+   assign AXI_RD_WEIGHT_BN1 = 0;
+   
    // User logic ends
 
 endmodule

@@ -262,23 +262,23 @@ module sting_wrap_v1_0 #
    wire [31:0] 	debcnt0;
    wire [31:0] 	debcnt1;
 
-   wire 	AXI_RD_WEIGHT_START; 
-   wire 	AXI_RD_WEIGHT_NEXT; 
-   wire [31:0] 	AXI_RD_WEIGHT_DATA00;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA01;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA02;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA10;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA11;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA12;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA20;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA21;
-   wire [31:0] 	AXI_RD_WEIGHT_DATA22;
-   wire [31:0] 	AXI_RD_WEIGHT_BN0;
-   wire [31:0] 	AXI_RD_WEIGHT_BN1;
-   wire 	AXI_RD_WEIGHT_READY; 
+   wire 	axi_rd_weight_start; 
+   wire 	axi_rd_weight_next; 
+   wire [31:0] 	axi_rd_weight_data00;
+   wire [31:0] 	axi_rd_weight_data01;
+   wire [31:0] 	axi_rd_weight_data02;
+   wire [31:0] 	axi_rd_weight_data10;
+   wire [31:0] 	axi_rd_weight_data11;
+   wire [31:0] 	axi_rd_weight_data12;
+   wire [31:0] 	axi_rd_weight_data20;
+   wire [31:0] 	axi_rd_weight_data21;
+   wire [31:0] 	axi_rd_weight_data22;
+   wire [31:0] 	axi_rd_weight_bn0;
+   wire [31:0] 	axi_rd_weight_bn1;
+   wire 	axi_rd_weight_ready; 
 
    
-   // Instantiation of Axi Bus Interface M00_AXI
+   // instantiation of Axi Bus Interface M00_AXI
    sting_wrap_v1_0_M00_AXI # 
      ( 
        .C_M_TARGET_SLAVE_BASE_ADDR(C_M00_AXI_TARGET_SLAVE_BASE_ADDR),

@@ -227,9 +227,16 @@ module tb_top();
 
        reg_wr(`REG_CTRL, `REG_CTRL_RUN);
        
-        clk_dly(1000);
+       clk_dly(1000);       
 
+       //‚Æ‚è‚ ‚¦‚¸force‚Å
+       force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_start=1;
+       
+       clk_dly(1000);
+
+       
         $finish(2);
     end
 endmodule
+
 
