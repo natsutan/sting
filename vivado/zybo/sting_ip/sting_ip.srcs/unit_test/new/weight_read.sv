@@ -145,6 +145,9 @@ module tb_top();
      fd = $fopen(fname, "rb");
      if (fd == 0) begin
 	$display("Error can't open %s", fname);
+	$finish(2);
+	return;
+	
      end else begin
 	$display("open %s", fname);
      end
@@ -201,7 +204,10 @@ module tb_top();
       cpu.wr_driver.send(wr_transaction);
    endtask 
 
- 
+   integer fp_w;
+   integer fp_b;
+   integer wi;
+   
    
     // Testscenario
     initial begin
@@ -223,17 +229,62 @@ module tb_top();
        reg_wr(`REG_CTRL, `REG_CTRL_RUN);
        
        backdoor_mem_write_from_file("../../weight/conv2d_1_kernel_z.bin", `ADR_WEIGHT_DATA1);
-       
+       backdoor_mem_write_from_file("../../weight/batch_normalization_1.bin", `ADR_WEIGHT_DATA2);
 
        reg_wr(`REG_CTRL, `REG_CTRL_RUN);
        
        clk_dly(1000);       
 
+       
        //‚Æ‚è‚ ‚¦‚¸force‚Å
+       force tb_top.design_1.sting_wrap_0.inst.reg_conv_bn_en = 1;
+       force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_next = 0;
+       
+       
+       clk_dly(10);
+       
+       
        force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_start=1;
+
+
+       //file open
+       fp_w = $fopen("weight.bin", "wb");
+       fp_b = $fopen("bn.bin", "wb");
+
+       if((fp_w == 0)||(fp_b==0))begin
+	  $display("file open error");
+	  $finish(2);
+       end
+       
+       for(wi=0;wi<64;wi=wi+1)begin
+	  wait(tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_ready == 1) clk_dly(1);
+
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data00);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data01);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data02);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data10);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data11);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data12);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data20);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data21);
+	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data22);
+	  
+	  $fwrite(fp_b, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_bn0);
+	  $fwrite(fp_b, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_bn1);
+	  
+	  force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_next = 1;
+	  wait(tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_ready == 0) clk_dly(1);
+	  force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_next = 0;
+	  clk_dly(1);
+	  $display("wi = %d", wi);
+	  
+       end
+
+       $fclose(fp_w);
+       $fclose(fp_b);
        
        clk_dly(1000);
-
+       
        
         $finish(2);
     end

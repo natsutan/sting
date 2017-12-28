@@ -14,15 +14,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="18220000001fs"></ZoomEndTime>
-      <Cursor1Time time="20995000000fs"></Cursor1Time>
+      <ZoomStartTime time="12442000000fs"></ZoomStartTime>
+      <ZoomEndTime time="13365000001fs"></ZoomEndTime>
+      <Cursor1Time time="12745000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="267"></NameColumnWidth>
+      <NameColumnWidth column_width="255"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="119" />
+   <WVObjectSize size="99" />
    <wvobject fp_name="/tb_top/aresetn" type="logic">
       <obj_property name="ElementShortName">aresetn</obj_property>
       <obj_property name="ObjectShortName">aresetn</obj_property>
@@ -235,38 +235,6 @@
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/mst_exec_state" type="array">
-      <obj_property name="ElementShortName">mst_exec_state[7:0]</obj_property>
-      <obj_property name="ObjectShortName">mst_exec_state[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_awvalid" type="logic">
-      <obj_property name="ElementShortName">axi_awvalid</obj_property>
-      <obj_property name="ObjectShortName">axi_awvalid</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_wvalid" type="logic">
-      <obj_property name="ElementShortName">axi_wvalid</obj_property>
-      <obj_property name="ObjectShortName">axi_wvalid</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_arvalid" type="logic">
-      <obj_property name="ElementShortName">axi_arvalid</obj_property>
-      <obj_property name="ObjectShortName">axi_arvalid</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_bready" type="logic">
-      <obj_property name="ElementShortName">axi_bready</obj_property>
-      <obj_property name="ObjectShortName">axi_bready</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_awaddr" type="array">
-      <obj_property name="ElementShortName">axi_awaddr[31:0]</obj_property>
-      <obj_property name="ObjectShortName">axi_awaddr[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_wdata" type="array">
-      <obj_property name="ElementShortName">axi_wdata[31:0]</obj_property>
-      <obj_property name="ObjectShortName">axi_wdata[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_araddr" type="array">
-      <obj_property name="ElementShortName">axi_araddr[31:0]</obj_property>
-      <obj_property name="ObjectShortName">axi_araddr[31:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/write_resp_error" type="logic">
       <obj_property name="ElementShortName">write_resp_error</obj_property>
       <obj_property name="ObjectShortName">write_resp_error</obj_property>
@@ -274,62 +242,6 @@
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/read_resp_error" type="logic">
       <obj_property name="ElementShortName">read_resp_error</obj_property>
       <obj_property name="ObjectShortName">read_resp_error</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/start_single_write" type="logic">
-      <obj_property name="ElementShortName">start_single_write</obj_property>
-      <obj_property name="ObjectShortName">start_single_write</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/start_single_read" type="logic">
-      <obj_property name="ElementShortName">start_single_read</obj_property>
-      <obj_property name="ObjectShortName">start_single_read</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/write_issued" type="logic">
-      <obj_property name="ElementShortName">write_issued</obj_property>
-      <obj_property name="ObjectShortName">write_issued</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/read_issued" type="logic">
-      <obj_property name="ElementShortName">read_issued</obj_property>
-      <obj_property name="ObjectShortName">read_issued</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/writes_done" type="logic">
-      <obj_property name="ElementShortName">writes_done</obj_property>
-      <obj_property name="ObjectShortName">writes_done</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/reads_done" type="logic">
-      <obj_property name="ElementShortName">reads_done</obj_property>
-      <obj_property name="ObjectShortName">reads_done</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/error_reg" type="logic">
-      <obj_property name="ElementShortName">error_reg</obj_property>
-      <obj_property name="ObjectShortName">error_reg</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/write_index" type="array">
-      <obj_property name="ElementShortName">write_index[2:0]</obj_property>
-      <obj_property name="ObjectShortName">write_index[2:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/read_index" type="array">
-      <obj_property name="ElementShortName">read_index[2:0]</obj_property>
-      <obj_property name="ObjectShortName">read_index[2:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/expected_rdata" type="array">
-      <obj_property name="ElementShortName">expected_rdata[31:0]</obj_property>
-      <obj_property name="ObjectShortName">expected_rdata[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/compare_done" type="logic">
-      <obj_property name="ElementShortName">compare_done</obj_property>
-      <obj_property name="ObjectShortName">compare_done</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/read_mismatch" type="logic">
-      <obj_property name="ElementShortName">read_mismatch</obj_property>
-      <obj_property name="ObjectShortName">read_mismatch</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/last_write" type="logic">
-      <obj_property name="ElementShortName">last_write</obj_property>
-      <obj_property name="ObjectShortName">last_write</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/last_read" type="logic">
-      <obj_property name="ElementShortName">last_read</obj_property>
-      <obj_property name="ObjectShortName">last_read</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/init_txn_ff" type="logic">
       <obj_property name="ElementShortName">init_txn_ff</obj_property>
@@ -339,13 +251,13 @@
       <obj_property name="ElementShortName">init_txn_ff2</obj_property>
       <obj_property name="ObjectShortName">init_txn_ff2</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/init_txn_edge" type="logic">
-      <obj_property name="ElementShortName">init_txn_edge</obj_property>
-      <obj_property name="ObjectShortName">init_txn_edge</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/init_txn_pulse" type="logic">
       <obj_property name="ElementShortName">init_txn_pulse</obj_property>
       <obj_property name="ObjectShortName">init_txn_pulse</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/mst_exec_state" type="array">
+      <obj_property name="ElementShortName">mst_exec_state[7:0]</obj_property>
+      <obj_property name="ObjectShortName">mst_exec_state[7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/rd_cnt" type="array">
       <obj_property name="ElementShortName">rd_cnt[3:0]</obj_property>
@@ -358,10 +270,6 @@
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/bn_adr" type="array">
       <obj_property name="ElementShortName">bn_adr[31:0]</obj_property>
       <obj_property name="ObjectShortName">bn_adr[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/ready" type="logic">
-      <obj_property name="ElementShortName">ready</obj_property>
-      <obj_property name="ObjectShortName">ready</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/second_read" type="logic">
       <obj_property name="ElementShortName">second_read</obj_property>
@@ -439,6 +347,22 @@
       <obj_property name="ElementShortName">weight_data22_next[31:0]</obj_property>
       <obj_property name="ObjectShortName">weight_data22_next[31:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/weight_bn0_r" type="array">
+      <obj_property name="ElementShortName">weight_bn0_r[31:0]</obj_property>
+      <obj_property name="ObjectShortName">weight_bn0_r[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/weight_bn1_r" type="array">
+      <obj_property name="ElementShortName">weight_bn1_r[31:0]</obj_property>
+      <obj_property name="ObjectShortName">weight_bn1_r[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/weight_bn0_next" type="array">
+      <obj_property name="ElementShortName">weight_bn0_next[31:0]</obj_property>
+      <obj_property name="ObjectShortName">weight_bn0_next[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/weight_bn1_next" type="array">
+      <obj_property name="ElementShortName">weight_bn1_next[31:0]</obj_property>
+      <obj_property name="ObjectShortName">weight_bn1_next[31:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/axi_radr" type="array">
       <obj_property name="ElementShortName">axi_radr[31:0]</obj_property>
       <obj_property name="ObjectShortName">axi_radr[31:0]</obj_property>
@@ -474,10 +398,6 @@
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/C_M_TRANSACTIONS_NUM" type="array">
       <obj_property name="ElementShortName">C_M_TRANSACTIONS_NUM[31:0]</obj_property>
       <obj_property name="ObjectShortName">C_M_TRANSACTIONS_NUM[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/TRANS_NUM_BITS" type="array">
-      <obj_property name="ElementShortName">TRANS_NUM_BITS[31:0]</obj_property>
-      <obj_property name="ObjectShortName">TRANS_NUM_BITS[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/design_1/sting_wrap_0/inst/sting_wrap_v1_0_M01_AXI_inst/IDLE_ST" type="array">
       <obj_property name="ElementShortName">IDLE_ST[7:0]</obj_property>

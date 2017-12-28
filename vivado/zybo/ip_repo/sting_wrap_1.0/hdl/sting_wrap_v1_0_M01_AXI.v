@@ -42,7 +42,6 @@ module sting_wrap_v1_0_M01_AXI #
     output [31:0] 			     AXI_RD_WEIGHT_BN0, // BNの重みデータ0, float32
     output [31:0] 			     AXI_RD_WEIGHT_BN1, // BNの重みデータ1, float32
     output 				     AXI_RD_WEIGHT_READY, // 重みの読み出しが終わったことを示す
-
    
     // User ports ends
     // Do not modify the ports beyond this line
@@ -111,11 +110,11 @@ module sting_wrap_v1_0_M01_AXI #
 
    parameter  [7:0] IDLE_ST = 0;
    parameter  [7:0] WRD_ADR0_ST = 1, WRD_DATA0_ST = 2, WRD_END_ST = 3;
-   parameter  [7:0] READY_ST = 30;
+   parameter  [7:0] BRD_ADR0_ST = 4, BRD_DATA0_ST = 5, BRD_END_ST = 6, UPDATE_ST = 7 ;   
+   parameter  [7:0] READY_ST = 8, WAIT_NEXT_ST = 9;
 
    wire 	      reset;
    assign reset = !M_AXI_ARESETN | REG_AXI_RD_WEIGHT_SOFTRESET;
-   
    
    reg [7:0] 	      mst_exec_state;
 
@@ -156,13 +155,12 @@ module sting_wrap_v1_0_M01_AXI #
 	else                                                                       
 	  begin  
 	     init_txn_ff <= INIT_AXI_TXN;
-	     init_txn_ff2 <= init_txn_ff;                                                                 
+	     init_txn_ff2 <= init_txn_ff;
 	  end                                                                      
      end     
 
    assign write_resp_error = 0;
    assign read_resp_error = 0;
-
 
    reg [3:0] rd_cnt;
    reg [31:0] conv_adr;
@@ -189,11 +187,15 @@ module sting_wrap_v1_0_M01_AXI #
    reg [31:0] weight_data21_next;
    reg [31:0] weight_data22_next;
 
+   reg [31:0] weight_bn0_r;
+   reg [31:0] weight_bn1_r;
+   reg [31:0] weight_bn0_next;
+   reg [31:0] weight_bn1_next;
+
    reg [31:0] axi_radr;
    reg        axi_ravalid;
    reg        axi_rready;
    reg 	      weight_ready;
-   
    
    //implement master command interface state machine                         
    always @ ( posedge M_AXI_ACLK)
@@ -212,6 +214,9 @@ module sting_wrap_v1_0_M01_AXI #
 	   weight_data20_next <= 0;
 	   weight_data21_next <= 0;
 	   weight_data22_next <= 0;
+	   weight_bn0_next <= 0;
+	   weight_bn1_next <= 0;
+	   
 	end else begin
 	   case (mst_exec_state)
 	     IDLE_ST: begin
@@ -220,7 +225,6 @@ module sting_wrap_v1_0_M01_AXI #
 		bn_adr <= REG_AXI_RD_WEIGHT_START_ADR2;
 		weight_ready <= 0;
 		second_read <= 0;
-
 		if (AXI_RD_WEIGHT_START) begin
 		   mst_exec_state <= WRD_ADR0_ST;
 		end
@@ -257,9 +261,57 @@ module sting_wrap_v1_0_M01_AXI #
 		end
 	     end
 	     WRD_END_ST:begin
-		
-		
+		rd_cnt <= 0;
+		if(REG_BN_EN == 1)begin
+		   mst_exec_state <= BRD_ADR0_ST;
+		end
 	     end
+	     BRD_ADR0_ST:begin
+		if(M_AXI_ARREADY)begin
+		   bn_adr <= bn_adr + 4;
+		   mst_exec_state <= BRD_DATA0_ST;
+		end
+	     end
+	     BRD_DATA0_ST:begin
+		if(M_AXI_RVALID && axi_rready)begin
+		   mst_exec_state <= WRD_END_ST;
+		   if(rd_cnt == 0)begin
+		      weight_bn0_next <= M_AXI_RDATA;
+		   end else begin
+		      weight_bn1_next <= M_AXI_RDATA;
+		   end
+		   
+		   if(rd_cnt == 1)begin
+		      mst_exec_state <= BRD_END_ST;
+		   end else begin
+		      mst_exec_state <= BRD_ADR0_ST;
+		   end
+		   rd_cnt <= rd_cnt + 1;		   
+		end
+	     end // case: WRD_DATA0_ST
+
+	     BRD_END_ST:begin
+		mst_exec_state <= UPDATE_ST;
+	     end
+
+	     UPDATE_ST:begin
+		if(second_read == 0)begin
+		   second_read <= 1;
+		   mst_exec_state <= WRD_ADR0_ST;
+		end else begin
+		   mst_exec_state <= READY_ST;
+		end
+	     end
+
+	     READY_ST:begin
+		weight_ready <= 1;
+		mst_exec_state <= WAIT_NEXT_ST;
+	     end
+	     WAIT_NEXT_ST:
+	       if(AXI_RD_WEIGHT_NEXT == 1)begin
+		  weight_ready <= 0;
+		  mst_exec_state <= WRD_ADR0_ST;
+	       end
 	     
 	     default :
 	       begin 
@@ -287,6 +339,17 @@ module sting_wrap_v1_0_M01_AXI #
 		   axi_radr <= conv_adr;
 		end
 	     end
+	     BRD_ADR0_ST:begin
+		if(M_AXI_ARREADY && axi_ravalid)begin
+		   //アドレスが有効なときにREADYがHになれば、validを下げる。
+		   axi_ravalid <= 0;
+		end else begin
+		   //リードリクエスト
+		   axi_ravalid <= 1;
+		   axi_radr <= bn_adr;
+		end
+	     end
+	     
 	     default: begin
 		axi_ravalid <= 0;
 	     end
@@ -300,7 +363,7 @@ module sting_wrap_v1_0_M01_AXI #
       if (reset == 1'b1)  begin 
 	 axi_rready <= 0;
       end else begin
-	 if (mst_exec_state == WRD_DATA0_ST)begin
+	 if ((mst_exec_state == WRD_DATA0_ST) || (mst_exec_state == BRD_DATA0_ST)) begin
 	    if((M_AXI_RVALID == 1'b1) && (axi_rready == 0))begin
 	       axi_rready <= 1;
 	    end else begin
@@ -312,6 +375,7 @@ module sting_wrap_v1_0_M01_AXI #
       end
    end
 
+   //出力するデータの更新
    always @ ( posedge M_AXI_ACLK) begin
       if (reset == 1'b1)  begin
 	 weight_data00_r <= 0;
@@ -323,6 +387,20 @@ module sting_wrap_v1_0_M01_AXI #
 	 weight_data20_r <= 0;
 	 weight_data21_r <= 0;
 	 weight_data22_r <= 0;
+	 weight_bn0_r <= 0;
+	 weight_bn1_r <= 0;
+      end else if(mst_exec_state == UPDATE_ST)begin // if (reset == 1'b1)
+	 weight_data00_r <= weight_data00_next;
+	 weight_data01_r <= weight_data01_next;
+	 weight_data02_r <= weight_data02_next;
+	 weight_data10_r <= weight_data10_next;
+	 weight_data11_r <= weight_data11_next;
+	 weight_data12_r <= weight_data12_next;
+	 weight_data20_r <= weight_data20_next;
+	 weight_data21_r <= weight_data21_next;
+	 weight_data22_r <= weight_data22_next;
+	 weight_bn0_r <= weight_bn0_next;
+	 weight_bn1_r <= weight_bn1_next;
       end
    end
    
@@ -342,8 +420,8 @@ module sting_wrap_v1_0_M01_AXI #
    assign AXI_RD_WEIGHT_DATA20 = weight_data20_r;
    assign AXI_RD_WEIGHT_DATA21 = weight_data21_r;
    assign AXI_RD_WEIGHT_DATA22 = weight_data22_r;
-   assign AXI_RD_WEIGHT_BN0 = 0;
-   assign AXI_RD_WEIGHT_BN1 = 0;
+   assign AXI_RD_WEIGHT_BN0 = weight_bn0_r;
+   assign AXI_RD_WEIGHT_BN1 = weight_bn1_r;
    
    // User logic ends
 
