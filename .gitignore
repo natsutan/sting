@@ -44,3 +44,6 @@ vivado/zybo/~$Table.xlsx
 *.bin
 *.wdb
 *.wdb
+sim/tools/bin2hex/.idea/*
+sim/tools/bin2hex/cmake-build-debug/*
+sim/tools/bin2hex/gmon.out

@@ -141,7 +141,9 @@ module tb_top();
 
      bit [32-1:0] write_data;
      integer 	  offset;
-
+     bit [31:0]   write_data_inv;
+     
+     
      fd = $fopen(fname, "rb");
      if (fd == 0) begin
 	$display("Error can't open %s", fname);
@@ -155,7 +157,14 @@ module tb_top();
      offset = 0;
      while (!$feof(fd)) begin
 	$fread(write_data, fd, offset, 4);
-	dram_w.mem_model.backdoor_memory_write(adr+offset, write_data, 4'b1111);
+	//エンディアン反転
+	write_data_inv[31:24] = write_data[7:0];
+	write_data_inv[23:16] = write_data[15:8];
+	write_data_inv[15:8] = write_data[23:16];
+	write_data_inv[7:0] = write_data[31:24];
+	
+	
+	dram_w.mem_model.backdoor_memory_write(adr+offset, write_data_inv, 4'b1111);
 	offset += 4;	
      end
 
@@ -248,8 +257,8 @@ module tb_top();
 
 
        //file open
-       fp_w = $fopen("weight.bin", "wb");
-       fp_b = $fopen("bn.bin", "wb");
+       fp_w = $fopen("weight.hex", "wb");
+       fp_b = $fopen("bn.hex", "wb");
 
        if((fp_w == 0)||(fp_b==0))begin
 	  $display("file open error");
@@ -284,7 +293,6 @@ module tb_top();
        $fclose(fp_b);
        
        clk_dly(1000);
-       
        
         $finish(2);
     end
