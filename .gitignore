@@ -47,3 +47,8 @@ vivado/zybo/~$Table.xlsx
 sim/tools/bin2hex/.idea/*
 sim/tools/bin2hex/cmake-build-debug/*
 sim/tools/bin2hex/gmon.out
+sim/compare/weight_read/.idea/*
+tools/bin2hex/.idea/*
+*/cmake-build-debug/*
+
+tools/bin2hex/cmake-build-debug/*

@@ -257,8 +257,8 @@ module tb_top();
 
 
        //file open
-       fp_w = $fopen("weight.hex", "wb");
-       fp_b = $fopen("bn.hex", "wb");
+       fp_w = $fopen("../../output/weight_read/weight.hex", "wb");
+       fp_b = $fopen("../../output/weight_read/bn.hex", "wb");
 
        if((fp_w == 0)||(fp_b==0))begin
 	  $display("file open error");
