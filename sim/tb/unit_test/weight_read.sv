@@ -237,8 +237,8 @@ module tb_top();
 
        reg_wr(`REG_CTRL, `REG_CTRL_RUN);
        
-       backdoor_mem_write_from_file("../../weight/conv2d_1_kernel_z.bin", `ADR_WEIGHT_DATA1);
-       backdoor_mem_write_from_file("../../weight/batch_normalization_1.bin", `ADR_WEIGHT_DATA2);
+       backdoor_mem_write_from_file("../../../../../../sim/data/weight/conv2d_1_kernel_z.bin", `ADR_WEIGHT_DATA1);
+       backdoor_mem_write_from_file("../../../../../../sim/data/weight/batch_normalization_1.bin", `ADR_WEIGHT_DATA2);
 
        reg_wr(`REG_CTRL, `REG_CTRL_RUN);
        
@@ -257,8 +257,8 @@ module tb_top();
 
 
        //file open
-       fp_w = $fopen("../../output/weight_read/weight.hex", "wb");
-       fp_b = $fopen("../../output/weight_read/bn.hex", "wb");
+       fp_w = $fopen("../../../../../../sim/compare/weight_read/result/weight.hex", "wb");
+       fp_b = $fopen("../../../../../../sim/compare/weight_read/result/bn.hex", "wb");
 
        if((fp_w == 0)||(fp_b==0))begin
 	  $display("file open error");
