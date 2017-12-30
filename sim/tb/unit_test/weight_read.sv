@@ -246,7 +246,7 @@ module tb_top();
 
        
        //‚Æ‚è‚ ‚¦‚¸force‚Å
-       force tb_top.design_1.sting_wrap_0.inst.reg_conv_bn_en = 1;
+       force tb_top.design_1.sting_wrap_0.inst.reg_conv_bn_en = 0;
        force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_next = 0;
        
        
@@ -265,7 +265,7 @@ module tb_top();
 	  $finish(2);
        end
        
-       for(wi=0;wi<64;wi=wi+1)begin
+       for(wi=0;wi<48;wi=wi+1)begin
 	  wait(tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_ready == 1) clk_dly(1);
 
 	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data00);
@@ -277,10 +277,13 @@ module tb_top();
 	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data20);
 	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data21);
 	  $fwrite(fp_w, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_data22);
+
+	  if(wi>31)begin
+	     $fwrite(fp_b, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_bn0);
+	     $fwrite(fp_b, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_bn1);
+	  end
 	  
-	  $fwrite(fp_b, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_bn0);
-	  $fwrite(fp_b, "%08X\n", tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_bn1);
-	  
+	  if(wi==30) force tb_top.design_1.sting_wrap_0.inst.reg_conv_bn_en = 1;
 	  force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_next = 1;
 	  wait(tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_ready == 0) clk_dly(1);
 	  force tb_top.design_1.sting_wrap_0.inst.axi_rd_weight_next = 0;
