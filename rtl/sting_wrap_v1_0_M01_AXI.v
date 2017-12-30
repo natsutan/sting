@@ -110,8 +110,8 @@ module sting_wrap_v1_0_M01_AXI #
 
    parameter  [7:0] IDLE_ST = 0;
    parameter  [7:0] WRD_ADR0_ST = 1, WRD_DATA0_ST = 2, WRD_END_ST = 3;
-   parameter  [7:0] BRD_ADR0_ST = 4, BRD_DATA0_ST = 5, BRD_END_ST = 6, UPDATE_ST = 7 ;   
-   parameter  [7:0] READY_ST = 8, WAIT_NEXT_ST = 9;
+   parameter  [7:0] BRD_ADR0_ST = 4, BRD_DATA0_ST = 5, BRD_END_ST = 6, UPDATE_1ST_ST = 7 ;   
+   parameter  [7:0] UPDATE_ST = 8, READY_ST = 9, WAIT_NEXT_ST = 10;
 
    wire 	      reset;
    assign reset = !M_AXI_ARESETN | REG_AXI_RD_WEIGHT_SOFTRESET;
@@ -264,8 +264,14 @@ module sting_wrap_v1_0_M01_AXI #
 		rd_cnt <= 0;
 		if(REG_BN_EN == 1)begin
 		   mst_exec_state <= BRD_ADR0_ST;
-		end
-	     end
+		end else begin
+		   if(second_read==1)begin
+		      mst_exec_state <= READY_ST;
+		   end else begin
+		      mst_exec_state <= UPDATE_1ST_ST;
+		   end
+		end		  
+ 	     end
 	     BRD_ADR0_ST:begin
 		if(M_AXI_ARREADY)begin
 		   bn_adr <= bn_adr + 4;
@@ -291,27 +297,35 @@ module sting_wrap_v1_0_M01_AXI #
 	     end // case: WRD_DATA0_ST
 
 	     BRD_END_ST:begin
-		mst_exec_state <= UPDATE_ST;
+		if(second_read==1)begin
+		   mst_exec_state <= READY_ST;
+		end else begin
+		   mst_exec_state <= UPDATE_1ST_ST;
+		end
+		
 	     end
 
-	     UPDATE_ST:begin
-		if(second_read == 0)begin
-		   second_read <= 1;
-		   mst_exec_state <= WRD_ADR0_ST;
-		end else begin
-		   mst_exec_state <= READY_ST;
-		end
+	     UPDATE_1ST_ST:begin
+		second_read <= 1;
+		mst_exec_state <= WRD_ADR0_ST;
 	     end
+		
 
 	     READY_ST:begin
 		weight_ready <= 1;
 		mst_exec_state <= WAIT_NEXT_ST;
 	     end
+
 	     WAIT_NEXT_ST:
 	       if(AXI_RD_WEIGHT_NEXT == 1)begin
 		  weight_ready <= 0;
-		  mst_exec_state <= WRD_ADR0_ST;
+		  mst_exec_state <= UPDATE_ST;
 	       end
+	     
+	     UPDATE_ST:begin
+		mst_exec_state <= WRD_ADR0_ST;
+	     end
+
 	     
 	     default :
 	       begin 
@@ -389,7 +403,7 @@ module sting_wrap_v1_0_M01_AXI #
 	 weight_data22_r <= 0;
 	 weight_bn0_r <= 0;
 	 weight_bn1_r <= 0;
-      end else if(mst_exec_state == UPDATE_ST)begin // if (reset == 1'b1)
+      end else if((mst_exec_state==UPDATE_1ST_ST) || (mst_exec_state == UPDATE_ST))begin // if (reset == 1'b1)
 	 weight_data00_r <= weight_data00_next;
 	 weight_data01_r <= weight_data01_next;
 	 weight_data02_r <= weight_data02_next;
