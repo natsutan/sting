@@ -574,6 +574,9 @@ AXI経由で重みデータ(3x3)を読み出す。
 - ③AXI_RD_WEIGHT_NEXTがHになると、次の重みデータを出力し、AXI_RD_WEIGHT_READYをLにする。AXI経由で次の重みデータをリードする。  
 - ④次の重みデータのリードが完了した時点でAXI_RD_WEIGHT_READYをHにする。
 
+内部で2段構成になっているため、BN\_EN信号はバッチノーマライゼーションのデータが必要な直前ではなく、その一つ前でHにする必要がある。
+3x3CONVのデータ48個、BNデータが16個の場合、30個目のCONVデータをリクエストするAXI\_READ\_WEIGHT\_NEXTと同時にBN_EN信号をHにする。
+
 ## CC2\_AXI\_RW\_OUTPUT
 
 ### 機能

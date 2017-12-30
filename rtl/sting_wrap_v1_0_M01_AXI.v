@@ -110,7 +110,7 @@ module sting_wrap_v1_0_M01_AXI #
 
    parameter  [7:0] IDLE_ST = 0;
    parameter  [7:0] WRD_ADR0_ST = 1, WRD_DATA0_ST = 2, WRD_END_ST = 3;
-   parameter  [7:0] BRD_ADR0_ST = 4, BRD_DATA0_ST = 5, BRD_END_ST = 6, UPDATE_1ST_ST = 7 ;   
+   parameter  [7:0] BRD_ADR0_ST = 4, BRD_DATA0_ST = 5, BRD_END_ST = 6, UPDATE_1ST_ST = 7;
    parameter  [7:0] UPDATE_ST = 8, READY_ST = 9, WAIT_NEXT_ST = 10;
 
    wire 	      reset;
@@ -142,26 +142,22 @@ module sting_wrap_v1_0_M01_AXI #
    assign TXN_DONE	= 0;
    assign init_txn_pulse	= (!init_txn_ff2) && init_txn_ff;
 
-
    //Generate a pulse to initiate AXI transaction.
    always @(posedge M_AXI_ACLK)										      
      begin                                                                        
 	// Initiates AXI transaction delay    
-	if (reset )                                                   
-	  begin                                                                    
-	     init_txn_ff <= 1'b0;                                                   
-	     init_txn_ff2 <= 1'b0;                                                   
-	  end                                                                               
-	else                                                                       
-	  begin  
-	     init_txn_ff <= INIT_AXI_TXN;
-	     init_txn_ff2 <= init_txn_ff;
-	  end                                                                      
+	if (reset) begin                                                                    
+	   init_txn_ff <= 1'b0;                                                   
+	   init_txn_ff2 <= 1'b0;                                                   
+	end else begin  
+	   init_txn_ff <= INIT_AXI_TXN;
+	   init_txn_ff2 <= init_txn_ff;
+	end                                                                      
      end     
-
+   
    assign write_resp_error = 0;
    assign read_resp_error = 0;
-
+   
    reg [3:0] rd_cnt;
    reg [31:0] conv_adr;
    reg [31:0] bn_adr;
@@ -364,7 +360,6 @@ module sting_wrap_v1_0_M01_AXI #
 		   axi_radr <= bn_adr;
 		end
 	     end
-	     
 	     default: begin
 		axi_ravalid <= 0;
 	     end
