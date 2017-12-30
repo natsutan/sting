@@ -297,6 +297,7 @@ module sting_wrap_v1_0_M01_AXI #
 	     end // case: WRD_DATA0_ST
 
 	     BRD_END_ST:begin
+		rd_cnt <= 0;
 		if(second_read==1)begin
 		   mst_exec_state <= READY_ST;
 		end else begin
