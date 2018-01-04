@@ -53,3 +53,5 @@ tools/bin2hex/.idea/*
 
 tools/bin2hex/cmake-build-debug/*
 sim/compare/weight_read/result/*
+*.out
+sim/data/indata/hex2bin.exe
